@@ -65,13 +65,13 @@ const levels = [
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x     x                                           x',
-        'x     x                                       x   x',
+        'x     x                                           x',
         'x     x  o                                    x   x',
         'x     x                                       x   x',
-        'x     x                                  xxxjjx   x',
-        'x     x                                       x   x',
+        'x     x                                  xxxxxx   x',
+        'x     x                                 xx    x   x',
         'x                                             x   x',
-        'xxxxxxxxjjx!!!sss!!!!!!!!!!!!!!xjjjj!!!!!!!!!!x   x',
+        'xxxxxxxxxxx!!!rrr!!!!!!!!!!!!!!xrrrr!!!!!!!!!!x   x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   x',
         'x                                                 x',
         'x                                                 x',
@@ -79,7 +79,7 @@ const levels = [
         'x                                                 x',
         'x                                                 x',
         'x    o            o                               x',
-        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!sss!!!!!!!!!!!!!ssssx',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!lll!!!!!!!!!!!!!llllx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
@@ -106,14 +106,15 @@ let gameObject = {
     scene: { //Parts of the game that make it work
         preload() { //Pre-loads images and audio in the game to reduce lag
             load()
-            this.load.image('background', './game-assets/backgrounds/blue-background.png')
+            this.load.image('background1', './game-assets/backgrounds/stone-background.png')
+            this.load.image('background2', './game-assets/backgrounds/wood-background.png')
             this.load.image('playerSkin1', './game-assets/skins/playerSkin1.png')
             //this.load.image('playerSkin2', './game-assets/images/playerSkin2.png')
             //this.load.image('playerSkin3', './game-assets/images/playerSkin3.png')
             this.load.spritesheet('player2Skin', './game-assets/skins/playerSkin2.png', {frameWidth: 16, frameHeight: 16, endFrame: 10})
             this.load.image('wall', './game-assets/other/wall.png')
             this.load.image('death', './game-assets/other/lava.jpg')
-            //this.load.image('speed', './game-assets/images/speed.png')
+            this.load.spritesheet('speed', './game-assets/other/speed.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
             //this.load.image('jump', './game-assets/images/jump.png')
             this.load.spritesheet('coin', './game-assets/other/coins.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
             //this.load.audio('collect', '/game-assets/audio/Mario-coin-sound.mp3')
@@ -127,7 +128,7 @@ let gameObject = {
             insanity2Info.newSession = false
 
             //Sets up the background and player
-            this.add.image(0, 0, 'background').setOrigin(0, 0)
+            this.add.image(0, 0, 'background1').setOrigin(0, 0)
             //this.player = this.physics.add.sprite(playerX, playerY, insanity2Info.playerSkin) // sets this.player equal to the sprite
             this.player = this.physics.add.sprite(100, 100, 'playerSkin1')
             this.player.setCollideWorldBounds(true)
@@ -139,13 +140,15 @@ let gameObject = {
             this.walls = this.physics.add.staticGroup()
             this.coins = this.physics.add.staticGroup()
             this.deathBlocks = this.physics.add.staticGroup()
-            this.speedBlocks = this.physics.add.staticGroup()
+            this.speedLeftBlocks = this.physics.add.staticGroup()
+            this.speedRightBlocks = this.physics.add.staticGroup()
             this.jumpBlocks = this.physics.add.staticGroup()
 
             //Sets up physics
-            this.physics.add.collider(this.player, this.speedBlocks, this.speed, null, this)
+            this.physics.add.collider(this.player, this.walls, this.stopV, null, this);
             this.physics.add.collider(this.player, this.jumpBlocks, this.jump, null, this)
-            this.physics.add.collider(this.player, this.walls);
+            this.physics.add.collider(this.player, this.speedLeftBlocks, this.speedLeft, null, this)
+            this.physics.add.collider(this.player, this.speedRightBlocks, this.speedRight, null, this)
             this.physics.add.overlap(this.player, this.coins, this.takeCoin, null, this)
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
 
@@ -155,6 +158,20 @@ let gameObject = {
             frames: this.anims.generateFrameNumbers('coin', {start: 0, end: 6, first: 6}), 
             framerate: 5,
             repeat: -1,
+        })
+        this.anims.create({
+            key: 'speedRight',
+            frames: this.anims.generateFrameNumbers('speed', {start: 0, end: 3, first: 3}),
+            framerate: 7,
+            repeat: -1,
+
+        })
+        this.anims.create({
+            key: 'speedLeft',
+            frames: this.anims.generateFrameNumbers('speed', {start: 4, end: 7, first: 7}),
+            framerate: 7,
+            repeat: -1,
+
         })
         if (insanity2Info.playerSkin === 'playerSkin2') {
             this.anims.create({
@@ -213,9 +230,17 @@ let gameObject = {
                             this.deathBlocks.add(death);
                         }
 
-                        else if (levels[insanity2Info.levelIndex][i][j] == 's') {
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'r') {
                             let speed = this.add.sprite(30+16*j, 30+16*i, 'speed')
-                            this.speedBlocks.add(speed)
+                            this.speedRightBlocks.add(speed)
+                            speed.play('speedRight')
+                            speed.immovable = true; 
+                        }
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'l') {
+                            let speed = this.add.sprite(30+16*j, 30+16*i, 'speed')
+                            this.speedLeftBlocks.add(speed)
+                            speed.play('speedLeft')
                             speed.immovable = true; 
                         }
 
@@ -226,6 +251,11 @@ let gameObject = {
                         }
                     }
                 }
+            },
+            stopV() {
+                upV = -160
+                leftV = -160
+                rightV = 160
             },
             takeCoin(player, coin) {
                 console.log(player, coin)
@@ -238,11 +268,14 @@ let gameObject = {
                 }
             },
             restart(player, deathBlock) {
+                this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
+                leftV = -160
+                rightV = 160
                 player.x = 100
                 player.y = 100
                 score = 0
                 if (died) {
-                    this.sound.play('die')
+                    //this.sound.play('die')
                     died = false
                     insanity2Info.deaths += 1
                 }
@@ -250,6 +283,7 @@ let gameObject = {
                     for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
                         if (levels[insanity2Info.levelIndex][i][j] == 'o') {
                             let coin = this.add.sprite(30+16*j, 30+16*i, 'coin');
+                            coin.play('coinSpin')
                             this.coins.add(coin);
                         }
                     }
@@ -257,15 +291,25 @@ let gameObject = {
                 deathCounter.innerText = 'Deaths: ' + insanity2Info.deaths
                 save()
             },
-            speed() {
+            speedRight() {
                 upV = -160
+                this.player.x += .5
                 if (this.cursors.left.isDown) {
-                    leftV = -220
-                    setTimeout(() => {leftV = -160}, 5000)
+                    leftV = -160
                 } else if (this.cursors.right.isDown) {
                     rightV = 220
                     setTimeout(() => {rightV = 160}, 5000)
                 }
+            },
+            speedLeft() {
+                upV = -160
+                this.player.x -= .5
+                if (this.cursors.right.isDown) {
+                    rightV = 160
+                } else if (this.cursors.left.isDown) {
+                    leftV = -220
+                    setTimeout(() => {leftV = -160}, 5000)
+                } 
             },
             jump() {
                 rightV = 160

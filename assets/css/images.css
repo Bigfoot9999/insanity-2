@@ -1,35 +1,42 @@
 #wall {
     background-image: url(images/wall.png);
+    transform: rotate(90deg);
     background-repeat: no-repeat;
     background-size: 16px 16px;
 }
 
 #death {
     background-image: url(images/lava2.png);
+    transform: rotate(90deg);
     background-repeat: repeat;
     background-size: 64px 64px;
 }
 
 #jump {
-    background-image: url(images/);
+    background-image: url(images/Trampoline.gif);
+    transform: rotate(90deg);
     background-repeat: repeat;
     background-size: 16px 16px;
 }
 
 #speed {
-    background-image: url(images/);
-    background-repeat: repeat;
-    background-size: 16px 16px;
+    background-image: url(images/Treadmil.gif);
+    transform: rotate(90deg);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 #coin {
-    background-image: url(images/);
-    background-repeat: repeat;
-    background-size: 16px 16px;
+    background-image: url(images/Coins.gif);
+    transform: rotate(0deg);
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: 70%;
 }
 
 #player {
     background-image: url(images/player.png);
+    transform: rotate(90deg);
     background-repeat: repeat;
     background-size: 16px 16px;
 }
