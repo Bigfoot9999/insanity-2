@@ -1,0 +1,35 @@
+#wall {
+    background-image: url(images/wall.png);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+}
+
+#death {
+    background-image: url(images/lava2.png);
+    background-repeat: repeat;
+    background-size: 64px 64px;
+}
+
+#jump {
+    background-image: url(images/);
+    background-repeat: repeat;
+    background-size: 16px 16px;
+}
+
+#speed {
+    background-image: url(images/);
+    background-repeat: repeat;
+    background-size: 16px 16px;
+}
+
+#coin {
+    background-image: url(images/);
+    background-repeat: repeat;
+    background-size: 16px 16px;
+}
+
+#player {
+    background-image: url(images/player.png);
+    background-repeat: repeat;
+    background-size: 16px 16px;
+}

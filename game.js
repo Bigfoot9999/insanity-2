@@ -106,16 +106,18 @@ let gameObject = {
     scene: { //Parts of the game that make it work
         preload() { //Pre-loads images and audio in the game to reduce lag
             load()
-            this.load.image('background', './assets/images/background.png')
-            this.load.image('playerSkin1', './assets/images/playerSkin1.png')
-            //this.load.image('playerSkin2', './assets/images/playerSkin2.png')
-            //this.load.image('playerSkin3', './assets/images/playerSkin3.png')
-            this.load.spritesheet('player2Skin', './assets/images/playerSkin2.png', {frameWidth: 16, frameHeight: 16, endFrame: 10})
-            this.load.image('wall', './assets/images/wall.png')
-            this.load.image('death', './assets/images/death.png')
-            this.load.image('speed', './assets/images/speed.png')
-            this.load.image('jump', './assets/images/jump.png')
-            this.load.image('coin', './assets/images/coin.png')
+            this.load.image('background', './game-assets/backgrounds/blue-background.png')
+            this.load.image('playerSkin1', './game-assets/skins/playerSkin1.png')
+            //this.load.image('playerSkin2', './game-assets/images/playerSkin2.png')
+            //this.load.image('playerSkin3', './game-assets/images/playerSkin3.png')
+            this.load.spritesheet('player2Skin', './game-assets/skins/playerSkin2.png', {frameWidth: 16, frameHeight: 16, endFrame: 10})
+            this.load.image('wall', './game-assets/other/wall.png')
+            this.load.image('death', './game-assets/other/lava.jpg')
+            //this.load.image('speed', './game-assets/images/speed.png')
+            //this.load.image('jump', './game-assets/images/jump.png')
+            this.load.spritesheet('coin', './game-assets/other/coins.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
+            //this.load.audio('collect', '/game-assets/audio/Mario-coin-sound.mp3')
+            //this.load.audio('die', '/game-assets/audio/beep-03.mp3')
         },
         create() { //Sets up the game
             //Will destroy the player if there is a new level
@@ -130,18 +132,6 @@ let gameObject = {
             this.player = this.physics.add.sprite(100, 100, 'playerSkin1')
             this.player.setCollideWorldBounds(true)
             
-            //Sets up the animations
-            console.log(this)
-            if (insanity2Info.playerSkin === 'playerSkin2') {
-                this.anims.create({
-                    key: 'rainbow',
-                    frames: this.anims.generateFrameNumbers('player2Skin', {start: 0, end: 9, first: 9}),
-                    framerate: 10,
-                    repeat: -1,
-                })
-                this.player.play('rainbow')
-            }
-
             //sets up the input
             this.cursors = this.input.keyboard.createCursorKeys()
 
@@ -159,6 +149,22 @@ let gameObject = {
             this.physics.add.overlap(this.player, this.coins, this.takeCoin, null, this)
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
 
+           //Sets up the animations
+        this.anims.create({
+            key: 'coinSpin',
+            frames: this.anims.generateFrameNumbers('coin', {start: 0, end: 6, first: 6}), 
+            framerate: 5,
+            repeat: -1,
+        })
+        if (insanity2Info.playerSkin === 'playerSkin2') {
+            this.anims.create({
+                key: 'rainbow',
+                frames: this.anims.generateFrameNumbers('player2Skin', {start: 0, end: 9, first: 9}),
+                framerate: 5,
+                repeat: -1,
+            })
+            this.player.play('rainbow')
+        }
             //Creates the level
             this.createLevel()
         },
@@ -197,6 +203,7 @@ let gameObject = {
                         // Create a coin and add it to the 'coins' group
                         else if (levels[insanity2Info.levelIndex][i][j] == 'o') {
                             let coin = this.add.sprite(30+16*j, 30+16*i, 'coin');
+                            coin.play('coinSpin')
                             this.coins.add(coin);
                         }
                 
@@ -214,15 +221,18 @@ let gameObject = {
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'j') {
                             let jump = this.add.sprite(30+16*j, 30+16*i, 'jump')
-                            this.jumpBlocks.add(jump) 
+                            this.jumpBlocks.add(jump)
                             jump.immovable = true; 
                         }
                     }
                 }
             },
             takeCoin(player, coin) {
+                console.log(player, coin)
+                coin.anims.isPlaying = false
                 coin.destroy()
                 if (collectedCoin) {
+                    //this.sound.play('collect')
                     score += 1
                     collectedCoin = false
                 }
@@ -232,9 +242,7 @@ let gameObject = {
                 player.y = 100
                 score = 0
                 if (died) {
-                    console.log(this)
-                    console.log(deathBlock)
-                    console.log(player)
+                    this.sound.play('die')
                     died = false
                     insanity2Info.deaths += 1
                 }
