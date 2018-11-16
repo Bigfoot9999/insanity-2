@@ -23,8 +23,8 @@ const load = () => {
     let i = localStorage.getItem('insanity2Info')
     insanity2Info = i ? JSON.parse(i) : resetCache()
     insanity2Info.newSession = true
-    levelCounter.innerText = 'Level: ' + Number(insanity2Info.levelIndex+1)
-    deathCounter.innerText = 'Deaths: ' + Number(insanity2Info.deaths)
+    //levelCounter.innerText = 'Level: ' + Number(insanity2Info.levelIndex+1)
+    //deathCounter.innerText = 'Deaths: ' + Number(insanity2Info.deaths)
 }
 
 const save = () => {
@@ -43,13 +43,27 @@ const resetStorage = () => {
 }
 
 //Sets up variables used in the game object
-let deathCounter = document.querySelector('#deathCounter')
-let levelCounter = document.querySelector('#levelCounter')
 
 let score = 0
 let leftV = -160
 let rightV = 160
 let upV = -160
+
+let deathCounter, levelCounter
+
+const deathCounterStyle = {
+    fontSize: '6em',
+    fontFamily: '-apple-system BlinkMacSystemFont Segoe UI Roboto Oxygen Ubuntu Cantarell Open Sans Helvetica Neue sans-serif',
+    color: 'white',
+    zIndex: 11,
+}
+
+const levelCounterStyle = {
+    fontSize: '6em',
+    fontFamily: '-apple-system BlinkMacSystemFont Segoe UI Roboto Oxygen Ubuntu Cantarell Open Sans Helvetica Neue sans-serif',
+    color: 'white',
+    zIndex: 11,
+}
 
 const levels = [
     [
@@ -65,13 +79,13 @@ const levels = [
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x     x                                           x',
-        'x     x                                           x',
+        'x     x                                       x   x',
         'x     x  o                                    x   x',
         'x     x                                       x   x',
-        'x     x                                  xxxxxx   x',
-        'x     x                                 xx    x   x',
+        'x     x                                  xxxjjx   x',
+        'x     x                                       x   x',
         'x                                             x   x',
-        'xxxxxxxxxxx!!!rrr!!!!!!!!!!!!!!xrrrr!!!!!!!!!!x   x',
+        'xxxxxxxxjjx!!!rrr!!!!!!!!!!!!!!xrrrr!!jj!!!!!!x   x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   x',
         'x                                                 x',
         'x                                                 x',
@@ -87,12 +101,11 @@ const levels = [
     ],
 ]
 
-
 //Sets up the object that gets passed into the game
 
 let gameObject = {
-    width: 1000, //Dimensions of the game
-    height: 800,
+    width: 1420, //Dimensions of the game
+    height: 1000,
     physics: { //Physics of the game
         default: 'arcade',
         arcade: { //Type of physics
@@ -106,7 +119,7 @@ let gameObject = {
     scene: { //Parts of the game that make it work
         preload() { //Pre-loads images and audio in the game to reduce lag
             load()
-            this.load.image('background1', './game-assets/backgrounds/stone-background.png')
+            this.load.image('background1', './game-assets/backgrounds/stone-background.jpg')
             this.load.image('background2', './game-assets/backgrounds/wood-background.png')
             this.load.image('playerSkin1', './game-assets/skins/playerSkin1.png')
             //this.load.image('playerSkin2', './game-assets/images/playerSkin2.png')
@@ -115,12 +128,14 @@ let gameObject = {
             this.load.image('wall', './game-assets/other/wall.png')
             this.load.image('death', './game-assets/other/lava.jpg')
             this.load.spritesheet('speed', './game-assets/other/speed.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
-            //this.load.image('jump', './game-assets/images/jump.png')
+            this.load.spritesheet('jump', './game-assets/other/trampoline.png', {frameWidth: 16, frameHeight: 16, endFrame: 5})
             this.load.spritesheet('coin', './game-assets/other/coins.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
             //this.load.audio('collect', '/game-assets/audio/Mario-coin-sound.mp3')
             //this.load.audio('die', '/game-assets/audio/beep-03.mp3')
+
         },
         create() { //Sets up the game
+
             //Will destroy the player if there is a new level
             if (insanity2Info.levelIndex !== 0 && !insanity2Info.newSession) {
                 this.player.destroy()
@@ -145,10 +160,10 @@ let gameObject = {
             this.jumpBlocks = this.physics.add.staticGroup()
 
             //Sets up physics
-            this.physics.add.collider(this.player, this.walls, this.stopV, null, this);
             this.physics.add.collider(this.player, this.jumpBlocks, this.jump, null, this)
             this.physics.add.collider(this.player, this.speedLeftBlocks, this.speedLeft, null, this)
             this.physics.add.collider(this.player, this.speedRightBlocks, this.speedRight, null, this)
+            this.physics.add.collider(this.player, this.walls, this.stopV, null, this);
             this.physics.add.overlap(this.player, this.coins, this.takeCoin, null, this)
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
 
@@ -173,6 +188,12 @@ let gameObject = {
             repeat: -1,
 
         })
+        this.anims.create({
+            key: 'jumpUp',
+            frames: this.anims.generateFrameNumbers('jump', {start: 0, end: 5, first: 5}),
+            framerate: 4,
+            repeat: 0,
+        })
         if (insanity2Info.playerSkin === 'playerSkin2') {
             this.anims.create({
                 key: 'rainbow',
@@ -184,6 +205,10 @@ let gameObject = {
         }
             //Creates the level
             this.createLevel()
+
+            //Sets up text
+            deathCounter = this.add.text(1000, 600, `Deaths: ${insanity2Info.deaths}`, deathCounterStyle)
+            levelCounter = this.add.text(1000, 525, `Level: ${insanity2Info.levelIndex+1}`, levelCounterStyle)
         },
         update() { //Checks for events in the game; runs every "tick"
             if ((this.cursors.up.isDown || this.cursors.space.isDown) && this.player.body.touching.down === true ) { //&& (this.player.body.touching.right === false && this.player.body.touching.left === false)
@@ -198,12 +223,14 @@ let gameObject = {
                 if (score === 3) {
                     insanity2Info.levelIndex += 1
                     score = 0
-                    levelCounter.innerText = 'Level: ' + Number(insanity2Info.levelIndex+1)
+                    levelCounter.setText(`Level: ${insanity2Info.levelIndex+1}`)
                     this.create()
                     save()
                 }
-                collectedCoin = true
-                died = true
+            collectedCoin = true
+            died = true
+
+            //Creates text
         },
         extend: { //Extra functions to run
             createLevel() {
@@ -247,6 +274,7 @@ let gameObject = {
                         else if (levels[insanity2Info.levelIndex][i][j] == 'j') {
                             let jump = this.add.sprite(30+16*j, 30+16*i, 'jump')
                             this.jumpBlocks.add(jump)
+                            jump.play('jumpUp')
                             jump.immovable = true; 
                         }
                     }
@@ -258,7 +286,6 @@ let gameObject = {
                 rightV = 160
             },
             takeCoin(player, coin) {
-                console.log(player, coin)
                 coin.anims.isPlaying = false
                 coin.destroy()
                 if (collectedCoin) {
@@ -288,7 +315,7 @@ let gameObject = {
                         }
                     }
                 }
-                deathCounter.innerText = 'Deaths: ' + insanity2Info.deaths
+                deathCounter.setText(`Deaths: ${insanity2Info.deaths}`)
                 save()
             },
             speedRight() {
@@ -311,10 +338,12 @@ let gameObject = {
                     setTimeout(() => {leftV = -160}, 5000)
                 } 
             },
-            jump() {
+            jump(player, block) {
                 rightV = 160
                 leftV = -160
                 if (this.cursors.up.isDown) {
+                    block.play('jumpUp')
+                    setTimeout(() => {block.isPlaying = false}, 500)
                     upV = -220
                     setTimeout(() => {upV = -160}, 5000)
                 }
