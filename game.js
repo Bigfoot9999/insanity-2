@@ -85,7 +85,7 @@ const levels = [
         'x     x                                  xxxjjx   x',
         'x     x                                       x   x',
         'x                                             x   x',
-        'xxxxxxxxjjx!!!rrr!!!!!!!!!!!!!!xrrrr!!jj!!!!!!x   x',
+        'xxxxxxxxjjx!!!rrr!!!!!!!!!!!!!!xxxxx!!jj!!!!!!x   x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   x',
         'x                                                 x',
         'x                                                 x',
@@ -119,7 +119,7 @@ let gameObject = {
     scene: { //Parts of the game that make it work
         preload() { //Pre-loads images and audio in the game to reduce lag
             load()
-            this.load.image('background1', './game-assets/backgrounds/stone-background.jpg')
+            this.load.image('background1', './game-assets/backgrounds/stone-background1.png')
             this.load.image('background2', './game-assets/backgrounds/wood-background.png')
             this.load.image('playerSkin1', './game-assets/skins/playerSkin1.png')
             //this.load.image('playerSkin2', './game-assets/images/playerSkin2.png')
@@ -346,6 +346,10 @@ let gameObject = {
                     setTimeout(() => {block.isPlaying = false}, 500)
                     upV = -220
                     setTimeout(() => {upV = -160}, 5000)
+                } else {
+                    block.play('jumpUp')
+                    setTimeout(() => {block.isPlaying = false}, 500)
+                    this.player.setVelocityY(-120)
                 }
             }
         }
