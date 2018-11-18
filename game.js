@@ -8,6 +8,7 @@ let insanity2Info = {
     levelIndex: 0,
     playerSkin: 'playerSkin1',
     newSession: true,
+    background: 'background1',
 }
 
 let defaultCache = () => JSON.parse(JSON.stringify({
@@ -15,6 +16,7 @@ let defaultCache = () => JSON.parse(JSON.stringify({
     levelIndex: 0,
     playerSkin: 'playerSkin1',
     newSession: true,
+    background: 'background1',
 }))
 
 const resetCache = () => insanity2Info = defaultCache()
@@ -37,6 +39,7 @@ const resetStorage = () => {
         levelIndex: 0,
         playerSkin: 'playerSkin1',
         newSession: true,
+        background: 'background1',
     }
     save()
     location.reload()
@@ -97,7 +100,58 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
-
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x                                                 x',
+        'x                                                 x',
+        'x                                                 x',
+        'x                                                 x',
+        'x                                         x       !',
+        'x                                o        x    rrr!',
+        'x                 rrrr                    !       !',
+        'x                                         !lll    x',
+        'xxxxxxx      j                            !       x',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x!!!!   x',
+        'x                                                 x',
+        'x                                                 x',
+        'x                                                 x',
+        'x                                                 x',
+        '!         xxxxxx                                  x',
+        '!lllll    !                                       x',
+        '!         !          j                            x',
+        'x    rrrrr!                   o                   x',
+        'x      !!!!                                       x',
+        'x         !                                       x',
+        'x         !                                       x',
+        'x        o!                           j         xxx',
+        'x!jj!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ],
+    [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x                           x         x                  x',
+        'x                           x         !                  x',
+        'x                           !                            x',
+        'x                                     o                  x',
+        'x                           o            !!!!xxxx        x',
+        'x                                     !!!!!!!!!xx        x',
+        'xxxxxxxxxxrrrrrr            !!!!!!!!!!!!!!!!!!!!x        x',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!       !!!!!!!!!!!!!       !x',
+        'x                       x           !!!!!!!!!!!!       !!x',
+        'x                                 o !!!!!!!!!!!       !!!x',
+        'x                                   !!!!!!!!!!       !!!!x',
+        'x                  xrr      xx!!!!!!!!!!!!!!!       !!!!!x',
+        'x      rrr                  !!!!!!!!!!!!!!!!       !!!!!!x',
+        'x                           !!!!!!!!!!!!!!!       !!!!!!!x',
+        'x   x                       !!!!!!!!!!!!!!       !!!!!!!!x',
+        'x                                   !!!!!       !!!!!!!!!x',
+        'x      x                            !!!!         !!!!!!!!x',
+        'x                 llx               !!!          !!!!!!!!x',
+        'x                                                !!!!!!!!x',
+        'x                           x                   r!!!!!!!!x',
+        'x                                          !!!!!!!!!!!!!!x',
+        'x                                   jjxxxx!!!!!!!!!!!!!!!x',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
 ]
 
@@ -122,9 +176,9 @@ let gameObject = {
             this.load.image('background1', './game-assets/backgrounds/stone-background1.png')
             this.load.image('background2', './game-assets/backgrounds/wood-background.png')
             this.load.image('playerSkin1', './game-assets/skins/playerSkin1.png')
-            //this.load.image('playerSkin2', './game-assets/images/playerSkin2.png')
-            //this.load.image('playerSkin3', './game-assets/images/playerSkin3.png')
-            this.load.spritesheet('player2Skin', './game-assets/skins/playerSkin2.png', {frameWidth: 16, frameHeight: 16, endFrame: 10})
+            this.load.spritesheet('playerSkin2', './game-assets/skins/playerSkin2.png', {frameWidth: 16, frameHeight: 16, endFrame: 10})
+            //this.load.image('playerSkin3', './game-assets/images/playerSkin2.png')
+            //this.load.image('playerSkin4', './game-assets/images/playerSkin3.png')
             this.load.image('wall', './game-assets/other/wall.png')
             this.load.image('death', './game-assets/other/lava.jpg')
             this.load.spritesheet('speed', './game-assets/other/speed.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
@@ -142,8 +196,15 @@ let gameObject = {
             }
             insanity2Info.newSession = false
 
-            //Sets up the background and player
-            this.add.image(0, 0, 'background1').setOrigin(0, 0)
+            //Sets up the background
+            if (insanity2Info.levelIndex === 9) {
+                insanity2Info.background = 'background2'
+            } else if (insanity2Info.levelIndex === 18) {
+                insanity2Info.background = 'background3'
+            }
+            this.add.image(0, 0, insanity2Info.background).setOrigin(0, 0)
+
+            //Sets up the player
             //this.player = this.physics.add.sprite(playerX, playerY, insanity2Info.playerSkin) // sets this.player equal to the sprite
             this.player = this.physics.add.sprite(100, 100, 'playerSkin1')
             this.player.setCollideWorldBounds(true)
@@ -168,41 +229,47 @@ let gameObject = {
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
 
            //Sets up the animations
-        this.anims.create({
-            key: 'coinSpin',
-            frames: this.anims.generateFrameNumbers('coin', {start: 0, end: 6, first: 6}), 
-            framerate: 5,
-            repeat: -1,
-        })
-        this.anims.create({
-            key: 'speedRight',
-            frames: this.anims.generateFrameNumbers('speed', {start: 0, end: 3, first: 3}),
-            framerate: 7,
-            repeat: -1,
-
-        })
-        this.anims.create({
-            key: 'speedLeft',
-            frames: this.anims.generateFrameNumbers('speed', {start: 4, end: 7, first: 7}),
-            framerate: 7,
-            repeat: -1,
-
-        })
-        this.anims.create({
-            key: 'jumpUp',
-            frames: this.anims.generateFrameNumbers('jump', {start: 0, end: 5, first: 5}),
-            framerate: 4,
-            repeat: 0,
-        })
-        if (insanity2Info.playerSkin === 'playerSkin2') {
             this.anims.create({
-                key: 'rainbow',
-                frames: this.anims.generateFrameNumbers('player2Skin', {start: 0, end: 9, first: 9}),
+                key: 'coinSpin',
+                frames: this.anims.generateFrameNumbers('coin', {start: 0, end: 6, first: 6}), 
                 framerate: 5,
                 repeat: -1,
             })
-            this.player.play('rainbow')
-        }
+            this.anims.create({
+                key: 'speedRight',
+                frames: this.anims.generateFrameNumbers('speed', {start: 0, end: 3, first: 3}),
+                framerate: 7,
+                repeat: -1,
+
+            })
+            this.anims.create({
+                key: 'speedLeft',
+                frames: this.anims.generateFrameNumbers('speed', {start: 4, end: 7, first: 7}),
+                framerate: 7,
+                repeat: -1,
+
+            })
+            this.anims.create({
+                key: 'jumpUp',
+                frames: this.anims.generateFrameNumbers('jump', {start: 0, end: 5, first: 5}),
+                framerate: 4,
+                repeat: 0,
+            })
+            if (insanity2Info.playerSkin === 'playerSkin2') {
+                this.anims.create({
+                    key: 'rainbow',
+                    frames: this.anims.generateFrameNumbers('playerSkin2', {start: 0, end: 9, first: 9}),
+                    framerate: 5,
+                    repeat: -1,
+                })
+                this.player.play('rainbow')
+            }
+
+            //High scores
+            if (score === 44) {
+                
+            }
+
             //Creates the level
             this.createLevel()
 
@@ -213,24 +280,24 @@ let gameObject = {
         update() { //Checks for events in the game; runs every "tick"
             if ((this.cursors.up.isDown || this.cursors.space.isDown) && this.player.body.touching.down === true ) { //&& (this.player.body.touching.right === false && this.player.body.touching.left === false)
                     this.player.setVelocityY(upV)
-                } else if (this.cursors.left.isDown) { //if the cursor (input) key is down, the player will move left (-x direction)
-                    this.player.setVelocityX(leftV)
-                } else if (this.cursors.right.isDown) {
-                    this.player.setVelocityX(rightV)
-                } else {
-                    this.player.setVelocityX(0)
-                }
-                if (score === 3) {
-                    insanity2Info.levelIndex += 1
-                    score = 0
-                    levelCounter.setText(`Level: ${insanity2Info.levelIndex+1}`)
-                    this.create()
-                    save()
-                }
+            } else if (this.cursors.left.isDown) { //if the cursor (input) key is down, the player will move left (-x direction)
+                this.player.setVelocityX(leftV)
+            } else if (this.cursors.right.isDown) {
+                this.player.setVelocityX(rightV)
+            } else {
+                this.player.setVelocityX(0)
+            }
+            if (score === 3) {
+                insanity2Info.levelIndex += 1
+                score = 0
+                levelCounter.setText(`Level: ${insanity2Info.levelIndex+1}`)
+                this.create()
+                save()
+            }
+
+            
             collectedCoin = true
             died = true
-
-            //Creates text
         },
         extend: { //Extra functions to run
             createLevel() {
@@ -358,3 +425,19 @@ let gameObject = {
 
 //Run the game
 let game = new Phaser.Game(gameObject)
+
+//-----------------------------------
+let highScore = insanity2Info.deaths
+
+let request = new XMLHttpRequest()
+request.open('GET', './highscores.json')
+request.responseType = 'json'
+request.send()
+
+const saveHighScores = (title, score) => {
+    let newJSON = request.response
+    newJSON[title] = score
+    console.log(newJSON)
+    request.open("POST", "https://insanity2.netlify.com/highscores.json")
+    request.send("jsonTxt="+JSON.stringify(newJSON))
+}
