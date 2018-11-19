@@ -429,11 +429,12 @@ let game = new Phaser.Game(gameObject)
 //-----------------------------------
 let highScore = insanity2Info.deaths
 
-let request = new XMLHttpRequest()
-request.open('GET', './highscores.json')
-request.responseType = 'json'
+
 
 const saveHighScores = (title, score) => {
+    let request = new XMLHttpRequest()
+    request.open('GET', './highscores.json')
+    request.responseType = 'json'
     let newJSON = request.response
     newJSON[title] = score
     console.log(newJSON)
