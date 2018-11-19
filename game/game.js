@@ -9,6 +9,7 @@ let insanity2Info = {
     playerSkin: 'playerSkin1',
     newSession: true,
     background: 'background1',
+    user: '',
 }
 
 let defaultCache = () => JSON.parse(JSON.stringify({
@@ -17,6 +18,7 @@ let defaultCache = () => JSON.parse(JSON.stringify({
     playerSkin: 'playerSkin1',
     newSession: true,
     background: 'background1',
+    user: '',
 }))
 
 const resetCache = () => insanity2Info = defaultCache()
@@ -38,6 +40,7 @@ const resetStorage = () => {
         playerSkin: 'playerSkin1',
         newSession: true,
         background: 'background1',
+        user: '',
     }
     save()
     location.reload()
@@ -265,6 +268,7 @@ let gameObject = {
 
             //High scores
             if (score === 44) {
+                insanity2Info.user = prompt('You Win! Enter your initials to be put on the high score leader board!')
                 
             }
 
@@ -425,4 +429,3 @@ let gameObject = {
 let game = new Phaser.Game(gameObject)
 
 //-----------------------------------
-
