@@ -438,6 +438,7 @@ const saveHighScores = (title, score) => {
     let newJSON = request.response
     newJSON[title] = score
     console.log(newJSON)
-    request.open("POST", "https://insanity2.netlify.com/highscores.json")
-    request.send("jsonTxt="+JSON.stringify(newJSON))
+    request.open("POST", "https://insanity2.netlify.com/highscores.json", true)
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(newJSON))
 }
