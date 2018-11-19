@@ -19,7 +19,7 @@ const sort = (object) => {
 }
 
 let request = new XMLHttpRequest()
-request.open('GET', './highscores.json')
+request.open('GET', './game/highscores.json')
 request.responseType = 'json'
 request.send()
 request.onload = () => {
