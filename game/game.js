@@ -25,8 +25,6 @@ const load = () => {
     let i = localStorage.getItem('insanity2Info')
     insanity2Info = i ? JSON.parse(i) : resetCache()
     insanity2Info.newSession = true
-    //levelCounter.innerText = 'Level: ' + Number(insanity2Info.levelIndex+1)
-    //deathCounter.innerText = 'Deaths: ' + Number(insanity2Info.deaths)
 }
 
 const save = () => {
@@ -427,18 +425,4 @@ let gameObject = {
 let game = new Phaser.Game(gameObject)
 
 //-----------------------------------
-let highScore = insanity2Info.deaths
 
-let request = new XMLHttpRequest()
-request.open('GET', './highscores.json')
-request.responseType = 'json'
-request.send()
-
-const saveHighScores = (title, score) => {
-    let newJSON = request.response
-    //newJSON[title] = score
-    console.log(newJSON)
-    request.open("POST", "./highscores.json", true)
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(newJSON))
-}
