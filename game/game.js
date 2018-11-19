@@ -432,7 +432,6 @@ let highScore = insanity2Info.deaths
 let request = new XMLHttpRequest()
 request.open('GET', './highscores.json')
 request.responseType = 'json'
-request.send()
 
 const saveHighScores = (title, score) => {
     let newJSON = request.response
