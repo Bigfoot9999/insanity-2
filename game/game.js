@@ -433,7 +433,6 @@ let request = new XMLHttpRequest()
 request.open('GET', './highscores.json')
 request.responseType = 'json'
 request.send()
-console.log(request.response)
 
 const saveHighScores = (title, score) => {
     let newJSON = request.response
@@ -441,5 +440,5 @@ const saveHighScores = (title, score) => {
     console.log(newJSON)
     request.open("POST", "./highscores.json", true)
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(newJSON))
+    request.send(newJSON)
 }
