@@ -31,7 +31,7 @@ const sort = (object) => {
     return newObject
 }
 
-let obj
+let obj = {}
 const loadHighScores = () => {
     highScoresDiv.innerHTML = ''
     let data = sort(highScores)
@@ -40,5 +40,6 @@ const loadHighScores = () => {
         highScoresDiv.innerHTML += `${key}: ${data[key]}<br>`
         //highScoreDiv += `${key}: ${highScores[key]}\n`
     }
+    highScores = obj
 }
 loadHighScores() 
