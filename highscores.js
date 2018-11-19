@@ -31,10 +31,12 @@ const sort = (object) => {
     return newObject
 }
 
+let obj
 const loadHighScores = () => {
     highScoresDiv.innerHTML = ''
     let data = sort(highScores)
     for (let key in data) {
+        obj[key] = data[key]
         highScoresDiv.innerHTML += `${key}: ${data[key]}<br>`
         //highScoreDiv += `${key}: ${highScores[key]}\n`
     }
