@@ -1,3 +1,4 @@
+/*
 let highScoresDiv = document.querySelector('#highScores')
 
 let info = {}
@@ -6,10 +7,13 @@ const loadLocalStorage = () => {
     info = i ? JSON.parse(i) : resetCache()
 }
 loadLocalStorage()
-
+*/
+/*
 const saveHighScore = () => {
     let user = info.user
     highscores[user] = info.deaths
+    //Something to save the file to the server here!
+
     loadHighScores()
 }
 
@@ -41,3 +45,4 @@ const loadHighScores = () => {
     }
 }
 loadHighScores() 
+*/

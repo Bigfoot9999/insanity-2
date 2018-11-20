@@ -267,9 +267,9 @@ let gameObject = {
             }
 
             //High scores
-            if (score === 44) {
+            if (insanity2Info.levelIndex === 44) {
                 insanity2Info.user = prompt('You Win! Enter your initials to be put on the high score leader board!')
-                saveHighScore()
+                saveHighScore(insanity2Info.user, insanity2Info.deaths)
             }
 
             //Creates the level
