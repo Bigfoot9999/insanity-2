@@ -7,6 +7,10 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+#four {
+	color: black;
+}
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
@@ -2799,7 +2803,7 @@ input, select, textarea {
 
 		.main.style2 {
 			background-color: #333;
-			color: rgba(255, 255, 255, 0.75);
+			color: #000000;
 			background-attachment: fixed,							fixed;
 			background-image: url("images/header.jpg");
 			background-size: auto,							cover;
@@ -2814,7 +2818,7 @@ input, select, textarea {
 				}
 
 			.main.style2 h1, .main.style2 h2, .main.style2 h3, .main.style2 h4, .main.style2 h5, .main.style2 h6, .main.style2 strong, .main.style2 b {
-				color: #ffffff;
+				color: #000000;
 			}
 
 			.main.style2 header p {

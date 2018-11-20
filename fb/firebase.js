@@ -37,7 +37,7 @@ const sort = (object) => {
     for (let i = 0; i<sorted.length; i++) {
         for (let item in object) {
             if (object[item].score === sorted[i]) {
-                string += `Name: ${object[item].user} --- Deaths: ${object[item].score}<br>`
+                string += `${object[item].user} --- ${object[item].score}<br>`
             }
         }
     }
@@ -55,7 +55,7 @@ if (leaderboard) {
     ref.on("value", (snapshot) => {
         leaderboard.innerHTML = ''
         let data = snapshot.val()
-        leaderboard.innerHTML = sort(data)
+        leaderboard.innerHTML += sort(data)
     }, (error) => {
         console.log("Error: " + error.code);
     })
