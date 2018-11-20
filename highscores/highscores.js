@@ -1,17 +1,16 @@
 let highScoresDiv = document.querySelector('#highScores')
 
-let insanity2Info = {}
-const load = () => {
+let info = {}
+const loadLocalStorage = () => {
     let i = localStorage.getItem('insanity2Info')
-    insanity2Info = i ? JSON.parse(i) : resetCache()
+    info = i ? JSON.parse(i) : resetCache()
 }
+loadLocalStorage()
 
 const saveHighScore = () => {
-    load()
-    let highScore = insanity2Info.deaths
-    let user = insanity2Info.user
-
-    highScores[user] = insanity2Info.deaths
+    let user = info.user
+    highscores[user] = info.deaths
+    loadHighScores()
 }
 
 const sort = (object) => {
@@ -34,12 +33,11 @@ const sort = (object) => {
 let obj = {}
 const loadHighScores = () => {
     highScoresDiv.innerHTML = ''
-    let data = sort(highScores)
+    let data = sort(highscores)
     for (let key in data) {
         obj[key] = data[key]
         highScoresDiv.innerHTML += `${key}: ${data[key]}<br>`
         //highScoreDiv += `${key}: ${highScores[key]}\n`
     }
-    highScores = obj
 }
 loadHighScores() 

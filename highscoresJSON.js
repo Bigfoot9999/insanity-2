@@ -1,1 +1,0 @@
-let highScores = {"EDB":9807,"BDD":8976,"JPN":675,"LA":10897}
