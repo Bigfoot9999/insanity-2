@@ -129,9 +129,9 @@ const levels = [
     ],
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        'x                           x         x                  x',
         'x                           x         !                  x',
         'x                           !                            x',
+        'x                                                        x',
         'x                                     o                  x',
         'x                           o            !!!!xxxx        x',
         'x                                     !!!!!!!!!xx        x',
@@ -148,7 +148,7 @@ const levels = [
         'x      x                            !!!!         !!!!!!!!x',
         'x                 llx               !!!          !!!!!!!!x',
         'x                                                !!!!!!!!x',
-        'x                           x                   r!!!!!!!!x',
+        'x                           x                  rr!!!!!!!!x',
         'x                                          !!!!!!!!!!!!!!x',
         'x                                   jjxxxx!!!!!!!!!!!!!!!x',
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
@@ -394,7 +394,6 @@ let gameObject = {
                     leftV = -160
                 } else if (this.cursors.right.isDown) {
                     rightV = 220
-                    setTimeout(() => {rightV = 160}, 5000)
                 }
             },
             speedLeft() {
@@ -404,7 +403,6 @@ let gameObject = {
                     rightV = 160
                 } else if (this.cursors.left.isDown) {
                     leftV = -220
-                    setTimeout(() => {leftV = -160}, 5000)
                 } 
             },
             jump(player, block) {
@@ -414,7 +412,6 @@ let gameObject = {
                     block.play('jumpUp')
                     setTimeout(() => {block.isPlaying = false}, 500)
                     upV = -220
-                    setTimeout(() => {upV = -160}, 5000)
                 } else {
                     block.play('jumpUp')
                     setTimeout(() => {block.isPlaying = false}, 500)
@@ -427,5 +424,3 @@ let gameObject = {
 
 //Run the game
 let game = new Phaser.Game(gameObject)
-
-//-----------------------------------
