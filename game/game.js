@@ -55,6 +55,8 @@ let upV = -160
 
 let deathCounter, levelCounter
 
+let deathCount, levelCount
+
 const deathCounterStyle = {
     fontSize: '6em',
     fontFamily: '-apple-system BlinkMacSystemFont Segoe UI Roboto Oxygen Ubuntu Cantarell Open Sans Helvetica Neue sans-serif',
@@ -135,8 +137,8 @@ const levels = [
         'x                                     o                  x',
         'x                           o            !!!!xxxx        x',
         'x                                     !!!!!!!!!xx        x',
-        'xxxxxxxxxxrrrrrr            !!!!!!!!!!!!!!!!!!!!x        x',
-        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!       !!!!!!!!!!!!!       !x',
+        'xxxxxxxxxxrrrrrr           !!!!!!!!!!!!!!!!!!!!!x        x',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!        !!!!!!!!!!!!!       !x',
         'x                       x           !!!!!!!!!!!!       !!x',
         'x                                 o !!!!!!!!!!!       !!!x',
         'x                                   !!!!!!!!!!       !!!!x',
@@ -154,6 +156,39 @@ const levels = [
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
+    [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ]
 ]
 
 //Sets up the object that gets passed into the game
@@ -190,6 +225,9 @@ let gameObject = {
 
         },
         create() { //Sets up the game
+            //Prevents cheating
+            deathCount = insanity2Info.deaths
+            levelCount = insanity2Info.levelIndex
 
             //Will destroy the player if there is a new level
             if (insanity2Info.levelIndex !== 0 && !insanity2Info.newSession) {
@@ -296,8 +334,18 @@ let gameObject = {
                 this.create()
                 save()
             }
-
-            
+            if (insanity2Info.deaths < deathCount) {
+                insanity2Info.deaths = 99999999
+                save()
+                alert('NO CHEATING')
+                location.reload()
+            }
+            if (insanity2Info.levelIndex !== levelCount) {
+                insanity2Info.levelIndex = levelCount
+                save()
+                alert('NO CHEATING')
+                location.reload() 
+            }
             collectedCoin = true
             died = true
         },
