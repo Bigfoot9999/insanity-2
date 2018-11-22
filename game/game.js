@@ -236,6 +236,8 @@ let gameObject = {
             //this.load.audio('collect', '/game-assets/audio/Mario-coin-sound.mp3')
             //this.load.audio('die', '/game-assets/audio/beep-03.mp3')
 
+
+
         },
         create() { //Sets up the game
             //Prevents cheating
