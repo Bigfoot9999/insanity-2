@@ -1,5 +1,1 @@
-{
-  "database": {
-    "rules": "rules.json"
-  }
-}
+{"database": {"rules": "rules.json"}}
