@@ -84,6 +84,26 @@ const levels = [
     ], 
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x                                             xo  x',
+        'x                                             x   x',
+        'x                                             x  xx',
+        'x                                             x   x',
+        'x                                             xx  x',
+        'x                                             x   x',
+        'x                                             x  xx',
+        'xxxxxxxxxtttttttttttttttttttttttttttttttttttttxtttx',
+        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww!!!!!!xwwwx',
+        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
+        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwowxwwwx',
+        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
+        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww!!!!!!xwwwx',
+        'x!www!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
+        'x!www!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
+        'x!wow!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwx',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 
+    ],
+    [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x     x                                           x',
         'x     x                                       x   x',
         'x     x  o                                    x   x',
@@ -130,6 +150,30 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x               !!!!!!!!!!!!!!!!              x',
+        'x               !!!!!!!!!!!!!!!               x',
+        'x               !!!!!!!!!!!!!!                x',
+        'x               !!!!!!!!!!!!!    xttttttttttttx',
+        'x               !!!!!!!!!!!!     xwwww!wwwwwwwx',
+        'x               !!!!!!!!!!!!     xww!wwwwwww!wx',
+        'xxxxxxxxxxx    !!!!!!!!!!!!!    jxwwwwwwwwwwwwx',
+        'x!!!!!!!!!    !!!!!!!!!!!!!!     x!!!!!!wwwww!x',
+        'x!!!!!!!!    !!!!!!!!!!!!!!!     xwwwwwwwwwwwwx',
+        'x!!!!!!!    !!!!!!!!!!!!!!!!j    xwwwwwwww!!!!x',
+        'x!!!!!!    !!!!!!!!!!!!!!!!!     xwwwww!!!!wwwx',
+        'xxxxx!    !!!!xxxxxxxxxxxxxx    xxwwww!wwww!wwx',
+        'x o                              xwww!wwwwwwwwx',
+        'xxxxxxxxxxxxxxxxxxxx    xxxxxxxxxx!ww!wwwwwwwwx',
+        'xxxxxxxxxxxxxxxxxxx!    !xxxxxxxxx!wwwwwwww!wwx',
+        'xxxxxxxxxxxxxxxxxxx!   r!xxxxxxxxx!wwwwwwwww!wx',
+        'xxxxxxxxxxxxxxxxxxx!    !xxxxxxxxx!!wwww!wwww!x',
+        'xxxxxxxxxxxxxxxxxxx!l   !xxxxxxxxx!!!ww!!wwww!x',
+        'xxxxxxxxxxxxxxxxxxx!    !xxxxxxxxx!!!!!!!www!wx',
+        'xxxxxxxxxxxxxxxxxxx!o  r!xxxxxxxxx!!!!!!!!wwwox',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ], 
+    [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                           x         !                  x',
         'x                           !                            x',
@@ -156,39 +200,6 @@ const levels = [
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    ]
 ]
 
 //Sets up the object that gets passed into the game
@@ -220,6 +231,8 @@ let gameObject = {
             this.load.spritesheet('speed', './game-assets/other/speed.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
             this.load.spritesheet('jump', './game-assets/other/trampoline.png', {frameWidth: 16, frameHeight: 16, endFrame: 5})
             this.load.spritesheet('coin', './game-assets/other/coins.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
+            this.load.spritesheet('waterTop', './game-assets/other/water-top.png', {frameWidth: 16, frameHeight: 16, endFrame: 8})
+            this.load.image('water', './game-assets/other/water.png')
             //this.load.audio('collect', '/game-assets/audio/Mario-coin-sound.mp3')
             //this.load.audio('die', '/game-assets/audio/beep-03.mp3')
 
@@ -247,6 +260,7 @@ let gameObject = {
             //this.player = this.physics.add.sprite(playerX, playerY, insanity2Info.playerSkin) // sets this.player equal to the sprite
             this.player = this.physics.add.sprite(100, 100, 'playerSkin1')
             this.player.setCollideWorldBounds(true)
+            this.player.setDepth(1)
             
             //sets up the input
             this.cursors = this.input.keyboard.createCursorKeys()
@@ -258,6 +272,8 @@ let gameObject = {
             this.speedLeftBlocks = this.physics.add.staticGroup()
             this.speedRightBlocks = this.physics.add.staticGroup()
             this.jumpBlocks = this.physics.add.staticGroup()
+            this.waterBlocks = this.physics.add.staticGroup()
+            this.topWaterBlocks = this.physics.add.staticGroup()
 
             //Sets up physics
             this.physics.add.collider(this.player, this.jumpBlocks, this.jump, null, this)
@@ -266,6 +282,7 @@ let gameObject = {
             this.physics.add.collider(this.player, this.walls, this.stopV, null, this);
             this.physics.add.overlap(this.player, this.coins, this.takeCoin, null, this)
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
+            this.physics.add.overlap(this.player, this.waterBlocks, this.swim, null, this)
 
            //Sets up the animations
             this.anims.create({
@@ -293,6 +310,12 @@ let gameObject = {
                 frames: this.anims.generateFrameNumbers('jump', {start: 0, end: 5, first: 5}),
                 framerate: 4,
                 repeat: 0,
+            })
+            this.anims.create({
+                key: 'waves',
+                frames: this.anims.generateFrameNumbers('waterTop', {start: 0, end: 8, first: 8}),
+                framerate: 12,
+                repeat: -1,
             })
             if (insanity2Info.playerSkin === 'playerSkin2') {
                 this.anims.create({
@@ -351,6 +374,14 @@ let gameObject = {
         },
         extend: { //Extra functions to run
             createLevel() {
+                this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
+                this.walls.getChildren().map(child => {this.walls.killAndHide(child)})
+                this.deathBlocks.getChildren().map(child => {this.deathBlocks.killAndHide(child)})
+                this.speedLeftBlocks.getChildren().map(child => {this.speedLeftBlocks.killAndHide(child)})
+                this.speedRightBlocks.getChildren().map(child => {this.speedRightBlocks.killAndHide(child)})
+                this.jumpBlocks.getChildren().map(child => {this.jumpBlocks.killAndHide(child)})
+                this.waterBlocks.getChildren().map(child => {this.waterBlocks.killAndHide(child)})
+                this.topWaterBlocks.getChildren().map(child => {this.topWaterBlocks.killAndHide(child)})
                 for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
                     for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
                 
@@ -366,6 +397,12 @@ let gameObject = {
                             let coin = this.add.sprite(30+16*j, 30+16*i, 'coin');
                             coin.play('coinSpin')
                             this.coins.add(coin);
+                        }
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'O') {
+                            let coin = this.add.sprite(30+16*j, 30+16*i, 'waterCoin')
+                            coin.play('waterCoinSpin')
+                            this.coins.add(coin)
                         }
                 
                         // Create a lava space and add it to the 'lavas' group
@@ -394,6 +431,19 @@ let gameObject = {
                             jump.play('jumpUp')
                             jump.immovable = true; 
                         }
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'w') {
+                            let water = this.add.sprite(30+16*j, 30+16*i, 'water')
+                            this.waterBlocks.add(water)
+                            water.immovable = true; 
+                        }                        
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 't') {
+                            let water = this.add.sprite(30+16*j, 30+16*i, 'waterTop')
+                            this.topWaterBlocks.add(water)
+                            water.play('waves')
+                            water.immovable = true; 
+                        }
                     }
                 }
             },
@@ -401,6 +451,7 @@ let gameObject = {
                 upV = -160
                 leftV = -160
                 rightV = 160
+                this.physics.config.gravity.y = 300
             },
             takeCoin(player, coin) {
                 coin.anims.isPlaying = false
@@ -410,6 +461,12 @@ let gameObject = {
                     score += 1
                     collectedCoin = false
                 }
+            },
+            takeWaterCoin(player, coin) {
+                let water = this.add.sprite(coin.x, coin.y, 'water')
+                this.waterBlocks.add(water)
+                water.immovable = true
+                this.takeCoin()
             },
             restart(player, deathBlock) {
                 this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
@@ -437,7 +494,10 @@ let gameObject = {
             },
             speedRight() {
                 upV = -160
-                this.player.x += .5
+                leftV = -160
+                if (this.player.body.touching.down) {
+                    this.player.x += .5
+                }
                 if (this.cursors.left.isDown) {
                     leftV = -160
                 } else if (this.cursors.right.isDown) {
@@ -446,7 +506,10 @@ let gameObject = {
             },
             speedLeft() {
                 upV = -160
-                this.player.x -= .5
+                rightV = 160
+                if (this.player.body.touching.down) {
+                    this.player.x -= .5
+                }
                 if (this.cursors.right.isDown) {
                     rightV = 160
                 } else if (this.cursors.left.isDown) {
@@ -465,7 +528,20 @@ let gameObject = {
                     setTimeout(() => {block.isPlaying = false}, 500)
                     this.player.setVelocityY(-120)
                 }
-            }
+            },
+            swim() {
+                leftV = -100
+                rightV = 100
+                if (this.cursors.down.isDown) {
+                    this.player.setVelocityY(100)
+                    return
+                }
+                if (!this.cursors.up.isDown) {
+                    this.player.setVelocityY(40)
+                } else {
+                    this.player.setVelocityY(-80)
+                }
+            },
         }
     }
 }
