@@ -29,7 +29,6 @@
 #coin {
     background-image: url(images/Coins.gif);
     transform: rotate(0deg);
-    text-align: center;
     background-repeat: no-repeat;
     background-size: 70%;
 }
