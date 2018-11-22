@@ -245,6 +245,14 @@ let gameObject = {
             //Will destroy the player if there is a new level
             if (insanity2Info.levelIndex !== 0 && !insanity2Info.newSession) {
                 this.player.destroy()
+                this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
+                this.walls.getChildren().map(child => {this.walls.killAndHide(child)})
+                this.deathBlocks.getChildren().map(child => {this.deathBlocks.killAndHide(child)})
+                this.speedLeftBlocks.getChildren().map(child => {this.speedLeftBlocks.killAndHide(child)})
+                this.speedRightBlocks.getChildren().map(child => {this.speedRightBlocks.killAndHide(child)})
+                this.jumpBlocks.getChildren().map(child => {this.jumpBlocks.killAndHide(child)})
+                this.waterBlocks.getChildren().map(child => {this.waterBlocks.killAndHide(child)})
+                this.topWaterBlocks.getChildren().map(child => {this.topWaterBlocks.killAndHide(child)})
             }
             insanity2Info.newSession = false
 
@@ -374,14 +382,7 @@ let gameObject = {
         },
         extend: { //Extra functions to run
             createLevel() {
-                this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
-                this.walls.getChildren().map(child => {this.walls.killAndHide(child)})
-                this.deathBlocks.getChildren().map(child => {this.deathBlocks.killAndHide(child)})
-                this.speedLeftBlocks.getChildren().map(child => {this.speedLeftBlocks.killAndHide(child)})
-                this.speedRightBlocks.getChildren().map(child => {this.speedRightBlocks.killAndHide(child)})
-                this.jumpBlocks.getChildren().map(child => {this.jumpBlocks.killAndHide(child)})
-                this.waterBlocks.getChildren().map(child => {this.waterBlocks.killAndHide(child)})
-                this.topWaterBlocks.getChildren().map(child => {this.topWaterBlocks.killAndHide(child)})
+
                 for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
                     for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
                 
