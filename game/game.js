@@ -94,12 +94,12 @@ const levels = [
         'xxxxxxxxxtttttttttttttttttttttttttttttttttttttxtttx',
         'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww!!!!!!xwwwx',
         'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
-        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwowxwwwx',
+        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwOwxwwwx',
         'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
         'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww!!!!!!xwwwx',
         'x!www!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
         'x!www!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
-        'x!wow!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwx',
+        'x!wOw!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 
     ],
     [
@@ -170,7 +170,7 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxx!    !xxxxxxxxx!!wwww!wwww!x',
         'xxxxxxxxxxxxxxxxxxx!l   !xxxxxxxxx!!!ww!!wwww!x',
         'xxxxxxxxxxxxxxxxxxx!    !xxxxxxxxx!!!!!!!www!wx',
-        'xxxxxxxxxxxxxxxxxxx!o  r!xxxxxxxxx!!!!!!!!wwwox',
+        'xxxxxxxxxxxxxxxxxxx!o  r!xxxxxxxxx!!!!!!!!wwwOx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ], 
     [
@@ -231,6 +231,7 @@ let gameObject = {
             this.load.spritesheet('speed', './game-assets/other/speed.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
             this.load.spritesheet('jump', './game-assets/other/trampoline.png', {frameWidth: 16, frameHeight: 16, endFrame: 5})
             this.load.spritesheet('coin', './game-assets/other/coins.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
+            this.load.spritesheet('waterCoin', './game-assets/other/water-coins.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
             this.load.spritesheet('waterTop', './game-assets/other/water-top.png', {frameWidth: 16, frameHeight: 16, endFrame: 8})
             this.load.image('water', './game-assets/other/water.png')
             //this.load.audio('collect', '/game-assets/audio/Mario-coin-sound.mp3')
@@ -278,6 +279,7 @@ let gameObject = {
             //Sets up the groups of items
             this.walls = this.physics.add.staticGroup()
             this.coins = this.physics.add.staticGroup()
+            this.waterCoins = this.physics.add.staticGroup()
             this.deathBlocks = this.physics.add.staticGroup()
             this.speedLeftBlocks = this.physics.add.staticGroup()
             this.speedRightBlocks = this.physics.add.staticGroup()
@@ -291,6 +293,7 @@ let gameObject = {
             this.physics.add.collider(this.player, this.speedRightBlocks, this.speedRight, null, this)
             this.physics.add.collider(this.player, this.walls, this.stopV, null, this);
             this.physics.add.overlap(this.player, this.coins, this.takeCoin, null, this)
+            this.physics.add.overlap(this.player, this.waterCoins, this.takeWaterCoin, null, this)
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
             this.physics.add.overlap(this.player, this.waterBlocks, this.swim, null, this)
 
@@ -300,6 +303,12 @@ let gameObject = {
                 frames: this.anims.generateFrameNumbers('coin', {start: 0, end: 6, first: 6}), 
                 framerate: 5,
                 repeat: -1,
+            })
+            this.anims.create({
+                key: 'waterCoinSpin',
+                frames: this.anims.generateFrameNumbers('waterCoin', {start: 0, end: 7, first: 7}),
+                framerate: 5,
+                repeat: -1
             })
             this.anims.create({
                 key: 'speedRight',
@@ -336,7 +345,6 @@ let gameObject = {
                 })
                 this.player.play('rainbow')
             }
-
             //High scores
             if (insanity2Info.levelIndex === 44) {
                 insanity2Info.user = prompt('You Win! Enter your initials to be put on the high score leader board!')
@@ -405,7 +413,7 @@ let gameObject = {
                         else if (levels[insanity2Info.levelIndex][i][j] == 'O') {
                             let coin = this.add.sprite(30+16*j, 30+16*i, 'waterCoin')
                             coin.play('waterCoinSpin')
-                            this.coins.add(coin)
+                            this.waterCoins.add(coin)
                         }
                 
                         // Create a lava space and add it to the 'lavas' group
@@ -466,10 +474,11 @@ let gameObject = {
                 }
             },
             takeWaterCoin(player, coin) {
+                console.log('water')
+                this.takeCoin(player, coin)
                 let water = this.add.sprite(coin.x, coin.y, 'water')
                 this.waterBlocks.add(water)
                 water.immovable = true
-                this.takeCoin()
             },
             restart(player, deathBlock) {
                 this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
@@ -489,6 +498,12 @@ let gameObject = {
                             let coin = this.add.sprite(30+16*j, 30+16*i, 'coin');
                             coin.play('coinSpin')
                             this.coins.add(coin);
+                        }
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'O') {
+                            let coin = this.add.sprite(30+16*j, 30+16*i, 'waterCoin')
+                            coin.play('waterCoinSpin')
+                            this.waterCoins.add(coin)
                         }
                     }
                 }
