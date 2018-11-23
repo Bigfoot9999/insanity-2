@@ -20,14 +20,14 @@
 }
 
 #speed {
-    background-image: url(images/Treadmil.gif);
+    background-image: url(images/treadmill.gif);
     transform: rotate(0deg);
     background-repeat: no-repeat;
     background-size: 100%;
 }
 
 #coin {
-    background-image: url(images/Coins.gif);
+    background-image: url(images/coins.gif);
     transform: rotate(0deg);
     background-repeat: no-repeat;
     background-size: 70%;
@@ -38,4 +38,18 @@
     transform: rotate(0deg);
     background-repeat: repeat;
     background-size: 16px 16px;
+}
+
+#water {
+    background-image: url(images/water.gif);
+    transform: rotate(0deg);
+    background-repeat: repeat-x;
+    background-size: 100%;
+}
+
+#switch {
+    background-image: url(images/switch.gif);
+    transform: rotate(0deg);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }

@@ -234,6 +234,8 @@ let gameObject = {
             this.load.spritesheet('waterCoin', './game-assets/other/water-coins.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
             this.load.spritesheet('waterTop', './game-assets/other/water-top.png', {frameWidth: 16, frameHeight: 16, endFrame: 8})
             this.load.image('water', './game-assets/other/water.png')
+            this.load.image('switchUp', './game-assets/other/switch-up.png')
+            this.load.image('switchDown', './game-assets/other/switch-down.png')
             //this.load.audio('collect', '/game-assets/audio/Mario-coin-sound.mp3')
             //this.load.audio('die', '/game-assets/audio/beep-03.mp3')
 
@@ -286,6 +288,7 @@ let gameObject = {
             this.jumpBlocks = this.physics.add.staticGroup()
             this.waterBlocks = this.physics.add.staticGroup()
             this.topWaterBlocks = this.physics.add.staticGroup()
+            this.switches = this.physics.add.staticGroup()
 
             //Sets up physics
             this.physics.add.collider(this.player, this.jumpBlocks, this.jump, null, this)
@@ -296,6 +299,7 @@ let gameObject = {
             this.physics.add.overlap(this.player, this.waterCoins, this.takeWaterCoin, null, this)
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
             this.physics.add.overlap(this.player, this.waterBlocks, this.swim, null, this)
+            this.physics.add.overlap(this.player, this.swtiches, this.swithc, null, this)
 
            //Sets up the animations
             this.anims.create({
