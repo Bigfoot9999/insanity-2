@@ -23,10 +23,14 @@ let defaultCache = () => JSON.parse(JSON.stringify({
 
 const resetCache = () => insanity2Info = defaultCache()
 
+let first = true
 const load = () => {
     let i = localStorage.getItem('insanity2Info')
     insanity2Info = i ? JSON.parse(i) : resetCache()
-    insanity2Info.newSession = true
+    if (first) {
+        insanity2Info.newSession = true
+        first = false
+    }
 }
 
 const save = () => {
@@ -52,6 +56,10 @@ let score = 0
 let leftV = -160
 let rightV = 160
 let upV = -160
+
+let switchOff = false
+let ran = true
+let switchStatus, switched
 
 let deathCounter, levelCounter
 
@@ -82,6 +90,26 @@ const levels = [
         'xxxxxxxxxxxxxxxxx!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxx'
     ], 
+    [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x                                x                x',
+        'x                                x                x',
+        'x                                x       o        x',
+        'x                                x                x',
+        'x                                x                x',
+        'x                                x               xx',
+        'xxxxxxxxxxxx                     x!!!!!x          x',
+        'xxxxxxxxxxxx                     x                x',
+        'xxxxxxxxxxxx                s    x           x    x',
+        'xxxxxxxxxxxx                   o x           !    x',
+        'xxxxxxxxxxxx          xxxxxxxxxxxx!!!x            x',
+        'xxxxxxxxxxxx                     x                x',
+        'xxxxxxxxxxxx                     x         x      x',
+        'xxxxxxxxxxxx                     d         !      x',
+        'xxxxxxxxxxxx                     d               xx',
+        'xxxxxxxxxxxx                o    x                x',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ],
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                             xo  x',
@@ -181,22 +209,22 @@ const levels = [
         'x                                     o                  x',
         'x                           o            !!!!xxxx        x',
         'x                                     !!!!!!!!!xx        x',
-        'xxxxxxxxxxrrrrrr           !!!!!!!!!!!!!!!!!!!!!x        x',
-        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!        !!!!!!!!!!!!!       !x',
+        'xxxxxxxxxxrrrrrr          !!!!!!!!!!!!!!!!!!!!!!x        x',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!!!         !!!!!!!!!!!!!       !x',
         'x                       x           !!!!!!!!!!!!       !!x',
         'x                                 o !!!!!!!!!!!       !!!x',
         'x                                   !!!!!!!!!!       !!!!x',
-        'x                  xrr      xx!!!!!!!!!!!!!!!       !!!!!x',
+        'x                  xrr      DD!!!!!!!!!!!!!!!       !!!!!x',
         'x      rrr                  !!!!!!!!!!!!!!!!       !!!!!!x',
         'x                           !!!!!!!!!!!!!!!       !!!!!!!x',
         'x   x                       !!!!!!!!!!!!!!       !!!!!!!!x',
         'x                                   !!!!!       !!!!!!!!!x',
-        'x      x                            !!!!         !!!!!!!!x',
+        'xS     x                            !!!!         !!!!!!!!x',
         'x                 llx               !!!          !!!!!!!!x',
-        'x                                                !!!!!!!!x',
+        'x              x                                 !!!!!!!!x',
         'x                           x                  rr!!!!!!!!x',
         'x                                          !!!!!!!!!!!!!!x',
-        'x                                   jjxxxx!!!!!!!!!!!!!!!x',
+        'xx          j                       jjxxxx!!!!!!!!!!!!!!!x',
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
@@ -236,6 +264,8 @@ let gameObject = {
             this.load.image('water', './game-assets/other/water.png')
             this.load.image('switchUp', './game-assets/other/switch-up.png')
             this.load.image('switchDown', './game-assets/other/switch-down.png')
+            this.load.image('switchDoor', './game-assets/other/red-door.png')
+            this.load.image('emptyDoor', './game-assets/other/empty-door.png')
             //this.load.audio('collect', '/game-assets/audio/Mario-coin-sound.mp3')
             //this.load.audio('die', '/game-assets/audio/beep-03.mp3')
 
@@ -244,22 +274,63 @@ let gameObject = {
         },
         create() { //Sets up the game
             //Prevents cheating
-            deathCount = insanity2Info.deaths
             levelCount = insanity2Info.levelIndex
 
             //Will destroy the player if there is a new level
             if (insanity2Info.levelIndex !== 0 && !insanity2Info.newSession) {
                 this.player.destroy()
-                this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
-                this.walls.getChildren().map(child => {this.walls.killAndHide(child)})
-                this.deathBlocks.getChildren().map(child => {this.deathBlocks.killAndHide(child)})
-                this.speedLeftBlocks.getChildren().map(child => {this.speedLeftBlocks.killAndHide(child)})
-                this.speedRightBlocks.getChildren().map(child => {this.speedRightBlocks.killAndHide(child)})
-                this.jumpBlocks.getChildren().map(child => {this.jumpBlocks.killAndHide(child)})
-                this.waterBlocks.getChildren().map(child => {this.waterBlocks.killAndHide(child)})
-                this.topWaterBlocks.getChildren().map(child => {this.topWaterBlocks.killAndHide(child)})
+            } else {
+                //Sets up the animations
+                this.anims.create({
+                    key: 'coinSpin',
+                    frames: this.anims.generateFrameNumbers('coin', {start: 0, end: 6, first: 6}), 
+                    framerate: 5,
+                    repeat: -1,
+                })
+                this.anims.create({
+                    key: 'waterCoinSpin',
+                    frames: this.anims.generateFrameNumbers('waterCoin', {start: 0, end: 7, first: 7}),
+                    framerate: 5,
+                    repeat: -1
+                })
+                this.anims.create({
+                    key: 'speedRight',
+                    frames: this.anims.generateFrameNumbers('speed', {start: 0, end: 3, first: 3}),
+                    framerate: 7,
+                    repeat: -1,
+
+                })
+                this.anims.create({
+                    key: 'speedLeft',
+                    frames: this.anims.generateFrameNumbers('speed', {start: 4, end: 7, first: 7}),
+                    framerate: 7,
+                    repeat: -1,
+
+                })
+                this.anims.create({
+                    key: 'jumpUp',
+                    frames: this.anims.generateFrameNumbers('jump', {start: 0, end: 5, first: 5}),
+                    framerate: 4,
+                    repeat: 0,
+                })
+                this.anims.create({
+                    key: 'waves',
+                    frames: this.anims.generateFrameNumbers('waterTop', {start: 0, end: 8, first: 8}),
+                    framerate: 12,
+                    repeat: -1,
+                })
+                this.anims.create({
+                    key: 'rainbow',
+                    frames: this.anims.generateFrameNumbers('playerSkin2', {start: 0, end: 9, first: 9}),
+                    framerate: 5,
+                    repeat: -1,
+                })
+                insanity2Info.newSession = false
             }
-            insanity2Info.newSession = false
+
+            if (insanity2Info.playerSkin === 'playerSkin2') {
+                    this.player.play('rainbow')
+            }
 
             //Sets up the background
             if (insanity2Info.levelIndex === 9) {
@@ -288,67 +359,25 @@ let gameObject = {
             this.jumpBlocks = this.physics.add.staticGroup()
             this.waterBlocks = this.physics.add.staticGroup()
             this.topWaterBlocks = this.physics.add.staticGroup()
-            this.switches = this.physics.add.staticGroup()
-
+            this.onSwitches = this.physics.add.staticGroup()
+            this.offSwitches = this.physics.add.staticGroup()
+            this.doors = this.physics.add.staticGroup()
+            this.emptyDoors = this.physics.add.staticGroup()
+    
             //Sets up physics
             this.physics.add.collider(this.player, this.jumpBlocks, this.jump, null, this)
             this.physics.add.collider(this.player, this.speedLeftBlocks, this.speedLeft, null, this)
             this.physics.add.collider(this.player, this.speedRightBlocks, this.speedRight, null, this)
-            this.physics.add.collider(this.player, this.walls, this.stopV, null, this);
+            this.physics.add.collider(this.player, this.walls, this.stopV, null, this)
+            this.physics.add.collider(this.player, this.doors, this.stopV, null, this)
             this.physics.add.overlap(this.player, this.coins, this.takeCoin, null, this)
             this.physics.add.overlap(this.player, this.waterCoins, this.takeWaterCoin, null, this)
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
             this.physics.add.overlap(this.player, this.waterBlocks, this.swim, null, this)
-            this.physics.add.overlap(this.player, this.swtiches, this.swithc, null, this)
+            this.physics.add.overlap(this.player, this.onSwitches, this.switchOff, null, this)
+            this.physics.add.overlap(this.player, this.offSwitches, this.switchOn, null, this)
 
-           //Sets up the animations
-            this.anims.create({
-                key: 'coinSpin',
-                frames: this.anims.generateFrameNumbers('coin', {start: 0, end: 6, first: 6}), 
-                framerate: 5,
-                repeat: -1,
-            })
-            this.anims.create({
-                key: 'waterCoinSpin',
-                frames: this.anims.generateFrameNumbers('waterCoin', {start: 0, end: 7, first: 7}),
-                framerate: 5,
-                repeat: -1
-            })
-            this.anims.create({
-                key: 'speedRight',
-                frames: this.anims.generateFrameNumbers('speed', {start: 0, end: 3, first: 3}),
-                framerate: 7,
-                repeat: -1,
 
-            })
-            this.anims.create({
-                key: 'speedLeft',
-                frames: this.anims.generateFrameNumbers('speed', {start: 4, end: 7, first: 7}),
-                framerate: 7,
-                repeat: -1,
-
-            })
-            this.anims.create({
-                key: 'jumpUp',
-                frames: this.anims.generateFrameNumbers('jump', {start: 0, end: 5, first: 5}),
-                framerate: 4,
-                repeat: 0,
-            })
-            this.anims.create({
-                key: 'waves',
-                frames: this.anims.generateFrameNumbers('waterTop', {start: 0, end: 8, first: 8}),
-                framerate: 12,
-                repeat: -1,
-            })
-            if (insanity2Info.playerSkin === 'playerSkin2') {
-                this.anims.create({
-                    key: 'rainbow',
-                    frames: this.anims.generateFrameNumbers('playerSkin2', {start: 0, end: 9, first: 9}),
-                    framerate: 5,
-                    repeat: -1,
-                })
-                this.player.play('rainbow')
-            }
             //High scores
             if (insanity2Info.levelIndex === 44) {
                 insanity2Info.user = prompt('You Win! Enter your initials to be put on the high score leader board!')
@@ -361,10 +390,11 @@ let gameObject = {
             //Sets up text
             deathCounter = this.add.text(1000, 600, `Deaths: ${insanity2Info.deaths}`, deathCounterStyle)
             levelCounter = this.add.text(1000, 525, `Level: ${insanity2Info.levelIndex+1}`, levelCounterStyle)
+
         },
         update() { //Checks for events in the game; runs every "tick"
             if ((this.cursors.up.isDown || this.cursors.space.isDown) && this.player.body.touching.down === true ) { //&& (this.player.body.touching.right === false && this.player.body.touching.left === false)
-                    this.player.setVelocityY(upV)
+                this.player.setVelocityY(upV)
             } else if (this.cursors.left.isDown) { //if the cursor (input) key is down, the player will move left (-x direction)
                 this.player.setVelocityX(leftV)
             } else if (this.cursors.right.isDown) {
@@ -379,8 +409,9 @@ let gameObject = {
                 this.create()
                 save()
             }
+            //load()
             if (insanity2Info.deaths < deathCount) {
-                insanity2Info.deaths = 99999999
+                insanity2Info.deaths = deathCount
                 save()
                 alert('NO CHEATING')
                 location.reload()
@@ -391,10 +422,9 @@ let gameObject = {
                 alert('NO CHEATING')
                 location.reload() 
             }
-            collectedCoin = true
-            died = true
+            ran = true
         },
-        extend: { //Extra functions to run
+        extend:{ //Extra functions to run
             createLevel() {
 
                 for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
@@ -459,6 +489,26 @@ let gameObject = {
                             water.play('waves')
                             water.immovable = true; 
                         }
+                        
+                        else if (levels[insanity2Info.levelIndex][i][j] == 's') {
+                            let switchBlock = this.add.sprite(30+16*j, 30+16*i, 'switchUp')
+                            this.onSwitches.add(switchBlock)
+                        } 
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'S') {
+                            let switchBlock = this.add.sprite(30+16*j, 30+16*i, 'switchDown')
+                            this.offSwitches.add(switchBlock)
+                        } 
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'd') {
+                            let door = this.add.sprite(30+16*j, 30+16*i, 'switchDoor')
+                            this.doors.add(door)
+                        }
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'D') {
+                            let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
+                            this.emptyDoors.add(door)
+                        } 
                     }
                 }
             },
@@ -467,18 +517,18 @@ let gameObject = {
                 leftV = -160
                 rightV = 160
                 this.physics.config.gravity.y = 300
+                switched = true
             },
             takeCoin(player, coin) {
                 coin.anims.isPlaying = false
                 coin.destroy()
-                if (collectedCoin) {
+                if (ran) {
                     //this.sound.play('collect')
                     score += 1
-                    collectedCoin = false
+                    ran = false
                 }
             },
             takeWaterCoin(player, coin) {
-                console.log('water')
                 this.takeCoin(player, coin)
                 let water = this.add.sprite(coin.x, coin.y, 'water')
                 this.waterBlocks.add(water)
@@ -491,10 +541,15 @@ let gameObject = {
                 player.x = 100
                 player.y = 100
                 score = 0
-                if (died) {
+                deathCount = insanity2Info.deaths
+                if (ran) {
                     //this.sound.play('die')
-                    died = false
-                    insanity2Info.deaths += 1
+                    ran = false
+                    if (insanity2Info.deaths >= 9999999) {
+                        insanity2Info.deaths = 9999999
+                    } else {
+                        insanity2Info.deaths += 1
+                    }
                 }
                 for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
                     for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
@@ -511,6 +566,52 @@ let gameObject = {
                         }
                     }
                 }
+
+                //Resets switches and doors
+                let length1 = this.emptyDoors.children.entries.length
+                for (let i = 0; i < length1; i++) {
+                    this.emptyDoors.killAndHide(this.emptyDoors.children.entries[0])
+                    this.emptyDoors.children.entries[0].destroy()
+                }
+                let length2 = this.doors.children.entries.length
+                for (let i = 0; i < length2; i++) {
+                    this.doors.killAndHide(this.doors.children.entries[0])
+                    this.doors.children.entries[0].destroy()
+                }
+                let length3 = this.onSwitches.children.entries.length
+                for (let i = 0; i < length3; i++) {
+                    this.onSwitches.killAndHide(this.onSwitches.children.entries[0])
+                    this.onSwitches.children.entries[0].destroy()
+                }
+                let length4 = this.offSwitches.children.entries.length
+                for (let i = 0; i < length4; i++) {
+                    this.offSwitches.killAndHide(this.onSwitches.children.entries[0])
+                    this.offSwitches.children.entries[0].destroy() 
+                }
+                for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
+                    for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
+                        if (levels[insanity2Info.levelIndex][i][j] == 's') {
+                            let switchBlock = this.add.sprite(30+16*j, 30+16*i, 'switchUp')
+                            this.onSwitches.add(switchBlock)
+                        } 
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'S') {
+                            let switchBlock = this.add.sprite(30+16*j, 30+16*i, 'switchDown')
+                            this.offSwitches.add(switchBlock)
+                        } 
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'd') {
+                            let door = this.add.sprite(30+16*j, 30+16*i, 'switchDoor')
+                            this.doors.add(door)
+                        }
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'D') {
+                            let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
+                            this.emptyDoors.add(door)
+                        } 
+                    }
+                }
+
                 deathCounter.setText(`Deaths: ${insanity2Info.deaths}`)
                 save()
             },
@@ -564,9 +665,133 @@ let gameObject = {
                     this.player.setVelocityY(-80)
                 }
             },
+            switchOff(player, switchBlock) {
+                upV = 100
+                if (switched) {
+                    //switches appearance of switch
+                    switchBlock.destroy()
+                    let item = this.add.sprite(switchBlock.x, switchBlock.y, 'switchDown')
+                    this.offSwitches.add(item)
+                    switched = false
+
+                    //changed status of doors
+                    let length = this.doors.children.entries.length
+                    for (let i = 0; i < length; i++) {
+                        this.doors.killAndHide(this.doors.children.entries[0])
+                        let item = this.add.sprite(this.doors.children.entries[0].x, this.doors.children.entries[0].y, 'emptyDoor')
+                        this.emptyDoors.add(item)
+                        this.doors.children.entries[0].destroy()
+                    }
+
+                }
+ 
+            },
+            switchOn(player, switchBlock) {
+                upV = 100
+                if (switched) {
+                    //switches appearance of switch
+                    switchBlock.destroy()
+                    let item = this.add.sprite(switchBlock.x, switchBlock.y, 'switchUp')
+                    this.onSwitches.add(item)
+                    switched = false
+
+                    //changed status of doors
+                    let length = this.emptyDoors.children.entries.length
+                    for (let i = 0; i < length; i++) {
+                        this.emptyDoors.killAndHide(this.emptyDoors.children.entries[0])
+                        let item = this.add.sprite(this.emptyDoors.children.entries[0].x, this.emptyDoors.children.entries[0].y, 'switchDoor')
+                        this.doors.add(item)
+                        this.emptyDoors.children.entries[0].destroy()
+                    }
+                    
+                }
+            }
         }
     }
 }
 
+const destroy = (x) => {
+}
+
 //Run the game
 let game = new Phaser.Game(gameObject)
+
+
+/*
+                    //RESTART
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'd') {
+                            let door = this.add.sprite(30+16*j, 30+16*i, 'switchDoor')
+                            this.emptyDoors.add(door)
+                            door.immovable = true
+                        } 
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'D') {
+                            let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
+                            this.doors.add(door)
+                            door.immovable = true
+                        } 
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 's') {
+                            let switchItem = this.add.sprite(30+16*j, 30+16*i, 'switchUp')
+                            this.onSwitches.add(switchItem)
+                            switchItem.immovable = true
+                        } 
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'S') {
+                            let switchItem = this.add.sprite(30+16*j, 30+16*i, 'switchDown')
+                            this.onSwitches.add(switchItem)
+                            switchItem.immovable = true
+                        } 
+
+                        //SWITCH OFF
+               if (switchStatus) {
+                    console.log('switchOff', switchStatus)
+                    for (let item of this.doors.children.entries) {
+                        item.destroy()
+                        return true
+                    }
+                    this.doors.getChildren().map(child => {this.doors.killAndHide(child)})
+                    for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
+                        for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
+                            if (levels[insanity2Info.levelIndex][i][j] == 'd' || levels[insanity2Info.levelIndex][i][j] == 'D') {
+                                let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
+                                this.emptyDoors.add(door)
+                                door.immovable = true; 
+                            } 
+                        }
+                    }
+                    switchBlock.destroy()
+                    let switchItem = this.add.sprite(switchBlock.x, switchBlock.y, 'switchDown')
+                    switchItem.immovable = true
+                    this.offSwitches.add(switchItem)
+                    funcRan = true
+                    setTimeout(() => {
+                        switchStatus = false
+                    }, 500)
+                }
+                        //SWITCH ON
+                                        if (!switchStatus) {
+                    console.log('switchOn', switchStatus)
+                    for (let item of this.emptyDoors.children.entries) {
+                        item.destroy()
+                        return true
+                    }
+                    for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
+                        for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
+                            if (levels[insanity2Info.levelIndex][i][j] == 'd' || levels[insanity2Info.levelIndex][i][j] == 'D') {
+                                let door = this.add.sprite(30+16*j, 30+16*i, 'switchDoor')
+                                this.doors.add(door)
+                                door.immovable = true; 
+                            } 
+                        }
+                    }
+                    switchBlock.destroy()
+                    let switchItem = this.add.sprite(switchBlock.x, switchBlock.y, 'switchUp')
+                    switchItem.immovable = true
+                    this.onSwitches.add(switchItem)
+
+                    setTimeout(() => {
+                        switchStatus = true
+                    }, 500)
+                }
+*/
