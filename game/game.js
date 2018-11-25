@@ -139,8 +139,8 @@ const levels = [
         'x     x     x                            xxxjjx   x',
         'x     x     xxxx                              x   x',
         'x      p                                      x   x',
-        'xxxxxxxxjjxx  rrr!!!!!!!!!!!!!!xxxxx!!jj!!!!!!x   x',
-        'xxxxxxxxxxxx!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   x',
+        'xxxxxxxxjjxx   rr!!!!!!!!!!!!!!xxxxx!!jj!!!!!!x   x',
+        'xxxxxxxxxxxx!!!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxx   x',
         'x                                                 x',
         'x                                                 x',
         'x                                                 x',
@@ -523,6 +523,7 @@ let gameObject = {
                             this.pushables.add(block)
                             block.body.bounce.y = 0.5
                         }  
+
                     }
                 }
             },
@@ -581,7 +582,7 @@ let gameObject = {
                     }
                 }
 
-                //Resets switches and doors
+                //Resets switches, doors, and push-blocks
                 let length1 = this.emptyDoors.children.entries.length
                 for (let i = 0; i < length1; i++) {
                     this.emptyDoors.killAndHide(this.emptyDoors.children.entries[0])
@@ -601,6 +602,11 @@ let gameObject = {
                 for (let i = 0; i < length4; i++) {
                     this.offSwitches.killAndHide(this.onSwitches.children.entries[0])
                     this.offSwitches.children.entries[0].destroy() 
+                }
+                let length5 = this.pushables.children.entries.length
+                for (let i = 0; i < length5; i++) {
+                    this.pushables.killAndHide(this.pushables.children.entries[0])
+                    this.pushables.children.entries[0].destroy()
                 }
                 for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
                     for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
@@ -623,6 +629,11 @@ let gameObject = {
                             let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
                             this.emptyDoors.add(door)
                         } 
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'p') {
+                            let block = this.add.sprite(30+16*j, 30+16*i, 'pushBlock')
+                            this.pushables.add(block)
+                        }  
                     }
                 }
 
