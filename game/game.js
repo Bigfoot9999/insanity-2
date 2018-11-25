@@ -102,13 +102,13 @@ const levels = [
         'xxxxxxxxxxxx                     x                x',
         'xxxxxxxxxxxx                s    x           x    x',
         'xxxxxxxxxxxx                   o x           !    x',
-        'xxxxxxxxxxxx          xxxxxxxxxxxx!!!x            x',
+        'xxxxxxxxxxxx!!        xxxxxxxxxxxx!!!x            x',
         'xxxxxxxxxxxx                     x                x',
         'xxxxxxxxxxxx                     x         x      x',
         'xxxxxxxxxxxx                     d         !      x',
         'xxxxxxxxxxxx                     d               xx',
         'xxxxxxxxxxxx                o    x                x',
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'xxxxxxxxxxxx!!!!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -132,15 +132,15 @@ const levels = [
     ],
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        'x     x                                           x',
-        'x     x                                       x   x',
-        'x     x  o                                    x   x',
-        'x     x                                       x   x',
-        'x     x                                  xxxjjx   x',
-        'x     x                                       x   x',
-        'x                                             x   x',
-        'xxxxxxxxjjx!!!rrr!!!!!!!!!!!!!!xxxxx!!jj!!!!!!x   x',
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   x',
+        'x     x     x                                     x',
+        'x     x     x                                 x   x',
+        'x     x  o  x                                 x   x',
+        'x     x     x                                 x   x',
+        'x     x     x                            xxxjjx   x',
+        'x     x     xxxx                              x   x',
+        'x      p                                      x   x',
+        'xxxxxxxxjjxx  rrr!!!!!!!!!!!!!!xxxxx!!jj!!!!!!x   x',
+        'xxxxxxxxxxxx!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   x',
         'x                                                 x',
         'x                                                 x',
         'x                                                 x',
@@ -266,6 +266,7 @@ let gameObject = {
             this.load.image('switchDown', './game-assets/other/switch-down.png')
             this.load.image('switchDoor', './game-assets/other/red-door.png')
             this.load.image('emptyDoor', './game-assets/other/empty-door.png')
+            this.load.image('pushBlock', './game-assets/other/push-block.png')
             //this.load.audio('collect', '/game-assets/audio/Mario-coin-sound.mp3')
             //this.load.audio('die', '/game-assets/audio/beep-03.mp3')
 
@@ -363,6 +364,7 @@ let gameObject = {
             this.offSwitches = this.physics.add.staticGroup()
             this.doors = this.physics.add.staticGroup()
             this.emptyDoors = this.physics.add.staticGroup()
+            this.pushables = this.physics.add.group()
     
             //Sets up physics
             this.physics.add.collider(this.player, this.jumpBlocks, this.jump, null, this)
@@ -370,13 +372,19 @@ let gameObject = {
             this.physics.add.collider(this.player, this.speedRightBlocks, this.speedRight, null, this)
             this.physics.add.collider(this.player, this.walls, this.stopV, null, this)
             this.physics.add.collider(this.player, this.doors, this.stopV, null, this)
+            this.physics.add.collider(this.walls, this.pushables, this.stopPushV, null, this)
+            this.physics.add.collider(this.deathBlocks, this.pushables, this.stopPushV, null, this)
+            this.physics.add.collider(this.jumpBlocks, this.pushables, this.stopPushV, null, this)
+            this.physics.add.collider(this.speedLeftBlocks, this.pushables, this.stopPushV, null, this)
+            this.physics.add.collider(this.speedRightBlocks, this.pushables, this.stopPushV, null, this)
+            this.physics.add.collider(this.pushables, this.pushables)
+            this.physics.add.collider(this.player, this.pushables, this.push, null, this)
             this.physics.add.overlap(this.player, this.coins, this.takeCoin, null, this)
             this.physics.add.overlap(this.player, this.waterCoins, this.takeWaterCoin, null, this)
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
             this.physics.add.overlap(this.player, this.waterBlocks, this.swim, null, this)
             this.physics.add.overlap(this.player, this.onSwitches, this.switchOff, null, this)
             this.physics.add.overlap(this.player, this.offSwitches, this.switchOn, null, this)
-
 
             //High scores
             if (insanity2Info.levelIndex === 44) {
@@ -509,6 +517,12 @@ let gameObject = {
                             let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
                             this.emptyDoors.add(door)
                         } 
+
+                        else if (levels[insanity2Info.levelIndex][i][j] == 'p') {
+                            let block = this.add.sprite(30+16*j, 30+16*i, 'pushBlock')
+                            this.pushables.add(block)
+                            block.body.bounce.y = 0.5
+                        }  
                     }
                 }
             },
@@ -705,93 +719,18 @@ let gameObject = {
                     }
                     
                 }
-            }
+            },
+            push(item, pushBlock) {
+                if (pushBlock.body.touching.left || pushBlock.body.touching.right) {
+                    pushBlock.body.velocity.x = this.player.body.velocity.x
+                }
+            }, 
+            stopPushV(wall, pushBlock) {
+                pushBlock.body.velocity.x = 0
+            },
         }
     }
 }
 
-const destroy = (x) => {
-}
-
 //Run the game
 let game = new Phaser.Game(gameObject)
-
-
-/*
-                    //RESTART
-                        else if (levels[insanity2Info.levelIndex][i][j] == 'd') {
-                            let door = this.add.sprite(30+16*j, 30+16*i, 'switchDoor')
-                            this.emptyDoors.add(door)
-                            door.immovable = true
-                        } 
-
-                        else if (levels[insanity2Info.levelIndex][i][j] == 'D') {
-                            let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
-                            this.doors.add(door)
-                            door.immovable = true
-                        } 
-
-                        else if (levels[insanity2Info.levelIndex][i][j] == 's') {
-                            let switchItem = this.add.sprite(30+16*j, 30+16*i, 'switchUp')
-                            this.onSwitches.add(switchItem)
-                            switchItem.immovable = true
-                        } 
-
-                        else if (levels[insanity2Info.levelIndex][i][j] == 'S') {
-                            let switchItem = this.add.sprite(30+16*j, 30+16*i, 'switchDown')
-                            this.onSwitches.add(switchItem)
-                            switchItem.immovable = true
-                        } 
-
-                        //SWITCH OFF
-               if (switchStatus) {
-                    console.log('switchOff', switchStatus)
-                    for (let item of this.doors.children.entries) {
-                        item.destroy()
-                        return true
-                    }
-                    this.doors.getChildren().map(child => {this.doors.killAndHide(child)})
-                    for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
-                        for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
-                            if (levels[insanity2Info.levelIndex][i][j] == 'd' || levels[insanity2Info.levelIndex][i][j] == 'D') {
-                                let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
-                                this.emptyDoors.add(door)
-                                door.immovable = true; 
-                            } 
-                        }
-                    }
-                    switchBlock.destroy()
-                    let switchItem = this.add.sprite(switchBlock.x, switchBlock.y, 'switchDown')
-                    switchItem.immovable = true
-                    this.offSwitches.add(switchItem)
-                    funcRan = true
-                    setTimeout(() => {
-                        switchStatus = false
-                    }, 500)
-                }
-                        //SWITCH ON
-                                        if (!switchStatus) {
-                    console.log('switchOn', switchStatus)
-                    for (let item of this.emptyDoors.children.entries) {
-                        item.destroy()
-                        return true
-                    }
-                    for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
-                        for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
-                            if (levels[insanity2Info.levelIndex][i][j] == 'd' || levels[insanity2Info.levelIndex][i][j] == 'D') {
-                                let door = this.add.sprite(30+16*j, 30+16*i, 'switchDoor')
-                                this.doors.add(door)
-                                door.immovable = true; 
-                            } 
-                        }
-                    }
-                    switchBlock.destroy()
-                    let switchItem = this.add.sprite(switchBlock.x, switchBlock.y, 'switchUp')
-                    switchItem.immovable = true
-                    this.onSwitches.add(switchItem)
-
-                    setTimeout(() => {
-                        switchStatus = true
-                    }, 500)
-                }
-*/
