@@ -147,17 +147,17 @@ const levels = [
         'x                                                 x',
         'x                                                 x',
         'x    o            o                               x',
-        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!lll!!!!!!!!!!!!!llllx',
+        'x!!!!x!!!!!!!!!!!!x!!!!!!!!!!!lll!!!!!!!!!!!!!llllx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                                 x',
-        'x                                                 x',
+        'x                                                ox',
         'x                                                 x',
         'x                                                 x',
         'x                                         x       !',
-        'x                                o        x    rrr!',
+        'x                                x        x    rrr!',
         'x                 rrrr                    !       !',
         'x                                         !lll    x',
         'xxxxxxx      j                            !       x',
@@ -168,8 +168,8 @@ const levels = [
         'x                                                 x',
         '!         xxxxxx                                  x',
         '!lllll    !                                       x',
-        '!         !          j                            x',
-        'x    rrrrr!                   o                   x',
+        '!         !          j        o                   x',
+        'x    rrrrr!                   x                   x',
         'x      !!!!                                       x',
         'x         !                                       x',
         'x         !                                       x',
@@ -205,10 +205,10 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                           x         !                  x',
         'x                           !                            x',
-        'x                                                        x',
         'x                                     o                  x',
-        'x                           o            !!!!xxxx        x',
-        'x                                     !!!!!!!!!xx        x',
+        'x                           o                            x',
+        'x                                     x  !!!!xxxx        x',
+        'x                           x         !!!!!!!!!xx        x',
         'xxxxxxxxxxrrrrrr          !!!!!!!!!!!!!!!!!!!!!!x        x',
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!         !!!!!!!!!!!!!       !x',
         'x                       x           !!!!!!!!!!!!       !!x',
@@ -535,6 +535,7 @@ let gameObject = {
                 switched = true
             },
             takeCoin(player, coin) {
+                upV = 0
                 coin.anims.isPlaying = false
                 coin.destroy()
                 if (ran) {
