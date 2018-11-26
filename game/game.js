@@ -147,7 +147,7 @@ const levels = [
         'x                                                 x',
         'x                                                 x',
         'x    o            o                               x',
-        'x!!!!x!!!!!!!!!!!!x!!!!!!!!!!!lll!!!!!!!!!!!!!llllx',
+        'x!!!!x!!!!!!!!!!!jx!!!!!!!!!!!lll!!!!!!!!!!!!!llllx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
