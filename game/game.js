@@ -545,10 +545,16 @@ let gameObject = {
                 }
             },
             takeWaterCoin(player, coin) {
-                this.takeCoin(player, coin)
                 let water = this.add.sprite(coin.x, coin.y, 'water')
                 this.waterBlocks.add(water)
                 water.immovable = true
+                coin.anims.isPlaying = false
+                coin.destroy()
+                if (ran) {
+                    //this.sound.play('collect')
+                    score += 1
+                    ran = false
+                }
             },
             restart(player, deathBlock) {
                 this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
