@@ -24,6 +24,12 @@
 		</script>
 	</head>
 	<body class="is-preload" oncontextmenu="return false">
+		<script>
+            let password = prompt('Developer password?')
+            if (password !== 'treadmill') {
+				window.history.back()
+            }
+        </script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129027038-2"></script>
         <script>

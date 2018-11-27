@@ -248,7 +248,7 @@ let gameObject = {
     scene: { //Parts of the game that make it work
         preload() { //Pre-loads images and audio in the game to reduce lag
             load()
-            this.load.image('background1', './game-assets/backgrounds/stone-background1.png')
+            this.load.image('background1', './game-assets/backgrounds/stone-background-dark.png')
             this.load.image('background2', './game-assets/backgrounds/wood-background.png')
             this.load.image('playerSkin1', './game-assets/skins/playerSkin1.png')
             this.load.spritesheet('playerSkin2', './game-assets/skins/playerSkin2.png', {frameWidth: 16, frameHeight: 16, endFrame: 10})
