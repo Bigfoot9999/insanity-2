@@ -256,33 +256,34 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x!!!!!!x                                     x',
         'x!!!!!!x    llxxxxxxxxxxxxxxxx            x  x',
-        'x!!!!!!x  !!!!!!!!!!!!!!!!!!!!!!xx       x!  x',
+        'x!!!!!!x  !!!!!!!!!!!!!!!!!!!!!!xxx    xx!!x x',
         'x                !!! !!!!!!!!!!!!xx          x',
-        'x!!x     x         !!!!!!!!!!!!!!         x!!x',
+        'x!!x     x         !!!!!!!!!!!!!!!!      xxxxx',
         'xo d     x           !!!!!!!!!!!!xxx         x',
         'xxxxxxxxxx             !!!!!!!!!!!!!xttttttttx',
         'x!!!!!!!!!               !!!!!!!!!!!xwwwwww!!x',
         'x!!!!!!!!!     !!!!        !!!!!!!!!xwwwwwwwwx',
-        'x!!!!!!!!!   !!xxxx!       !!!!!!!!!x!!wwwwwwx',
-        'xxxxxxxxxxjj!!xxxxxx!      !!!!!!!!!xwwwwwwwwx',
-        'x!!wwwwwwwwww!xxxxxx!      !!!!!!!!!xwwwwwwwwx',
-        'x!!www!!!wwww!xxxxxx!      !!!!!!!!!xwwwwww!!x',
+        'x!!!!!!!!!   !!xxxx!       !!!!!!!!!x!!!!wwwwx',
+        'xxxxxxxxxxjj!!xxxxxx!      !!!!xxxx!xwwwwwwwwx',
+        'x!!wwwwwwwwww!xxxxxx!      !!!Owwwwwwwwwwwwwwx',
+        'x!!www!!!wwww!xxxxxx!      !!!xx!!xxxwww!!!!!x',
         'x!!ww!!!!wwww!xxxxxx!      !!!!!!!!!xwwwwwwwwx',
-        'x!!ww!!!!!wwww!xxxx!       !!!!!!!!!x!!wwwwwwx',
-        'x!!ww!!!!!!wwww!!!!        !!!!!!!!!xwwwwwww!x',
-        'x!!ww!!!!!!!wwwwwww       !!!!!!!!!!xwwwwwwwwx',
-        'x!!wwxxxxxxxxwwwwww     !!!!!      !x!!!!wwwwx',
-        'x!!wwxxxxxxxxxxxxxx   !!!!!!!xs     xwwwwwwwwx',
+        'x!!ww!!!!!wwww!xxxx!       !!!!!!!!!x!wwwwwwwx',
+        'x!!ww!!!!!!wwww!!!!        !!!!!!!!!xwwwwww!!x',
+        'x!!ww!!!!!!!wwwwwww       !!!!x!!!!!xwwwwwwwwx',
+        'x!!wwxxxxxxxxwwwwww     !!!!! s    !x!!!!wwwwx',
+        'x!!wwxxxxxxxxxxxxxx   !!!!!!!x      xwwwwwwwwx',
         'xxxwwxxxxxxxxxxxxxxjjjxxxxxxxxx     xxxxxxwwxx',
         'x              !!!!!!!!    !!!!x    d   !    x',
         'x               !!!!!!      !!!!!   d   !    x',
-        'x                                  jx   !    x',
-        'xrrrr                               x    j   x',
+        'x                                   x   !    x',
+        'xrrrr                              jx    j   x',
         'x!!!!                               x        x',
-        'x!!!!llll       rrr     jj    r    jx       xx',
+        'x!!!!llll       rrr     jj    r     x       xx',
         'x!!!!!!!!!    !!!!!!!!!!!!!!!!!!!!!!x x     ox',
-        'x!!!!!!!!!!jj!!!!!!!!!!!!!!!!!!!!!!!x!!!!!!!xx',
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x!!!!!!!!!!jj!!!!!!!!!!!!!!!!!!!!!!!x       xx',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx!!!!!!!xx',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ]
 ]
 
@@ -588,7 +589,9 @@ let gameObject = {
                 leftV = -160
                 rightV = 160
                 this.physics.config.gravity.y = 300
-                switched = true
+                if (this.player.body.touching.down) {
+                    switched = true
+                }
             },
             takeCoin(player, coin) {
                 upV = 0
