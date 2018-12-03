@@ -161,11 +161,11 @@ const levels = [
         'x                 rrrr                    !       !',
         'x                                         !lll    x',
         'xxxxxxx      j                            !       x',
-        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x!!!!   x',
+        'x!!!!!!!   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x!!!!   x',
         'x                                                 x',
         'x                                                 x',
         'x                                                 x',
-        'x                                                 x',
+        'x          p                                      x',
         '!         xxxxxx                                  x',
         '!lllll    !                                       x',
         '!         !          j        o                   x',
@@ -174,7 +174,7 @@ const levels = [
         'x         !                                       x',
         'x         !                                       x',
         'x        o!                           j         xxx',
-        'x!jj!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
@@ -266,7 +266,7 @@ const levels = [
         'x!!!!!!!!!   !!xxxx!       !!!!!!!!!x!!!!wwwwx',
         'xxxxxxxxxxjj!!xxxxxx!      !!!!xxxx!xwwwwwwwwx',
         'x!!wwwwwwwwww!xxxxxx!      !!!Owwwwwwwwwwwwwwx',
-        'x!!www!!!wwww!xxxxxx!      !!!xx!!xxxwww!!!!!x',
+        'x!!www!!!wwww!xxxxxx!      !!!xx!!xxxwwwww!!!x',
         'x!!ww!!!!wwww!xxxxxx!      !!!!!!!!!xwwwwwwwwx',
         'x!!ww!!!!!wwww!xxxx!       !!!!!!!!!x!wwwwwwwx',
         'x!!ww!!!!!!wwww!!!!        !!!!!!!!!xwwwwww!!x',
@@ -432,8 +432,8 @@ let gameObject = {
             this.physics.add.collider(this.walls, this.pushables, this.stopPushV, null, this)
             this.physics.add.collider(this.deathBlocks, this.pushables, this.stopPushV, null, this)
             this.physics.add.collider(this.jumpBlocks, this.pushables, this.stopPushV, null, this)
-            this.physics.add.collider(this.speedLeftBlocks, this.pushables, this.stopPushV, null, this)
-            this.physics.add.collider(this.speedRightBlocks, this.pushables, this.stopPushV, null, this)
+            this.physics.add.collider(this.speedLeftBlocks, this.pushables, this.pushLeft, null, this)
+            this.physics.add.collider(this.speedRightBlocks, this.pushables, this.pushRight, null, this)
             this.physics.add.collider(this.pushables, this.pushables)
             this.physics.add.collider(this.player, this.pushables, this.push, null, this)
             this.physics.add.overlap(this.player, this.coins, this.takeCoin, null, this)
@@ -805,6 +805,14 @@ let gameObject = {
             stopPushV(wall, pushBlock) {
                 pushBlock.body.velocity.x = 0
             },
+            pushLeft(speedBlock, pushBlock) {
+                pushBlock.x -= .5
+                this.stopPushV(null, pushBlock)
+            },
+            pushRight(speedBlock, pushBlock) {
+                pushBlock.x += .5
+                this.stopPushV(null, pushBlock)
+            }
         }
     }
 }
