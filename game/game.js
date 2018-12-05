@@ -7,6 +7,7 @@ let insanity2Info = {
     deaths: 0,
     levelIndex: 0,
     playerSkin: 'playerSkin1',
+    skinColor: 0x2fe719,
     newSession: true,
     background: 'background1',
     user: '',
@@ -16,6 +17,7 @@ let defaultCache = () => JSON.parse(JSON.stringify({
     deaths: 0,
     levelIndex: 0,
     playerSkin: 'playerSkin1',
+    skinColor: 0x2fe719,
     newSession: true,
     background: 'background1',
     user: '',
@@ -42,6 +44,7 @@ const resetStorage = () => {
         deaths: 0,
         levelIndex: 0,
         playerSkin: 'playerSkin1',
+        skinColor: 0x2fe719,
         newSession: true,
         background: 'background1',
         user: '',
@@ -60,6 +63,7 @@ let upV = -160
 let switchOff = false
 let ran = true
 let switchStatus, switched
+let sped
 
 let deathCounter, levelCounter
 
@@ -79,6 +83,29 @@ const levelCounterStyle = {
     zIndex: 11,
 }
 
+/* Tesing level
+    [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ],
+*/
+
 const levels = [
     [
         'xxxxxxxxxxxxxxxxxxxxxxx',
@@ -90,6 +117,19 @@ const levels = [
         'xxxxxxxxxxxxxxxxx!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxx'
     ], 
+    [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x                                                x',
+        'x                                                x',
+        'x                               rrrrrrrrrrrrrrrrrx',
+        'x                                                x',
+        'x                                                x',
+        'x                           j   lllllllllllllllllx',
+        'x                                                x',
+        'x                                                x',
+        'x                              jxxxxxxxxxxxxxxxxxx',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ],
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                x                x',
@@ -161,7 +201,7 @@ const levels = [
         'x                 rrrr                    !       !',
         'x                                         !lll    x',
         'xxxxxxx      j                            !       x',
-        'x!!!!!!!   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x!!!!   x',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x!!!!   x',
         'x                                                 x',
         'x                                                 x',
         'x                                                 x',
@@ -170,7 +210,7 @@ const levels = [
         '!lllll    !                                       x',
         '!         !          j        o                   x',
         'x    rrrrr!                   x                   x',
-        'x      !!!!                                       x',
+        'x        !!                                       x',
         'x         !                                       x',
         'x         !                                       x',
         'x        o!                           j         xxx',
@@ -284,7 +324,26 @@ const levels = [
         'x!!!!!!!!!!jj!!!!!!!!!!!!!!!!!!!!!!!x       xx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx!!!!!!!xx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    ]
+    ],
+    [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x    x                                           x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',]
 ]
 
 //Sets up the object that gets passed into the game
@@ -403,6 +462,7 @@ let gameObject = {
             this.player = this.physics.add.sprite(100, 100, 'playerSkin1')
             this.player.setCollideWorldBounds(true)
             this.player.setDepth(1)
+            this.player.setTint(insanity2Info.skinColor)
             
             //sets up the input
             this.cursors = this.input.keyboard.createCursorKeys()
@@ -412,6 +472,7 @@ let gameObject = {
             this.coins = this.physics.add.staticGroup()
             this.waterCoins = this.physics.add.staticGroup()
             this.deathBlocks = this.physics.add.staticGroup()
+            this.spikes = this.physics.add.staticGroup()
             this.speedLeftBlocks = this.physics.add.staticGroup()
             this.speedRightBlocks = this.physics.add.staticGroup()
             this.jumpBlocks = this.physics.add.staticGroup()
@@ -424,29 +485,33 @@ let gameObject = {
             this.pushables = this.physics.add.group()
     
             //Sets up physics
+            this.physics.add.collider(this.player, this.walls, this.stopV, null, this)
+            this.physics.add.collider(this.player, this.doors, this.stopV, null, this)
             this.physics.add.collider(this.player, this.jumpBlocks, this.jump, null, this)
             this.physics.add.collider(this.player, this.speedLeftBlocks, this.speedLeft, null, this)
             this.physics.add.collider(this.player, this.speedRightBlocks, this.speedRight, null, this)
-            this.physics.add.collider(this.player, this.walls, this.stopV, null, this)
-            this.physics.add.collider(this.player, this.doors, this.stopV, null, this)
             this.physics.add.collider(this.walls, this.pushables, this.stopPushV, null, this)
             this.physics.add.collider(this.deathBlocks, this.pushables, this.stopPushV, null, this)
-            this.physics.add.collider(this.jumpBlocks, this.pushables, this.stopPushV, null, this)
             this.physics.add.collider(this.speedLeftBlocks, this.pushables, this.pushLeft, null, this)
             this.physics.add.collider(this.speedRightBlocks, this.pushables, this.pushRight, null, this)
+            this.physics.add.collider(this.pushables, this.jumpBlocks, this.jump, null, this)
             this.physics.add.collider(this.pushables, this.pushables)
             this.physics.add.collider(this.player, this.pushables, this.push, null, this)
+            this.physics.add.overlap(this.player, this.pushables, this.pushOverlap, null, this)
             this.physics.add.overlap(this.player, this.coins, this.takeCoin, null, this)
             this.physics.add.overlap(this.player, this.waterCoins, this.takeWaterCoin, null, this)
             this.physics.add.overlap(this.player, this.deathBlocks, this.restart, null, this)
+            this.physics.add.overlap(this.player, this.spikes, this.restart, null, this)
             this.physics.add.overlap(this.player, this.waterBlocks, this.swim, null, this)
             this.physics.add.overlap(this.player, this.onSwitches, this.switchOff, null, this)
             this.physics.add.overlap(this.player, this.offSwitches, this.switchOn, null, this)
+            this.physics.add.overlap(this.pushables, this.onSwitches, this.switchOff, null, this)
+            this.physics.add.overlap(this.pushables, this.offSwitches, this.switchOn, null, this)
 
             //High scores
             if (insanity2Info.levelIndex === 44) {
                 insanity2Info.user = prompt('You Win! Enter your initials to be put on the high score leader board!')
-                saveHighScore(insanity2Info.user, insanity2Info.deaths)
+                def(insanity2Info.user, insanity2Info.deaths)
             }
 
             //Creates the level
@@ -465,7 +530,9 @@ let gameObject = {
             } else if (this.cursors.right.isDown) {
                 this.player.setVelocityX(rightV)
             } else {
-                this.player.setVelocityX(0)
+                if (sped) {
+                    this.player.setVelocityX(0)
+                }
             }
             if (score === 3) {
                 insanity2Info.levelIndex += 1
@@ -473,6 +540,9 @@ let gameObject = {
                 levelCounter.setText(`Level: ${insanity2Info.levelIndex+1}`)
                 this.create()
                 save()
+            }
+            if (!this.player.body.touching.right && !this.player.body.touching.left && !this.player.body.touching.down && !this.player.body.touching.up) {
+                sped = true
             }
             //load()
             if (insanity2Info.deaths < deathCount) {
@@ -578,8 +648,7 @@ let gameObject = {
                         else if (levels[insanity2Info.levelIndex][i][j] == 'p') {
                             let block = this.add.sprite(30+16*j, 30+16*i, 'pushBlock')
                             this.pushables.add(block)
-                            block.body.bounce.y = 0.5
-                        }  
+                        } 
 
                     }
                 }
@@ -591,6 +660,7 @@ let gameObject = {
                 this.physics.config.gravity.y = 300
                 if (this.player.body.touching.down) {
                     switched = true
+                    sped = true
                 }
             },
             takeCoin(player, coin) {
@@ -708,27 +778,27 @@ let gameObject = {
             },
             speedRight() {
                 upV = -160
-                leftV = -160
                 if (this.player.body.touching.down) {
-                    this.player.x += .5
+                    this.player.setVelocityX(25)
                 }
                 if (this.cursors.left.isDown) {
-                    leftV = -160
+                    leftV = -100
                 } else if (this.cursors.right.isDown) {
                     rightV = 220
                 }
+                sped = false
             },
-            speedLeft() {
+            speedLeft(player, speedBlock) {
                 upV = -160
-                rightV = 160
                 if (this.player.body.touching.down) {
-                    this.player.x -= .5
+                    player.setVelocityX(-25)
                 }
                 if (this.cursors.right.isDown) {
-                    rightV = 160
+                    rightV = 100
                 } else if (this.cursors.left.isDown) {
                     leftV = -220
                 } 
+                sped = false
             },
             jump(player, block) {
                 rightV = 160
@@ -736,11 +806,15 @@ let gameObject = {
                 if (this.cursors.up.isDown) {
                     block.play('jumpUp')
                     setTimeout(() => {block.isPlaying = false}, 500)
-                    upV = -220
+                    if (player.texture.key !== 'pushBlock') {
+                        upV = -220
+                    }
                 } else {
                     block.play('jumpUp')
                     setTimeout(() => {block.isPlaying = false}, 500)
-                    this.player.setVelocityY(-120)
+                    //player.setVelocityY(-120)
+                    player.body.velocity.y = -120
+                    player.body.velocity.x = 0
                 }
             },
             swim() {
@@ -748,7 +822,7 @@ let gameObject = {
                 rightV = 100
                 if (this.cursors.down.isDown) {
                     this.player.setVelocityY(100)
-                    return
+                    return true
                 }
                 if (!this.cursors.up.isDown) {
                     this.player.setVelocityY(40)
@@ -798,20 +872,39 @@ let gameObject = {
                 }
             },
             push(item, pushBlock) {
-                if (pushBlock.body.touching.left || pushBlock.body.touching.right) {
-                    pushBlock.body.velocity.x = this.player.body.velocity.x
+                if ((!pushBlock.body.touching.right || !pushBlock.body.touching.left) && (pushBlock.body.touching.left || pushBlock.body.touching.right)) {
+                    //pushBlock.body.velocity.x = this.player.body.velocity.x
                 }
             }, 
             stopPushV(wall, pushBlock) {
                 pushBlock.body.velocity.x = 0
             },
             pushLeft(speedBlock, pushBlock) {
-                pushBlock.x -= .5
-                this.stopPushV(null, pushBlock)
+                if (pushBlock.body.touching.down && (!pushBlock.body.touching.right && !pushBlock.body.touching.left)) {
+                    pushBlock.x -= .5
+                    this.stopPushV(null, pushBlock)
+                }
             },
             pushRight(speedBlock, pushBlock) {
-                pushBlock.x += .5
-                this.stopPushV(null, pushBlock)
+                if (pushBlock.body.touching.down && (!pushBlock.body.touching.right && !pushBlock.body.touching.left)) {
+                    pushBlock.x += .5
+                    this.stopPushV(null, pushBlock)
+                }
+            },
+            pushOverlap(player, pushBlock) {
+                if (player.x > pushBlock.x) {
+                    if (this.cursors.left.isDown) {
+                        this.player.setVelocityX(200)
+                    } else {
+                        player.x += .5
+                    }
+                } else if (player.x < pushBlock.x) {
+                    if (this.cursors.right.isDown) {
+                        this.player.setVelocityX(-200)
+                    } else {
+                        player.x -= .5
+                    }
+                }
             }
         }
     }
