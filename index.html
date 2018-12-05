@@ -15,8 +15,10 @@
         <link rel="stylesheet" href="assets/css/main.css" />
         <link rel="stylesheet" href="assets/css/images.css"/>
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<!--Ads-->
+		<!--
 		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<!--<script>
+		<script>
 			(adsbygoogle = window.adsbygoogle || []).push({
 				google_ad_client: "ca-pub-9866393017887774",
 				enable_page_level_ads: true
@@ -29,7 +31,8 @@
             if (password !== 'treadmill') {
 				window.history.back()
             }
-        </script>
+		</script>
+		
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129027038-2"></script>
         <script>
@@ -61,17 +64,23 @@
 						<div class="col-6 col-12-medium">
 							<ul class="major-icons">
                                 <li><span class="icon style1 major " id="wall"></span></li>
-								<li><span class="icon style2 major " id="death"></span></li>
-                                <h4>Wall Tiles &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Death Tiles</h4>
+								<li><span class="icon style2 major " id="water"></span></li>
+								<h4>Walls &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Water</h4>
 								<li><span class="icon style3 major " id="jump"></span></li>
 								<li><span class="icon style4 major " id="speed"></span></li>
                                 <h4>Jump Tiles &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Speed Tiles</h4>
 								<li><span class="icon style5 major " id="coin"></span></li>
-								<li><span class="icon style6 major " id="player"></span></li>
-                                <h4>Coins &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Player (You)</h4>
-								<li><span class="icon style6 major " id="water"></span></li>
+								<li><span class="icon style6 major " id="water-coin"></span></li>
+                                <h4>Coins &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underwater Coins</h4>
+								<li><span class="icon style6 major " id="spikes"></span></li>
+								<li><span class="icon style6 major " id="death"></span></li>
+                                <h4>Spikes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lava</h4>
 								<li><span class="icon style6 major " id="switch"></span></li>
-								<h4>Water &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Switches</h4>
+								<li><span class="icon style6 major " id="door"></span></li>
+								<h4>Switches &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Doors</h4>
+								<li><span class="icon style6 major " id="pushable"></span></li>
+								<li><span class="icon style6 major " id="player"></span></li>
+								<h4>Moveable Blocks &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The player (You)</h4>
 							</ul>
 						</div>
 						<div class="col-6 col-12-medium">
@@ -81,37 +90,63 @@
 							<p>In Infinite Insanity, you are the green square trying to collect all of the yellow coins. 
 								You have to manuever through tough obstacles and challenges in order to collect the coins</p><br>
 							<p>To move, you can use the arrow keys. If you want to jump, you can use either the space bar or the up arrow. 
-								There are a bunch of secrets in the game that are waiting to be unlocked. Try your best to find them!
 							</p><br>
-							<p>There are 2 special blocks in Infinite Insanity: Treadmills and trampolines. Treadmills will accelerate you in the direction they are moving.
-								Trampolines will bounce you up very high if you jump. They both look like how they are represented on the left.
+							<p>There are many special blocks in Infinite Insanity. One type of special blocks are treadmills. Treadmills will accelerate you in the direction they are moving.
+								Another special block are the trampolines. Trampolines will bounce you up very high if you jump. They both look like how they are represented on the left.
 								But you need to be careful, as treadmills will move you without you pressing any keys, and trampolines will bounce you up without moving as well.
+							</p><br>
+							<p>The next special blocks are the switches and doors. Switches can toggle doors to be on or off once pressed. The last and final special item are the moveable blocks. 
+								Moveable blocks can be moved by the player and can stand on hazardous blocks like lava. Use these to your advantage to advance through the level. 
 							</p><br>
 							<p>
 								In addition to the two special blocks, there is also water. Water makes you slow and sluggish. However, you can swim around
-								and float around. Maneuvering around water is hard, so be careful!
+								and float around. Maneuvering around water is hard, so be cautious!
+							</p><br>
+							<p>
+								There are a bunch of secrets in the game that are waiting to be unlocked. Try your best to find them!
 							</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<section id="one" class="main style1">
+			<section id="three" class="main style1 special">
 				<div class="container">
+					<header class="major">
+						<h2>Character Selection</h2>
+					</header>
+					<p>Choose a different skin for your character!</p>
 					<div class="row gtr-150">
-						<div class="col-6 col-12-medium">
-							<header class="major">
-								<h2>Credits</h2>
-							</header>
-							<p>Main developer&nbsp;&nbsp; --- &nbsp;&nbsp;Ethan Baker<br>
-							   Graphics &nbsp;&nbsp;--- &nbsp;&nbsp;Ethan Baker | Nate Connor | Charles Boye<br>
-							   Level Design &nbsp;&nbsp;--- &nbsp;&nbsp;Ethan Baker | Matthew Westbrook | Jack Bradford<br>
-							   Beta Testers &nbsp;&nbsp;--- &nbsp;&nbsp;Charles Boye | Nate Connor | Matthew Burrows<br>
-							</p>
+						<div class="col-4 col-12-medium">
+							<h3>Color Selection</h3>
+							<p>Choose a color from the left button to set as your character color and save the color with the right one!</p>
+							<ul class="actions special">
+								<input type="color" id="color-picker" value="#000000"/>
+								<button onclick="let colorPicker = document.querySelector('#color-picker'); let i = localStorage.getItem('insanity2Info')
+								let info = JSON.parse(i); info.skinColor = colorPicker.value.replace(/\#/, ''); localStorage.setItem('insanity2Info',
+								JSON.stringify(info)); console.log(info)">Save Color</button>
+							</ul>
+						</div>
+						<div class="col-4 col-12-medium">
+							<h3>Special Skins</h3>
+							<p>Unlock these special skins! Enter the special code to unlock a special skin!</p>
+							<br>
+							<ul class="actions special">
+								<input>
+							</ul>
+						</div>
+						<div class="col-4 col-12-medium">
+							<h3>Secret Skins</h3>
+							<p>Find these secret skins in the game! Enter the special code to unlock a special skin!</p>
+							<br>
+							<ul class="actions special">
+								<input>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</section>
+
 			<section id="four" class="main style2 special">
 				<div class="container">
 					<header class="major">
@@ -121,29 +156,41 @@
 					<p id=highScores></p>
 				</div>
 			</section>
-			<section id="three" class="main style1 special">
+
+				<section id="one" class="main style1">
 					<div class="container">
-						<header class="major">
-							<h2>Character Selection</h2>
-						</header>
-						<p></p>
 						<div class="row gtr-150">
-							<div class="col-4 col-12-medium">
-								<h3>Color Selection</h3>
-								<input type="color" id="color-picker" />
-								<button onclick="let colorPicker = document.querySelector('#color-picker'); let i = localStorage.getItem('insanity2Info')
-								let info = JSON.parse(i); info.skinColor = colorPicker.value.replace(/#./, ''); localStorage.setItem('insanity2Info',JSON.stringify(info)); console.log(info)"></button>
-								<ul class="actions special">
-								</ul>
+							<div>
+								<header class="major">
+									<h2>Credits</h2>
+								</header>
+								<p>Main developer&nbsp;&nbsp; --- &nbsp;&nbsp;Ethan Baker<br>
+								   Graphics &nbsp;&nbsp;--- &nbsp;&nbsp;Ethan Baker | Nate Connor | Charles Boye<br>
+								   Level Design &nbsp;&nbsp;--- &nbsp;&nbsp;Ethan Baker | Matthew Westbrook | Jack Bradford | Jacob Andrews<br>
+								   Beta Testers &nbsp;&nbsp;--- &nbsp;&nbsp;Charles Boye | Nate Connor | Matthew Burrows<br>
+								</p>
 							</div>
 						</div>
 					</div>
 				</section>
 
+				<section id="four" class="main style2 special">
+						<div class="container">
+							<header class="major">
+								<h2>Connect</h2>
+							</header>
+							<ul class="actions special">
+								<li>Discord<iframe src="https://discordapp.com/widget?id=514553893091409932&theme=dark" class=side-by-side width="400" height="400" allowtransparency="true" frameborder="0"></iframe></li>
+								<li>Twitter<a width=350 height=400 class="side-by-side twitter-timeline" href="https://twitter.com/ethanbaker03?ref_src=twsrc%5Etfw">Tweets by ethanbaker03</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></li>
+								<li>Instagram<a href="https://instawidget.net/v/user/ebaker03" class="side-by-side" id="link-03901133fc00ba6288dbcdfa0c30c8d85266eedc4ad814e2a15c09f0fb8431bc">@ebaker03</a><script src="https://instawidget.net/js/instawidget.js?u=03901133fc00ba6288dbcdfa0c30c8d85266eedc4ad814e2a15c09f0fb8431bc&width=350px"></script></li>
+							</ul>
+						</header>
+						</div>
+				</section>
+
             <section id="footer">
                     <ul class="icons">
-                        <li><a href="https://twitter.com/ethanbaker03" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
-                        <li><a href="https://www.instagram.com/ebaker03/" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+                        <li><a href="" class="icon alt fa-discord"><span class="label">Discord</span></a></li>
                         <li><a href="https://github.com/ethanbaker/insanity2" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
                         <li><a href="mailto:ethandbaker01@gmail.com" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
                     </ul>

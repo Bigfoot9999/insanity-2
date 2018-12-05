@@ -106,6 +106,24 @@ const levelCounterStyle = {
     ],
 */
 
+/*
+    Key for levels:
+
+    x - wall
+    ! - lava
+    o - coin
+    O - underwater coin
+    s - off switch
+    S - on switch
+    d - closed door
+    D - open door
+    j - trampolines
+    l - left treadmill
+    r - right treadmill
+    w - water
+    t - top of water
+*/
+
 const levels = [
     [
         'xxxxxxxxxxxxxxxxxxxxxxx',
@@ -121,13 +139,20 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                                x',
         'x                                                x',
-        'x                               rrrrrrrrrrrrrrrrrx',
         'x                                                x',
         'x                                                x',
-        'x                           j   lllllllllllllllllx',
         'x                                                x',
         'x                                                x',
-        'x                              jxxxxxxxxxxxxxxxxxx',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
@@ -462,7 +487,8 @@ let gameObject = {
             this.player = this.physics.add.sprite(100, 100, 'playerSkin1')
             this.player.setCollideWorldBounds(true)
             this.player.setDepth(1)
-            this.player.setTint(insanity2Info.skinColor)
+            console.log(insanity2Info.skinColor)
+            this.player.setTint((Number('0x' + String(insanity2Info.skinColor))))
             
             //sets up the input
             this.cursors = this.input.keyboard.createCursorKeys()
@@ -804,17 +830,20 @@ let gameObject = {
                 rightV = 160
                 leftV = -160
                 if (this.cursors.up.isDown) {
-                    block.play('jumpUp')
-                    setTimeout(() => {block.isPlaying = false}, 500)
-                    if (player.texture.key !== 'pushBlock') {
-                        upV = -220
+                    if (this.player.body.touching.down) {
+                        block.play('jumpUp')
+                        setTimeout(() => {block.isPlaying = false}, 500)
+                        if (player.texture.key !== 'pushBlock') {
+                            upV = -220
+                        }
                     }
                 } else {
-                    block.play('jumpUp')
-                    setTimeout(() => {block.isPlaying = false}, 500)
-                    //player.setVelocityY(-120)
-                    player.body.velocity.y = -120
-                    player.body.velocity.x = 0
+                    if (this.player.body.touching.down) {
+                        block.play('jumpUp')
+                        setTimeout(() => {block.isPlaying = false}, 500)
+                        player.body.velocity.y = -120
+                        player.body.velocity.x = 0
+                    }
                 }
             },
             swim() {

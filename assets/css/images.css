@@ -2,7 +2,7 @@
     background-image: url(images/wall.png);
     transform: rotate(0deg);
     background-repeat: repeat;
-    background-size: 64px 64px;
+    background-size: 32px 32px;
 }
 
 #death {
@@ -33,6 +33,14 @@
     background-size: 70%;
 }
 
+#water-coin {
+    background-image: url(images/water-coin.gif); 
+    transform: rotate(0deg);
+    background-repeat: no-repeat;
+    background-size: 70%; 
+    background-color: #0c4cc9;
+}
+
 #player {
     background-image: url(images/player.png);
     transform: rotate(0deg);
@@ -52,4 +60,25 @@
     transform: rotate(0deg);
     background-repeat: no-repeat;
     background-size: 100%;
+}
+
+#door {
+    background-image: url(images/door.gif);
+    transform: rotate(0deg);
+    background-repeat: no-repeat; 
+    background-size: 100%;
+}
+
+#pushable {
+    background-image: url(images/moveable-block.png);
+    transform: rotate(0deg);
+    background-repeat: no-repeat; 
+    background-size: 100%;
+}
+
+#spikes {
+    background-image: url(images/spike.png);
+    transform: rotate(0deg);
+    background-repeat: no-repeat; 
+    background-size: 100%; 
 }
