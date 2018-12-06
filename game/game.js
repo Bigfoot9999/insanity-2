@@ -136,26 +136,6 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxx'
     ], 
     [
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    ],
-    [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                x                x',
         'x                                x                x',
@@ -321,8 +301,8 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x!!!!!!x                                     x',
         'x!!!!!!x    llxxxxxxxxxxxxxxxx            x  x',
-        'x!!!!!!x  !!!!!!!!!!!!!!!!!!!!!!xxx    xx!!x x',
-        'x                !!! !!!!!!!!!!!!xx          x',
+        'xxxxxxxx  !!!!!!!!!!!!!!!!!!!!!!xxx    xx!!x x',
+        'x                !!!!!!!!!!!!!!!!xx          x',
         'x!!x     x         !!!!!!!!!!!!!!!!      xxxxx',
         'xo d     x           !!!!!!!!!!!!xxx         x',
         'xxxxxxxxxx             !!!!!!!!!!!!!xttttttttx',
@@ -357,7 +337,7 @@ const levels = [
         'x                                                x',
         'x                                                x',
         'x                                                x',
-        'x    x                                           x',
+        'x                                                x',
         'x                                                x',
         'x                                                x',
         'x                                                x',
@@ -369,6 +349,65 @@ const levels = [
         'x                                                x',
         'x                                                x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',]
+]
+
+const levelInfo = [
+    {
+        x: 100,
+        y: 100,
+        c: 3,
+    },
+    {
+        x: 100,
+        y: 128,
+        c: 3,
+    },
+    {
+        x: 100,
+        y: 144,
+        c: 3,
+    },
+    {
+        x: 64,
+        y: 144,
+        c: 3,
+    },
+    {
+        x: 64,
+        y: 160,
+        c: 3,
+    },
+    {
+        x: 64,
+        y: 128,
+        c: 3,
+    },
+    {
+        x: 64,
+        y: 128,
+        c: 3,
+    },
+    {
+        x: 96,
+        y: 112,
+        c: 3,
+    },
+    {
+        x: 112,
+        y: 128,
+        c: 3,
+    },
+    {
+        x: 0,
+        y: 0,
+        c: 0,
+    },
+    {
+        x: 0,
+        y: 0,
+        c: 0,
+    },
+     
 ]
 
 //Sets up the object that gets passed into the game
@@ -484,7 +523,7 @@ let gameObject = {
 
             //Sets up the player
             //this.player = this.physics.add.sprite(playerX, playerY, insanity2Info.playerSkin) // sets this.player equal to the sprite
-            this.player = this.physics.add.sprite(100, 100, 'playerSkin1')
+            this.player = this.physics.add.sprite(levelInfo[insanity2Info.levelIndex].x, levelInfo[insanity2Info.levelIndex].y, insanity2Info.playerSkin)
             this.player.setCollideWorldBounds(true)
             this.player.setDepth(1)
             console.log(insanity2Info.skinColor)
@@ -560,7 +599,7 @@ let gameObject = {
                     this.player.setVelocityX(0)
                 }
             }
-            if (score === 3) {
+            if (score === levelInfo[insanity2Info.levelIndex].c) {
                 insanity2Info.levelIndex += 1
                 score = 0
                 levelCounter.setText(`Level: ${insanity2Info.levelIndex+1}`)
@@ -593,86 +632,86 @@ let gameObject = {
                 
                         // Create a wall and add it to the 'walls' group
                         if (levels[insanity2Info.levelIndex][i][j] == 'x') {
-                            let wall = this.add.sprite(30+16*j, 30+16*i, 'wall');
+                            let wall = this.add.sprite(32+16*j, 32+16*i, 'wall');
                             this.walls.add(wall);
                             wall.immovable = true; 
                         }
                 
                         // Create a coin and add it to the 'coins' group
                         else if (levels[insanity2Info.levelIndex][i][j] == 'o') {
-                            let coin = this.add.sprite(30+16*j, 30+16*i, 'coin');
+                            let coin = this.add.sprite(32+16*j, 32+16*i, 'coin');
                             coin.play('coinSpin')
                             this.coins.add(coin);
                         }
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'O') {
-                            let coin = this.add.sprite(30+16*j, 30+16*i, 'waterCoin')
+                            let coin = this.add.sprite(32+16*j, 32+16*i, 'waterCoin')
                             coin.play('waterCoinSpin')
                             this.waterCoins.add(coin)
                         }
                 
                         // Create a lava space and add it to the 'lavas' group
                         else if (levels[insanity2Info.levelIndex][i][j] == '!') {
-                            let death = this.add.sprite(30+16*j, 30+16*i, 'death');
+                            let death = this.add.sprite(32+16*j, 32+16*i, 'death');
                             this.deathBlocks.add(death);
                         }
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'r') {
-                            let speed = this.add.sprite(30+16*j, 30+16*i, 'speed')
+                            let speed = this.add.sprite(32+16*j, 32+16*i, 'speed')
                             this.speedRightBlocks.add(speed)
                             speed.play('speedRight')
                             speed.immovable = true; 
                         }
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'l') {
-                            let speed = this.add.sprite(30+16*j, 30+16*i, 'speed')
+                            let speed = this.add.sprite(32+16*j, 32+16*i, 'speed')
                             this.speedLeftBlocks.add(speed)
                             speed.play('speedLeft')
                             speed.immovable = true; 
                         }
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'j') {
-                            let jump = this.add.sprite(30+16*j, 30+16*i, 'jump')
+                            let jump = this.add.sprite(32+16*j, 32+16*i, 'jump')
                             this.jumpBlocks.add(jump)
                             jump.play('jumpUp')
                             jump.immovable = true; 
                         }
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'w') {
-                            let water = this.add.sprite(30+16*j, 30+16*i, 'water')
+                            let water = this.add.sprite(32+16*j, 32+16*i, 'water')
                             this.waterBlocks.add(water)
                             water.immovable = true; 
                         }                        
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 't') {
-                            let water = this.add.sprite(30+16*j, 30+16*i, 'waterTop')
+                            let water = this.add.sprite(32+16*j, 32+16*i, 'waterTop')
                             this.topWaterBlocks.add(water)
                             water.play('waves')
                             water.immovable = true; 
                         }
                         
                         else if (levels[insanity2Info.levelIndex][i][j] == 's') {
-                            let switchBlock = this.add.sprite(30+16*j, 30+16*i, 'switchUp')
+                            let switchBlock = this.add.sprite(32+16*j, 32+16*i, 'switchUp')
                             this.onSwitches.add(switchBlock)
                         } 
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'S') {
-                            let switchBlock = this.add.sprite(30+16*j, 30+16*i, 'switchDown')
+                            let switchBlock = this.add.sprite(32+16*j, 32+16*i, 'switchDown')
                             this.offSwitches.add(switchBlock)
                         } 
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'd') {
-                            let door = this.add.sprite(30+16*j, 30+16*i, 'switchDoor')
+                            let door = this.add.sprite(32+16*j, 32+16*i, 'switchDoor')
                             this.doors.add(door)
                         }
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'D') {
-                            let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
+                            let door = this.add.sprite(32+16*j, 32+16*i, 'emptyDoor')
                             this.emptyDoors.add(door)
                         } 
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'p') {
-                            let block = this.add.sprite(30+16*j, 30+16*i, 'pushBlock')
+                            let block = this.add.sprite(32+16*j, 32+16*i, 'pushBlock')
                             this.pushables.add(block)
                         } 
 
@@ -715,8 +754,8 @@ let gameObject = {
                 this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
                 leftV = -160
                 rightV = 160
-                player.x = 100
-                player.y = 100
+                player.x = levelInfo[insanity2Info.levelIndex].x
+                player.y = levelInfo[insanity2Info.levelIndex].y
                 score = 0
                 deathCount = insanity2Info.deaths
                 if (ran) {
@@ -731,13 +770,13 @@ let gameObject = {
                 for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
                     for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
                         if (levels[insanity2Info.levelIndex][i][j] == 'o') {
-                            let coin = this.add.sprite(30+16*j, 30+16*i, 'coin');
+                            let coin = this.add.sprite(32+16*j, 32+16*i, 'coin');
                             coin.play('coinSpin')
                             this.coins.add(coin);
                         }
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'O') {
-                            let coin = this.add.sprite(30+16*j, 30+16*i, 'waterCoin')
+                            let coin = this.add.sprite(32+16*j, 32+16*i, 'waterCoin')
                             coin.play('waterCoinSpin')
                             this.waterCoins.add(coin)
                         }
@@ -773,27 +812,27 @@ let gameObject = {
                 for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
                     for (let j = 0; j < levels[insanity2Info.levelIndex][i].length; j++) {
                         if (levels[insanity2Info.levelIndex][i][j] == 's') {
-                            let switchBlock = this.add.sprite(30+16*j, 30+16*i, 'switchUp')
+                            let switchBlock = this.add.sprite(32+16*j, 32+16*i, 'switchUp')
                             this.onSwitches.add(switchBlock)
                         } 
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'S') {
-                            let switchBlock = this.add.sprite(30+16*j, 30+16*i, 'switchDown')
+                            let switchBlock = this.add.sprite(32+16*j, 32+16*i, 'switchDown')
                             this.offSwitches.add(switchBlock)
                         } 
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'd') {
-                            let door = this.add.sprite(30+16*j, 30+16*i, 'switchDoor')
+                            let door = this.add.sprite(32+16*j, 32+16*i, 'switchDoor')
                             this.doors.add(door)
                         }
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'D') {
-                            let door = this.add.sprite(30+16*j, 30+16*i, 'emptyDoor')
+                            let door = this.add.sprite(32+16*j, 32+16*i, 'emptyDoor')
                             this.emptyDoors.add(door)
                         } 
 
                         else if (levels[insanity2Info.levelIndex][i][j] == 'p') {
-                            let block = this.add.sprite(30+16*j, 30+16*i, 'pushBlock')
+                            let block = this.add.sprite(32+16*j, 32+16*i, 'pushBlock')
                             this.pushables.add(block)
                         }  
                     }
