@@ -63,15 +63,15 @@
 					<div class="row gtr-150">
 						<div class="col-6 col-12-medium">
 							<ul class="major-icons"> 
-                                <li><span class="icon style1 major " id="wall"></span></li>
-								<li><span class="icon style2 major " id="water"></span></li>
+                                <li><span class="icon style6 major " id="wall"></span></li>
+								<li><span class="icon style6 major " id="water"></span></li>
 								<h4>Walls &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Water</h4>
-								<li><span class="icon style3 major " id="jump"></span></li>
-								<li><span class="icon style4 major " id="speed"></span></li>
+								<li><span class="icon style6 major " id="jump"></span></li>
+								<li><span class="icon style6 major " id="speed"></span></li>
                                 <h4>Jump Tiles &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Speed Tiles</h4>
-								<li><span class="icon style5 major " id="coin"></span></li>
+								<li><span class="icon style6 major " id="coin"></span></li>
 								<li><span class="icon style6 major " id="water-coin"></span></li>
-                                <h4>Coins &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underwater Coins</h4>
+                                <h4>Coins &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underwater Coins</h4>
 								<li><span class="icon style6 major " id="spikes"></span></li>
 								<li><span class="icon style6 major " id="death"></span></li>
                                 <h4>Spikes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lava</h4>
@@ -80,7 +80,7 @@
 								<h4>Switches &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Doors</h4>
 								<li><span class="icon style6 major " id="pushable"></span></li>
 								<li><span class="icon style6 major " id="player"></span></li>
-								<h4>Moveable Blocks &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The player (You)</h4>
+								<h4>Moveable Blocks &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The player (You)</h4>
 							</ul>
 						</div>
 						<div class="col-6 col-12-medium">
@@ -122,26 +122,26 @@
 							<p>Choose a color from the left button to set as your character color and save the color with the right one!</p>
 							<ul class="actions special">
 								<input type="color" id="color-picker" value="#000000"/>
-								<button onclick="let colorPicker = document.querySelector('#color-picker'); let i = localStorage.getItem('insanity2Info')
-								let info = JSON.parse(i); info.skinColor = colorPicker.value.replace(/\#/, ''); localStorage.setItem('insanity2Info',
-								JSON.stringify(info)); console.log(info)">Save Color</button>
-							</ul>
+								<button onclick="setNewSkin()">Save Color</button>
+						</ul>
 						</div>
 						<div class="col-4 col-12-medium">
 							<h3>Special Skins</h3>
 							<p>Unlock these special skins! Enter the special code to unlock a special skin!</p>
 							<br>
 							<ul class="actions special">
-								<input>
+								<input id=special-skin>
+								<br>
 							</ul>
+							<div class=status></div>
 						</div>
 						<div class="col-4 col-12-medium">
 							<h3>Secret Skins</h3>
 							<p>Find these secret skins in the game! Enter the special code to unlock a special skin!</p>
-							<br>
 							<ul class="actions special">
-								<input>
+								<input id=secret-skin>
 							</ul>
+							<div class=status></div>
 						</div>
 					</div>
 				</div>

@@ -30,3 +30,61 @@
 		$('.scrolly').scrolly();
 
 })(jQuery);
+
+//----------------------
+
+let info = {}
+const loadLocalStorage = () => {
+	let i = localStorage.getItem('insanity2Info')
+	info = JSON.parse(i)
+}
+loadLocalStorage()
+
+const saveLocalStorage = () =>{
+	localStorage.setItem('insanity2Info', JSON.stringify(info))
+}
+
+let colorPicker = document.querySelector('#color-picker')
+let secretSkinPicker = document.querySelector('#secret-skin')
+let specialSkinPicker = document.querySelector('#special-skin')
+
+const setNewSkin = () => {
+	info.skinColor = colorPicker.value.replace(/\#/, '')
+	saveLocalStorage()
+}
+
+const specialSkins = {
+	'zkfFpao1kiJRVAEn7pECkg==': 'zkfFpao1kiJRVAEn7pECkg==',
+}
+
+const redeemSpecialSkin = (e) => {
+	console.log('here')
+	if (e.key === 'Enter') {
+		let code = secretSkinPicker.value
+		for (let item in secretSkins) {
+			if (code === item) {
+				info.playerSkin = item
+				saveLocalStorage()
+			}
+		}
+	}
+}
+
+let secretSkins = {
+	'Y29vbCBndXk=': 'Y29vbCBndXk=',
+}
+
+const redeemSecretSkin = e => {
+	if (e.key === 'Enter') {
+		let code = secretSkinPicker.value
+		for (let item in secretSkins) {
+			if (code === item) {
+				info.playerSkin = item
+				saveLocalStorage()
+			}
+		}
+	}
+}
+
+specialSkinPicker.onkeydown = redeemSpecialSkin
+secretSkinPicker.onkeydown = redeemSecretSkin
