@@ -671,9 +671,6 @@ function update() {
     ran = true
 }
 
-
-//Extra functions
-
 //Makes the level
 function createLevel() {
     for (let i = 0; i < levels[insanity2Info.levelIndex].length; i++) {
