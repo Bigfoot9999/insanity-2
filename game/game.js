@@ -437,7 +437,7 @@ let gameObject = {
                 y: 300,
                 x: 0,
             },
-            //debug: true,
+            debug: true,
         },
     },
     scene: { //Parts of the game that make it work
@@ -655,7 +655,7 @@ function update() {
     if (!this.player.body.touching.right && !this.player.body.touching.left && !this.player.body.touching.down && !this.player.body.touching.up) {
         sped = true
     }
-    load()
+    //load()
     if (insanity2Info.deaths < deathCount) {
         insanity2Info.deaths = deathCount
         save()

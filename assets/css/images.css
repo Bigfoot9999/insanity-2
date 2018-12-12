@@ -1,40 +1,40 @@
 #wall {
-    background-image: url(images/wall.png);
+    background-image: url(./images/wall.png);
     transform: rotate(0deg);
     background-repeat: repeat;
     background-size: 32px 32px;
 }
 
 #death {
-    background-image: url(images/lava2.png);
+    background-image: url(./images/lava2.png);
     transform: rotate(0deg);
     background-repeat: repeat;
     background-size: 64px 64px;
 }
 
 #jump {
-    background-image: url(images/trampoline.gif);
+    background-image: url(./images/trampoline.gif);
     transform: rotate(0deg);
     background-repeat: repeat;
     background-size: 100%;
 }
 
 #speed {
-    background-image: url(images/treadmill.gif);
+    background-image: url(./images/treadmill.gif);
     transform: rotate(0deg);
     background-repeat: no-repeat;
     background-size: 100%;
 }
 
 #coin {
-    background-image: url(images/coins.gif);
+    background-image: url(./images/coins.gif);
     transform: rotate(0deg);
     background-repeat: no-repeat;
     background-size: 70%;
 }
 
 #water-coin {
-    background-image: url(images/water-coin.gif); 
+    background-image: url(./images/water-coin.gif); 
     transform: rotate(0deg);
     background-repeat: no-repeat;
     background-size: 70%; 
@@ -42,42 +42,42 @@
 }
 
 #player {
-    background-image: url(images/player.png);
+    background-image: url(./images/player.png);
     transform: rotate(0deg);
     background-repeat: repeat;
     background-size: 16px 16px;
 }
 
 #water {
-    background-image: url(images/water.gif);
+    background-image: url(./images/water.gif);
     transform: rotate(0deg);
     background-repeat: repeat-x;
     background-size: 100%;
 }
 
 #switch {
-    background-image: url(images/switch.gif);
+    background-image: url(./images/switch.gif);
     transform: rotate(0deg);
     background-repeat: no-repeat;
     background-size: 100%;
 }
 
 #door {
-    background-image: url(images/door.gif);
+    background-image: url(./images/door.gif);
     transform: rotate(0deg);
     background-repeat: no-repeat; 
     background-size: 100%;
 }
 
 #pushable {
-    background-image: url(images/moveable-block.png);
+    background-image: url(./images/moveable-block.png);
     transform: rotate(0deg);
     background-repeat: no-repeat; 
     background-size: 100%;
 }
 
 #spikes {
-    background-image: url(images/spike.png);
+    background-image: url(./images/spike.png);
     transform: rotate(0deg);
     background-repeat: no-repeat; 
     background-size: 100%; 

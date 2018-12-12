@@ -63,31 +63,19 @@
 					<div class="row gtr-150">
 						<div class="col-6 col-12-medium">
 							<ul class="major-icons"> 
-                                <li><span class="icon style6 major " id="wall"></span></li>
-								<li><span class="icon style6 major " id="water"></span></li>
-								<h4>Walls &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Water</h4>
-								<li><span class="icon style6 major " id="jump"></span></li>
-								<li><span class="icon style6 major " id="speed"></span></li>
-                                <h4>Jump Tiles &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Speed Tiles</h4>
-								<li><span class="icon style6 major " id="coin"></span></li>
-								<li><span class="icon style6 major " id="water-coin"></span></li>
-                                <h4>Coins &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underwater Coins</h4>
-								<li><span class="icon style6 major " id="spikes"></span></li>
-								<li><span class="icon style6 major " id="death"></span></li>
-                                <h4>Spikes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lava</h4>
-								<li><span class="icon style6 major " id="switch"></span></li>
-								<li><span class="icon style6 major " id="door"></span></li>
-								<h4>Switches &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Doors</h4>
-								<li><span class="icon style6 major " id="pushable"></span></li>
-								<li><span class="icon style6 major " id="player"></span></li>
-								<h4>Moveable Blocks &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The player (You)</h4>
+                                <li>Walls | Water<br><span class="icon style6 major " id="wall"></span><span class="icon style6 major " id="water"></span></li>
+								<li>Trampolines | Treadmills<br><span class="icon style6 major " id="jump"></span><span class="icon style6 major " id="speed"></span></li>
+								<li>Coins | Underwater Coins<br><span class="icon style6 major " id="coin"></span><span class="icon style6 major " id="water-coin"></span></li>
+								<li>Spikes | Lava<br><span class="icon style6 major " id="spikes"></span><span class="icon style6 major " id="death"></span></li>
+								<li>Switches | Doors<br><span class="icon style6 major " id="switch"></span><span class="icon style6 major " id="door"></span></li>
+								<li>Moveable Blocks | The Player (You)<br><span class="icon style6 major " id="pushable"></span><span class="icon style6 major " id="player"></span></li>
 							</ul>
 						</div>
 						<div class="col-6 col-12-medium">
 							<header class="major">
 								<h2>How to play:</h2>
 							</header>
-							<p>In Infinite Insanity, you are the green square trying to collect all of the yellow coins. 
+							<p>In Infinite Insanity, you are a square trying to collect all of the yellow coins. 
 								You have to manuever through tough obstacles and challenges in order to collect the coins</p><br>
 							<p>To move, you can use the arrow keys. If you want to jump, you can use either the space bar or the up arrow. 
 							</p><br>
@@ -121,8 +109,8 @@
 							<h3>Color Selection</h3>
 							<p>Choose a color from the left button to set as your character color and save the color with the right one!</p>
 							<ul class="actions special">
-								<input type="color" id="color-picker" value="#000000"/>
-								<button onclick="setNewSkin()">Save Color</button>
+								<li><input type="color" id="color-picker" value="#000000"/></li>
+								<li><button onclick="setNewSkin()">Save Color</button></li>
 						</ul>
 						</div>
 						<div class="col-4 col-12-medium">
@@ -130,16 +118,16 @@
 							<p>Unlock these special skins! Enter the special code to unlock a special skin!</p>
 							<br>
 							<ul class="actions special">
-								<input id=special-skin>
-								<br>
+								<li><input id=special-skin></li>
 							</ul>
+							<br>
 							<div class=status></div>
 						</div>
 						<div class="col-4 col-12-medium">
 							<h3>Secret Skins</h3>
 							<p>Find these secret skins in the game! Enter the special code to unlock a special skin!</p>
 							<ul class="actions special">
-								<input id=secret-skin>
+								<li><input id=secret-skin></li>
 							</ul>
 							<div class=status></div>
 						</div>
@@ -147,7 +135,7 @@
 				</div>
 			</section>
 
-			<section id="four" class="main style2 special">
+			<section class="four" class="main style2 special">
 				<div class="container">
 					<header class="major">
 						<h2>High Scores:</h2>
@@ -174,17 +162,16 @@
 					</div>
 				</section>
 
-				<section id="four" class="main style2 special">
+				<section class="four" class="main style2 special">
 						<div class="container">
 							<header class="major">
 								<h2>Connect</h2>
 							</header>
 							<ul class="actions special">
 								<li>Discord<iframe src="https://discordapp.com/widget?id=514553893091409932&theme=dark" class=side-by-side width="400" height="400" allowtransparency="true" frameborder="0"></iframe></li>
-								<li>Twitter<a width=350 height=400 class="side-by-side twitter-timeline" href="https://twitter.com/ethanbaker03?ref_src=twsrc%5Etfw">Tweets by ethanbaker03</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></li>
+								<li width=350 height=400>Twitter<a class="side-by-side twitter-timeline" href="https://twitter.com/ethanbaker03?ref_src=twsrc%5Etfw">Tweets by ethanbaker03</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></li>
 								<li>Instagram<a href="https://instawidget.net/v/user/ebaker03" class="side-by-side" id="link-03901133fc00ba6288dbcdfa0c30c8d85266eedc4ad814e2a15c09f0fb8431bc">@ebaker03</a><script src="https://instawidget.net/js/instawidget.js?u=03901133fc00ba6288dbcdfa0c30c8d85266eedc4ad814e2a15c09f0fb8431bc&width=350px"></script></li>
 							</ul>
-						</header>
 						</div>
 				</section>
 
