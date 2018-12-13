@@ -53,33 +53,6 @@ const resetStorage = () => {
     location.reload()
 }
 
-//Sets up variables used in the game object
-
-let score = 0
-let leftV = -160
-let rightV = 160
-let upV = -160
-
-let ran = true
-
-const keys = 'UP,DOWN,LEFT,RIGHT,SPACE,W,A,S,D'
-
-let deathCount, levelCount, deathCounter, levelCounter, sped, switchStatus, switched, keyboard
-
-const deathCounterStyle = {
-    fontSize: '6em',
-    fontFamily: '-apple-system BlinkMacSystemFont Segoe UI Roboto Oxygen Ubuntu Cantarell Open Sans Helvetica Neue sans-serif',
-    color: 'white',
-    zIndex: 11,
-}
-
-const levelCounterStyle = {
-    fontSize: '6em',
-    fontFamily: '-apple-system BlinkMacSystemFont Segoe UI Roboto Oxygen Ubuntu Cantarell Open Sans Helvetica Neue sans-serif',
-    color: 'white',
-    zIndex: 11,
-}
-
 /* Tesing level
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -159,16 +132,16 @@ const levels = [
         'x                                             x   x',
         'x                                             xx  x',
         'x                                             x   x',
-        'x                                             x  xx',
-        'xxxxxxxxxtttttttttttttttttttttttttttttttttttttxtttx',
-        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww!!!!!!xwwwx',
-        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
-        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwOwxwwwx',
-        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
-        'xwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww!!!!!!xwwwx',
-        'x!www!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
-        'x!www!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxwwwx',
-        'x!wOw!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwx',
+        'x                      !                      x  xx',
+        'xxxxxxxxxtttttttttttttt!ttttttttttttttttttttttxtttx',
+        'xwwwwwwwwwwwwwwwwwwwwww!wwwwwwwwwwwwwwww!!!!!!xwwwx',
+        'xwwwwwwwwwwwwwwwwwwwwww!wwwwwwww!wwwwwwwwwwwwwxwwwx',
+        'xwwwwwwwwwwwwwwwwwwwwww!wwwwwwww!wwwwwwwwwwwOwxwwwx',
+        'xwwwwwwwwwwwwwwwwwwwwww!wwwwwwww!wwwwwwwwwwwwwxwwwx',
+        'xwwwwwwwwwwwwwwwwwwwwww!wwwwwwww!wwwwwww!!!!!!xwwwx',
+        'x!www!wwwwwwwwwwwwwwwww!wwwwwwww!wwwwwwwwwwwwwxwwwx',
+        'x!www!wwwwwwwwwwwwwwwwwwwwwwwwww!wwwwwwwwwwwwwxwwwx',
+        'x!wOw!wwwwwwwwwwwwwwwwwwwwwwwwww!wwwwwwwwwwwwwwwwwx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 
     ],
     [
@@ -270,6 +243,37 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x                  !!!!!                    !!!!!x',
+        'x                   !!                       !!!!x',
+        'x                                            !!!!x',
+        'x                    o                        !!!x',
+        'xxxxxxxxxxx          x   !!!   rr             !!!x',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!xxx!!!!!!!!!          !!x',
+        'x!!!!!!          x p  o  d  !!!!!!!!!!         !!x',
+        'x!!!!!             xxxxxxxtt!!!!!!!!!!!         !x',
+        'x                      !!!wwwww!!!!!!!!!        !x',
+        'x                      !!wwwwwwww!!!!!!!!      !!x',
+        'x   xxxxxx     rrrrrr  !!wwwwwwwwwwwww!!!      !!x',
+        'x   !!!!!!!!!!!!!!!!!SS!wwwww!!wwwwwwww!!      !!x',
+        'x     !             !  !www!!!!!wwwwwwww!      !!x',
+        'x                   !  wwwww!!!!!ww    w!!    !!!x',
+        'x         s         !  !wwws!!!!!!x    x!!!  !!!!x',
+        'x       !           !   !www!!!!!!!            !!x',
+        'xrrr     !!         !!!!!!xx!!!!!!!!jjjxrrrrrrr!!x',
+        'x                        !!!!           !!!!!!!!!x',
+        'x                        !!!                    ox',
+        'x!!!!!!!!dddd!!!!!!!!!!!!!!            xxxxxxxxxxx',
+        'x                                 j              x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                  x                             x',
+        'x     rrr                    x         j         x',
+        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ],
+    [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x!                     !!x!!!               !!!!!!!!!!!!!!!x',
         'x                       !x!!                    !!!!!!!!!!!x',
@@ -326,37 +330,7 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx!!!!!!!xx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        'x                  !!!!!                    !!!!!x',
-        'x                   !!                       !!!!x',
-        'x                                            !!!!x',
-        'x                    o                        !!!x',
-        'xxxxxxxxxxx          x   !!!   rr             !!!x',
-        'x!!!!!!!!!!!!!!!!!!!!!!!!xxx!!!!!!!!!          !!x',
-        'x!!!!!!          x p  o  d  !!!!!!!!!!         !!x',
-        'x!!!!!             xxxxxxxtt!!!!!!!!!!!         !x',
-        'x                      !!!wwwww!!!!!!!!!        !x',
-        'x                      !!wwwwwwww!!!!!!!!      !!x',
-        'x   xxxxxx     rrrrrr  !!wwwwwwwwwwwww!!!      !!x',
-        'x   !!!!!!!!!!!!!!!!!SS!wwwww!!wwwwwwww!!      !!x',
-        'x     !             !  !www!!!!!wwwwwwww!      !!x',
-        'x                   !  wwwww!!!!!ww    w!!    !!!x',
-        'x         s         !  !wwws!!!!!!x    x!!!  !!!!x',
-        'x       !           !   !www!!!!!!!            !!x',
-        'xrrr     !!         !!!!!!xx!!!!!!!!jjjxrrrrrrr!!x',
-        'x                        !!!!           !!!!!!!!!x',
-        'x                        !!!                    ox',
-        'x!!!!!!!!dddd!!!!!!!!!!!!!!            xxxxxxxxxxx',
-        'x                                 j              x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                  x                             x',
-        'x     rrr                    x         j         x',
-        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    ],
+  
 ]
 
 const levelInfo = [
@@ -418,6 +392,34 @@ const levelInfo = [
      
 ]
 
+//Sets up variables used in the game object
+let score = 0
+let leftV = -160
+let rightV = 160
+let upV = -160
+
+let ran = true
+
+const keys = 'UP,DOWN,LEFT,RIGHT,SPACE,W,A,S,D'
+
+let deathCount, levelCount, deathCounter, levelCounter, sped, switchStatus, switched, blockSwitched, keyboard
+
+const deathCounterStyle = {
+    fontSize: '6em',
+    fontFamily: '-apple-system BlinkMacSystemFont Segoe UI Roboto Oxygen Ubuntu Cantarell Open Sans Helvetica Neue sans-serif',
+    color: 'white',
+    zIndex: 11,
+}
+
+const levelCounterStyle = {
+    fontSize: '6em',
+    fontFamily: '-apple-system BlinkMacSystemFont Segoe UI Roboto Oxygen Ubuntu Cantarell Open Sans Helvetica Neue sans-serif',
+    color: 'white',
+    zIndex: 11,
+}
+
+
+
 //Sets up the object that gets passed into the game
 let gameObject = {
     width: 1420, //Dimensions of the game
@@ -454,6 +456,8 @@ let gameObject = {
             pushLeft,
             pushRight,
             pushOverlap,
+            blockSwitchOff,
+            blockSwitchOn,
         } 
     }
 }
@@ -605,8 +609,8 @@ function create() {
     this.physics.add.overlap(this.player, this.waterBlocks, this.swim, null, this)
     this.physics.add.overlap(this.player, this.onSwitches, this.switchOff, null, this)
     this.physics.add.overlap(this.player, this.offSwitches, this.switchOn, null, this)
-    this.physics.add.overlap(this.pushables, this.onSwitches, this.switchOff, null, this)
-    this.physics.add.overlap(this.pushables, this.offSwitches, this.switchOn, null, this)
+    this.physics.add.overlap(this.pushables, this.onSwitches, this.blockSwitchOff, null, this)
+    this.physics.add.overlap(this.pushables, this.offSwitches, this.blockSwitchOn, null, this)
 
     //High scores
     if (insanity2Info.levelIndex === 44) {
@@ -1001,6 +1005,7 @@ function push(item, pushBlock) {
 } 
 function stopPushV(wall, pushBlock) {
     pushBlock.body.velocity.x = 0
+    blockSwitched = true
 }
 function pushLeft(speedBlock, pushBlock) {
     if (pushBlock.body.touching.down && (!pushBlock.body.touching.right && !pushBlock.body.touching.left)) {
@@ -1028,7 +1033,45 @@ function pushOverlap(player, pushBlock) {
             player.x -= 1
         }
     }
+}
+function blockSwitchOff(player, switchBlock) {
+    upV = 100
+    if (blockSwitched) {
+        //switches appearance of switch
+        switchBlock.destroy()
+        let item = this.add.sprite(switchBlock.x, switchBlock.y, 'switchDown')
+        this.offSwitches.add(item)
+        blockSwitched = false
 
+        //changed status of doors
+        let length = this.doors.children.entries.length
+        for (let i = 0; i < length; i++) {
+            this.doors.killAndHide(this.doors.children.entries[0])
+            let item = this.add.sprite(this.doors.children.entries[0].x, this.doors.children.entries[0].y, 'emptyDoor')
+            this.emptyDoors.add(item)
+            this.doors.children.entries[0].destroy()
+        }
+    }
+}
+function blockSwitchOn(player, switchBlock) {
+    upV = 100
+    if (blockSwitched) {
+        //switches appearance of switch
+        switchBlock.destroy()
+        let item = this.add.sprite(switchBlock.x, switchBlock.y, 'switchUp')
+        this.onSwitches.add(item)
+        blockSwitched = false
+
+        //changed status of doors
+        let length = this.emptyDoors.children.entries.length
+        for (let i = 0; i < length; i++) {
+            this.emptyDoors.killAndHide(this.emptyDoors.children.entries[0])
+            let item = this.add.sprite(this.emptyDoors.children.entries[0].x, this.emptyDoors.children.entries[0].y, 'switchDoor')
+            this.doors.add(item)
+            this.emptyDoors.children.entries[0].destroy()
+        }
+        
+    }
 }
 
 //Run the game
