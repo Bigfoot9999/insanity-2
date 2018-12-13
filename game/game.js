@@ -331,40 +331,32 @@ const levels = [
         'x                  !!!!!                    !!!!!x',
         'x                   !!                       !!!!x',
         'x                                            !!!!x',
-        'xooo                 o                        !!!x',
+        'x                    o                        !!!x',
         'xxxxxxxxxxx          x   !!!   rr             !!!x',
         'x!!!!!!!!!!!!!!!!!!!!!!!!xxx!!!!!!!!!          !!x',
         'x!!!!!!          x p  o  d  !!!!!!!!!!         !!x',
         'x!!!!!             xxxxxxxtt!!!!!!!!!!!         !x',
-        'x                     !!!!wwwww!!!!!!!!!        !x',
-        'x                     !!!wwwwwwww!!!!!!!!      !!x',
-        'x   xxxxxx     rrrrrr !!!wwwwwwwwwwwww!!!      !!x',
-        'x   !!!!!!!!!!!!!!!!!S!!wwwww!!wwwwwwww!!      !!x',
-        'x                   ! !!www!!!!!wwwwwwww!      !!x',
-        'x                   ! !wwwww!!!!!ww    w!!    !!!x',
-        'x            s      !  !wwws!!!!!!x    x!!!  !!!!x',
-        'x                   !   !www!!!!!!!            !!x',
-        'xjj                 !!!!!!xx!!!!!!!!jjjxrrrrrrr!!x',
-        'x                        !!!!                  !!x',
+        'x                      !!!wwwww!!!!!!!!!        !x',
+        'x                      !!wwwwwwww!!!!!!!!      !!x',
+        'x   xxxxxx     rrrrrr  !!wwwwwwwwwwwww!!!      !!x',
+        'x   !!!!!!!!!!!!!!!!!SS!wwwww!!wwwwwwww!!      !!x',
+        'x     !             !  !www!!!!!wwwwwwww!      !!x',
+        'x                   !  wwwww!!!!!ww    w!!    !!!x',
+        'x         s         !  !wwws!!!!!!x    x!!!  !!!!x',
+        'x       !           !   !www!!!!!!!            !!x',
+        'xrrr     !!         !!!!!!xx!!!!!!!!jjjxrrrrrrr!!x',
+        'x                        !!!!           !!!!!!!!!x',
         'x                        !!!                    ox',
-        'xddddddddddddddd!!!!!!!!!!!               xxxxxxxx',
+        'x!!!!!!!!dddd!!!!!!!!!!!!!!            xxxxxxxxxxx',
         'x                                 j              x',
         'x                                                x',
+        'x                                                x',
+        'x                                                x',
         'x                  x                             x',
-        'x    rrr                     x         j         x',
+        'x     rrr                    x         j         x',
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
-        '',
-        '',
-        '',
-        '',
-        '',
-        'S      d',
-        '',
-        'xxxxx',
-    ]
 ]
 
 const levelInfo = [
@@ -437,7 +429,7 @@ let gameObject = {
                 y: 300,
                 x: 0,
             },
-            debug: true,
+            //debug: true,
         },
     },
     scene: { //Parts of the game that make it work
@@ -471,9 +463,9 @@ function preload() {
     this.load.image('background1', './game-assets/backgrounds/stone-background-dark.png')
     this.load.image('background2', './game-assets/backgrounds/wood-background.png')
     this.load.image('playerSkin1', './game-assets/skins/playerSkin1.png')
-    this.load.spritesheet('zkfFpao1kiJRVAEn7pECkg==', './game-assets/skins/playerSkin2.png', {frameWidth: 16, frameHeight: 16, endFrame: 10})
-    this.load.image('Y29vbCBndXk=', './game-assets/skins/playerSkin3.png')
-    //this.load.image('playerSkin4', './game-assets/images/playerSkin4.png')
+    this.load.spritesheet('playerSkin2', './game-assets/skins/playerSkin2.png', {frameWidth: 16, frameHeight: 16, endFrame: 10})
+    this.load.image('playerSkin3', './game-assets/skins/playerSkin3.png')
+    this.load.image('playerSkin4', './game-assets/skins/playerSkin4.png')
     this.load.image('wall', './game-assets/other/wall.png')
     this.load.image('death', './game-assets/other/lava.jpg')
     this.load.spritesheet('speed', './game-assets/other/speed.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
@@ -568,7 +560,7 @@ function create() {
     this.player = this.physics.add.sprite(levelInfo[insanity2Info.levelIndex].x, levelInfo[insanity2Info.levelIndex].y, insanity2Info.playerSkin)
     this.player.setCollideWorldBounds(true)
     this.player.setDepth(1)
-    if (insanity2Info.playerSkin = 'playerSkin1') {
+    if (insanity2Info.playerSkin === 'playerSkin1') {
         this.player.setTint((Number('0x' + String(insanity2Info.skinColor))))
     }
 

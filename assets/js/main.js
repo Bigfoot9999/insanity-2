@@ -54,7 +54,8 @@ const setNewSkin = () => {
 }
 
 const specialSkins = {
-	'zkfFpao1kiJRVAEn7pECkg==': 'zkfFpao1kiJRVAEn7pECkg==',
+	'zkfFpao1kiJRVAEn7pECkg==': 'playerSkin2',
+	'EtU92w7c6zjOf8SiaA/4Gw==': 'playerSkin4',
 }
 
 const redeemSpecialSkin = (e) => {
@@ -71,7 +72,7 @@ const redeemSpecialSkin = (e) => {
 }
 
 let secretSkins = {
-	'Y29vbCBndXk=': 'Y29vbCBndXk=',
+	'Y29vbCBndXk=': 'playerSkin3',
 }
 
 const redeemSecretSkin = e => {
