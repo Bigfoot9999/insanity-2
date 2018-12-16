@@ -475,6 +475,7 @@ function preload() {
     this.load.image('death', './game-assets/other/lava.jpg')
     this.load.spritesheet('speed', './game-assets/other/speed.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
     this.load.spritesheet('jump', './game-assets/other/trampoline.png', {frameWidth: 16, frameHeight: 16, endFrame: 5})
+    this.load.spritesheet('gravityBlock', './game-assets/other/gravity.png', {frameWidth: 16, frameHeight: 16, endFrame: 16})
     this.load.spritesheet('coin', './game-assets/other/coins.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
     this.load.spritesheet('waterCoin', './game-assets/other/water-coins.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})
     this.load.spritesheet('waterTop', './game-assets/other/water-top.png', {frameWidth: 16, frameHeight: 16, endFrame: 8})
@@ -542,6 +543,12 @@ function create() {
             framerate: 5,
             repeat: -1,
         })
+        this.anims.create({
+            key: 'gravitySpin',
+            frames: this.anims.generateFrameNumbers('gravityBlock', {start: 0,  end: 16, first: 16}),
+            framerate: 12,
+            repeat: -1,
+        })
         insanity2Info.newSession = false
     }
 
@@ -587,10 +594,12 @@ function create() {
     this.doors = this.physics.add.staticGroup()
     this.emptyDoors = this.physics.add.staticGroup()
     this.pushables = this.physics.add.group()
+    this.gravityBlocks = this.physics.add.staticGroup()
 
     //Sets up physics
     this.physics.add.collider(this.player, this.walls, this.stopV, null, this)
     this.physics.add.collider(this.player, this.doors, this.stopV, null, this)
+    this.physics.add.collider(this.player, this.gravityBlocks, this.changeGravity, null, this)
     this.physics.add.collider(this.player, this.jumpBlocks, this.jump, null, this)
     this.physics.add.collider(this.player, this.speedLeftBlocks, this.speedLeft, null, this)
     this.physics.add.collider(this.player, this.speedRightBlocks, this.speedRight, null, this)
