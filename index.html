@@ -26,12 +26,12 @@
 		</script>-->
 	</head>
 	<body class="is-preload" oncontextmenu="return false">
-		<script>
+		<!--<script>
             let password = prompt('Developer password?')
             if (password !== '#00ffff') {
 				window.history.back()
             }
-		</script>
+		</script>-->
 		
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129027038-2"></script>
@@ -110,7 +110,7 @@
 							<p>Choose a color from the left button to set as your character color and save the color with the right one!</p>
 							<ul class="actions special">
 								<li><input type="color" id="color-picker" value="#000000"/></li>
-								<li><button onclick="setNewSkin()">Save Color</button></li>
+								<li><button onclick="setNewSkin('color')">Save Skin</button></li>
 						</ul>
 						</div>
 						<div class="col-4 col-12-medium">
@@ -118,24 +118,24 @@
 							<p>Unlock these special skins! Enter the special code to unlock a special skin!</p>
 							<br>
 							<ul class="actions special">
-								<li><input id=special-skin></li>
+								<li><input id=special-skin value="Put code here!" onclick="document.querySelector('#special-skin').value = ''" onfocusout="setTimeout(() => {document.querySelector('#special-skin').value = 'Put code here!'}, 2000)"></li>
+								<li><button onclick="setNewSkin('specialSkin')">Save Skin</button></li>
 							</ul>
-							<br>
-							<div class=status></div>
 						</div>
 						<div class="col-4 col-12-medium">
 							<h3>Secret Skins</h3>
 							<p>Find these secret skins in the game! Enter the special code to unlock a special skin!</p>
+							<br>
 							<ul class="actions special">
-								<li><input id=secret-skin></li>
+								<li><input id=secret-skin value="Put code here!" onclick="document.querySelector('#secret-skin').value = ''" onfocusout="setTimeout(() => {document.querySelector('#secret-skin').value = 'Put code here!'}, 2000)"></li>
+								<li><button onclick="setNewSkin('secretSkin')">Save Skin</button></li>
 							</ul>
-							<div class=status></div>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<section class="four" class="main style2 special">
+			<section id="four" class="main style2 special">
 				<div class="container">
 					<header class="major">
 						<h2>High Scores:</h2>
@@ -162,7 +162,7 @@
 					</div>
 				</section>
 
-				<section class="four" class="main style2 special">
+				<section id="four" class="main style2 special">
 						<div class="container">
 							<header class="major">
 								<h2>Connect</h2>
@@ -191,8 +191,8 @@
                 <script src="assets/js/jquery.scrolly.min.js"></script>
                 <script src="assets/js/browser.min.js"></script>
                 <script src="assets/js/breakpoints.min.js"></script>
-				<script src="assets/js/util.js"></script>
 				<script src="assets/js/main.js"></script>
+				<script src="assets/js/util.js"></script>
 				<script src="fb/firebase.js"></script>
         </body>
     </html>
