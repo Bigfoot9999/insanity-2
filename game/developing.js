@@ -89,6 +89,7 @@ const resetStorage = () => {
     j - trampolines
     l - left treadmill
     r - right treadmill
+    g - gravity block
     w - water
     t - top of water
 */
@@ -330,7 +331,26 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx!!!!!!!xx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-  
+    [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x         JJ        ggggrrrrrr              lllllx',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                        s                       x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                                x',
+        'x                                            dd  x',
+        'x                                                x',
+        'x        jj         g                            x',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ],
 ]
 
 const levelInfo = [
@@ -397,13 +417,15 @@ const levelInfo = [
 let score = 0
 let leftV = -160
 let rightV = 160
-let upV = -160
+let upV = 160
 
 let ran = true
 
 const keys = 'UP,DOWN,LEFT,RIGHT,SPACE,W,A,S,D'
 
-let deathCount, levelCount, deathCounter, levelCounter, sped, switchStatus, switched, blockSwitched, keyboard
+let inverse = -1
+
+let deathCount, levelCount, deathCounter, levelCounter, sped, switchStatus, switched, blockSwitched, keyboard, grounded 
 
 const deathCounterStyle = {
     fontSize: '6em',
@@ -459,6 +481,7 @@ let gameObject = {
             pushOverlap,
             blockSwitchOff,
             blockSwitchOn,
+            changeGravity,
         } 
     }
 }
@@ -574,6 +597,8 @@ function create() {
     } else if (insanity2Info.playerSkin === 'playerSkin2') {
         this.player.play('rainbow')
     }
+    this.player.setGravity(0, 1)
+    console.log(this.player.body.gravity)
 
     //sets up the input
     keyboard = this.input.keyboard.addKeys(keys)
@@ -639,8 +664,8 @@ function create() {
 
 function update() {
     //Checks for events in the game; runs every "tick"
-    if ((keyboard.UP.isDown || keyboard.W.isDown) && this.player.body.touching.down === true ) { //&& (this.player.body.touching.right === false && this.player.body.touching.left === false)
-        this.player.setVelocityY(upV)
+    if ((keyboard.UP.isDown || keyboard.W.isDown) && ((this.player.body.touching.down && inverse === -1) || (this.player.body.touching.up && inverse === 1))) { //&& (this.player.body.touching.right === false && this.player.body.touching.left === false)
+        this.player.setVelocityY((upV * inverse))
     } else if ((keyboard.LEFT.isDown || keyboard.A.isDown)) { //if the cursor (input) key is down, the player will move left (-x direction)
         this.player.setVelocityX(leftV)
     } else if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
@@ -728,6 +753,14 @@ function createLevel() {
                 jump.immovable = true; 
             }
 
+            else if (levels[insanity2Info.levelIndex][i][j] == 'J') {
+                let jump = this.add.sprite(32+16*j, 32+16*i, 'jump')
+                this.jumpBlocks.add(jump)
+                jump.angle = 180 
+                jump.play('jumpUp')
+                jump.immovable = true; 
+            }
+
             else if (levels[insanity2Info.levelIndex][i][j] == 'w') {
                 let water = this.add.sprite(32+16*j, 32+16*i, 'water')
                 this.waterBlocks.add(water)
@@ -765,22 +798,29 @@ function createLevel() {
                 let block = this.add.sprite(32+16*j, 32+16*i, 'pushBlock')
                 this.pushables.add(block)
                 block.body.maxVelocity = {x: 100, y: 10000}
-                console.log(block)
             } 
 
+            else if (levels[insanity2Info.levelIndex][i][j] == 'g') {
+                let block = this.add.sprite(32+16*j, 32+16*i, 'gravityBlock')
+                this.gravityBlocks.add(block)
+                block.play('gravitySpin')
+            } 
         }
     }
 }
 
 // Resets physics
 function stopV() {
-    upV = -160
+    upV = 160
     leftV = -160
     rightV = 160
-    this.physics.config.gravity.y = 300
     if (this.player.body.touching.down) {
         switched = true
         sped = true
+        this.player.setVelocityX(0)
+    }
+    if (this.player.body.touching.up) {
+        this.player.setVelocityX(0)
     }
 }
 
@@ -904,27 +944,49 @@ function restart(player, deathBlock) {
 
 //Speed physics ----------------------------------
 function speedRight() {
-    upV = -160
-    if (this.player.body.touching.down) {
-        this.player.setVelocityX(25)
-    }
-    if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
-        leftV = -100
-    } else if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
-        rightV = 220
+    upV = 160
+    if (inverse === -1) {
+        if (this.player.body.touching.down) {
+            this.player.setVelocityX(25)
+        }
+        if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
+            leftV = -100
+        } else if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
+            rightV = 220
+        }
+    } else {
+        if (this.player.body.touching.up) {
+            this.player.setVelocityX(25)
+        }
+        if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
+            leftV = -100
+        } else if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
+            rightV = 220
+        } 
     }
     sped = false
 }
 function speedLeft(player, speedBlock) {
-    upV = -160
-    if (this.player.body.touching.down) {
-        player.setVelocityX(-25)
+    upV = 160
+    if (inverse === -1) {
+        if (this.player.body.touching.down) {
+            player.setVelocityX(-25)
+        }
+        if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
+            rightV = 100
+        } else if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
+            leftV = -220
+        } 
+    } else {
+        if (this.player.body.touching.up) {
+            player.setVelocityX(-25)
+        }
+        if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
+            rightV = 100
+        } else if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
+            leftV = -220
+        } 
     }
-    if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
-        rightV = 100
-    } else if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
-        leftV = -220
-    } 
     sped = false
 }
 
@@ -932,21 +994,38 @@ function speedLeft(player, speedBlock) {
 function jump(player, block) {
     rightV = 160
     leftV = -160
-    if ((keyboard.UP.isDown || keyboard.W.isDown)) {
-        if (this.player.body.touching.down) {
-            block.play('jumpUp')
-            setTimeout(() => {block.isPlaying = false}, 500)
-            if (player.texture.key !== 'pushBlock') {
-                upV = -220
+    if (block.angle === 0) {
+        if ((keyboard.UP.isDown || keyboard.W.isDown)) {
+            if (this.player.body.touching.down) {
+                block.play('jumpUp')
+                setTimeout(() => {block.isPlaying = false}, 500)
+                if (player.texture.key !== 'pushBlock') {
+                    upV = 220
+                }
+            }
+        } else {
+            if (this.player.body.touching.down) {
+                block.play('jumpUp')
+                setTimeout(() => {block.isPlaying = false}, 500)
+                player.setVelocityY(120 * inverse)
             }
         }
-    } else {
-        if (this.player.body.touching.down) {
-            block.play('jumpUp')
-            setTimeout(() => {block.isPlaying = false}, 500)
-            player.body.velocity.y = -120
-            player.body.velocity.x = 0
-        }
+    } else if (block.angle === -180) {
+        if ((keyboard.UP.isDown || keyboard.W.isDown)) {
+            if (this.player.body.touching.up) {
+                block.play('jumpUp')
+                setTimeout(() => {block.isPlaying = false}, 500)
+                if (player.texture.key !== 'pushBlock') {
+                    upV = 220
+                }
+            }
+        } else {
+            if (this.player.body.touching.up) {
+                block.play('jumpUp')
+                setTimeout(() => {block.isPlaying = false}, 500)
+                player.setVelocityY(120 * inverse)
+            }
+        } 
     }
 }
 
@@ -1081,6 +1160,18 @@ function blockSwitchOn(player, switchBlock) {
         }
         
     }
+}
+
+//Gravity block physics
+function changeGravity(player, gravityBlock) {
+    if (player.body.gravity.y > 0) {
+        player.setGravity(0, -600)
+        inverse = 1
+    } else if (player.body.gravity.y < 0) {
+        inverse = -1
+        player.setGravity(0, 1)
+    }
+    switched = true
 }
 
 //Run the game
