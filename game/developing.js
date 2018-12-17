@@ -342,12 +342,12 @@ const levels = [
         'x                                                x',
         'x                        s                       x',
         'x                                                x',
+        'x  p                                             x',
+        'xxxx                                             x',
         'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                                x',
-        'x                                            dd  x',
-        'x                                                x',
+        'x          x                                     x',
+        'x          x                                 dd  x',
+        'x          x                                     x',
         'x        jj         g                            x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
@@ -356,7 +356,7 @@ const levels = [
 const levelInfo = [
     {
         x: 100,
-        y: 100,
+        y: 112,
         c: 3,
     },
     {
@@ -478,6 +478,7 @@ let gameObject = {
             stopPushV,
             pushLeft,
             pushRight,
+            blockJump,
             pushOverlap,
             blockSwitchOff,
             blockSwitchOn,
@@ -632,7 +633,7 @@ function create() {
     this.physics.add.collider(this.deathBlocks, this.pushables, this.stopPushV, null, this)
     this.physics.add.collider(this.speedLeftBlocks, this.pushables, this.pushLeft, null, this)
     this.physics.add.collider(this.speedRightBlocks, this.pushables, this.pushRight, null, this)
-    this.physics.add.collider(this.pushables, this.jumpBlocks, this.jump, null, this)
+    this.physics.add.collider(this.jumpBlocks, this.pushables, this.blockJump, null, this)
     this.physics.add.collider(this.player, this.pushables, this.push, null, this)
     this.physics.add.collider(this.pushables, this.pushables)
     this.physics.add.overlap(this.player, this.pushables, this.pushOverlap, null, this)
@@ -1105,6 +1106,13 @@ function pushRight(speedBlock, pushBlock) {
     if (pushBlock.body.touching.down && (!pushBlock.body.touching.right && !pushBlock.body.touching.left)) {
         pushBlock.x += .5
         this.stopPushV(null, pushBlock)
+    }
+}
+function blockJump(jumpBlock, pushBlock) {
+    if (!pushBlock.body.touching.up) {
+        pushBlock.body.velocity.y = -120
+        jumpBlock.play('jumpUp')
+        setTimeout(() => {jumpBlock.isPlaying = false}, 500)
     }
 }
 function pushOverlap(player, pushBlock) {
