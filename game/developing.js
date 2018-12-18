@@ -858,6 +858,8 @@ function restart(player, deathBlock) {
     player.y = levelInfo[insanity2Info.levelIndex].y
     score = 0
     deathCount = insanity2Info.deaths
+    inverse = -1
+    player.setGravity(0, 1)
     if (ran) {
         //this.sound.play('die')
         ran = false
@@ -957,12 +959,12 @@ function speedRight() {
         }
     } else {
         if (this.player.body.touching.up) {
-            this.player.setVelocityX(25)
+            this.player.setVelocityX(-25)
         }
         if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
-            leftV = -100
+            leftV =  -220
         } else if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
-            rightV = 220
+            rightV = 100
         } 
     }
     sped = false
@@ -974,18 +976,18 @@ function speedLeft(player, speedBlock) {
             player.setVelocityX(-25)
         }
         if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
-            rightV = 100
+            rightV = 220
         } else if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
-            leftV = -220
+            leftV = -100
         } 
     } else {
         if (this.player.body.touching.up) {
-            player.setVelocityX(-25)
+            player.setVelocityX(25)
         }
         if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
-            rightV = 100
+            rightV = 220
         } else if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
-            leftV = -220
+            leftV = -100
         } 
     }
     sped = false
