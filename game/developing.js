@@ -499,6 +499,7 @@ function preload() {
     this.load.spritesheet('playerSkin2', './game-assets/skins/playerSkin2.png', {frameWidth: 16, frameHeight: 16, endFrame: 10})
     this.load.image('playerSkin3', './game-assets/skins/playerSkin3.png')
     this.load.image('playerSkin4', './game-assets/skins/playerSkin4.png')
+    this.load.image('playerSKin5', './game-assets/skins/playerSkin5.png')
     this.load.image('wall', './game-assets/other/wall.png')
     this.load.image('death', './game-assets/other/lava.jpg')
     this.load.spritesheet('speed', './game-assets/other/speed.png', {frameWidth: 16, frameHeight: 16, endFrame: 7})

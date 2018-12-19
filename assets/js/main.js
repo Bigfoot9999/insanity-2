@@ -7,6 +7,7 @@
 //----------------------
 const secretSkins = {
 	'Y29vbCBndXk=': 'playerSkin3',
+	'Z3JhcGU=': 'playerSkin5',
 }
 
 const specialSkins = {
