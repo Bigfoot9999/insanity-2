@@ -166,6 +166,30 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxggxxxxxxx',
+        'x               !!!!!!!!!!!!!!!               x',
+        'x               !!!!!!!!!!!!!!!  ddd          x',
+        'x               !!!!!!!!!!!!!!   d            x',
+        'x               !!!!!!!!!!!!!x   xttttttttttttx',
+        'x               !!!!!!!!!!!!     xwwww!wwwwwwwx',
+        'x               !!!!!!!!!!!!     xww!wwwwwww!wx',
+        'xxxxxxxxxxx    !!!!!!!!!!!!!    xxwwwwwwwwwwwwx',
+        'x!!!!!!!!!    !!!!!!!!!!!!!!     x!!!!!!wwwww!x',
+        'x!!!!!!!!    !!!!!!!!!!!!!!!     xwwwwwwwwwwwwx',
+        'x!!!!!!!    !!!!!!!!!!!!!!!!x    xwwwwwwww!!!!x',
+        'x!!!!!!    !!!!xxxxxxxxxxx!!     xwwwwww!!!wwwx',
+        'xxxxx!    !!!!xx          xx    xxwwww!!www!wwx',
+        'x o      !!!!xxx                 xwww!wwwwwwwsx',
+        'x  xxxxxxxxxxxxx  x     xxxxxxxxxx!ww!wwwwwwwwx',
+        'x  xxxxxxxxxxxxx  x!    !xxxxxxxxx!wwwwwwww!wwx',
+        'x  xxxxxxxxxxxxx  x!   !!xxxxxxxxx!wwwwwwwww!wx',
+        'x  xxxx   xxxxxx  x!    !xxxxxxxxx!!wwww!wwww!x',
+        'x  xx      xxxx  x!!!   !xxxxxxxxx!!!ww!!wwww!x',
+        'x                 x!    !xxxxxxxxx!!!!!!!www!wx',
+        'xxxxxxx!!!xxxxxxggx!o  !!xxxxxxxxx!!!!!!!!wwwOx',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ], 
+    [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                                 x',
         'x                                                ox',
@@ -192,30 +216,6 @@ const levels = [
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        'x               !!!!!!!!!!!!!!!!       g       x',
-        'x               !!!!!!!!!!!!!!!               x',
-        'x               !!!!!!!!!!!!!!                x',
-        'x               !!!!!!!!!!!!!x   xttttttttttttx',
-        'x               !!!!!!!!!!!!     xwwww!wwwwwwwx',
-        'x               !!!!!!!!!!!!     xww!wwwwwww!wx',
-        'xxxxxxxxxxx    !!!!!!!!!!!!!    xxwwwwwwwwwwwwx',
-        'x!!!!!!!!!    !!!!!!!!!!!!!!     x!!!!!!wwwww!x',
-        'x!!!!!!!!    !!!!!!!!!!!!!!!     xwwwwwwwwwwwwx',
-        'x!!!!!!!    !!!!!!!!!!!!!!!!x    xwwwwwwww!!!!x',
-        'x!!!!!!    !!!!!xxxxxxxxxx!!     xwwwww!!!!wwwx',
-        'xxxxx!    !!!!xxx         xx    xxwwww!wwww!wwx',
-        'x o                              xwww!wwwwwwwwx',
-        'xxxxxxxxxxxxxxxxxggx    xxxxxxxxxx!ww!wwwwwwwwx',
-        'xxxxxxxxxxxxxxxxxxx!    !xxxxxxxxx!wwwwwwww!wwx',
-        'xxxxxxxxxxxxxxxxxxx!   r!xxxxxxxxx!wwwwwwwww!wx',
-        'xxxxxxxxxxxxxxxxxxx!    !xxxxxxxxx!!wwww!wwww!x',
-        'xxxxxxxxxxxxxxxxxxx!l   !xxxxxxxxx!!!ww!!wwww!x',
-        'xxxxxxxxxxxxxxxxxxx!    !xxxxxxxxx!!!!!!!www!wx',
-        'xxxxxxxxxxxxxxxxxxx!o  r!xxxxxxxxx!!!!!!!!wwwOx',
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    ], 
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                           x         !                  x',
@@ -298,6 +298,7 @@ const levels = [
         'xxxxxx!!xxxxx!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!j     !!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
+
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x!!!!!!x                                     x',
@@ -354,63 +355,66 @@ const levels = [
 ]
 
 const levelInfo = [
-    {
+    {//Level 1
         x: 100,
         y: 112,
         c: 3,
     },
-    {
+    {//Level 2
         x: 100,
         y: 128,
         c: 3,
     },
-    {
+    {//Level 3
         x: 100,
         y: 144,
         c: 3,
     },
-    {
+    {//Level 4
         x: 64,
         y: 144,
         c: 3,
     },
-    {
+    {//Level 5
+        x: 64,
+        y: 128,
+        c: 3,
+    },
+    {//Level 6
         x: 64,
         y: 160,
         c: 3,
     },
-    {
+    {//Level 7
         x: 64,
         y: 128,
         c: 3,
     },
-    {
-        x: 64,
-        y: 128,
-        c: 3,
-    },
-    {
-        x: 96,
-        y: 112,
-        c: 3,
-    },
-    {
-        x: 80,
-        y: 128,
-        c: 3,
-    },
-    {
-        x: 112,
-        y: 128,
-        c: 3,
-    },
-    {
+    {//Level 8
         x: 80,
         y: 96,
         c: 3,
     },
-
-     
+    {//Level 9
+        x: 96,
+        y: 112,
+        c: 3,
+    },
+    {//Level 10
+        x: 96,
+        y: 128,
+        c: 3,
+    },
+    {//Level 11
+        x: 64,
+        y: 128,
+        c: 3,
+    },
+    {//Level 12
+        x: 112,
+        y: 128,
+        c: 3,
+    },
 ]
 
 //Sets up variables used in the game object
@@ -976,9 +980,9 @@ function speedLeft(player, speedBlock) {
             player.setVelocityX(-25)
         }
         if ((keyboard.RIGHT.isDown || keyboard.D.isDown)) {
-            rightV = 220
+            rightV = 100
         } else if ((keyboard.LEFT.isDown || keyboard.A.isDown)) {
-            leftV = -100
+            leftV = -220
         } 
     } else {
         if (this.player.body.touching.up) {
