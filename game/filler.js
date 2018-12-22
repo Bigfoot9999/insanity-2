@@ -348,7 +348,7 @@ const levels = [
         'x                                                x',
         'x          x                                     x',
         'x          x                                 dd  x',
-        'x          x                                     x',
+        'x          x                      !!!!!          x',
         'x        jj         g                            x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
@@ -604,7 +604,6 @@ function create() {
         this.player.play('rainbow')
     }
     this.player.setGravity(0, 1)
-    console.log(this.player.body.gravity)
 
     //sets up the input
     keyboard = this.input.keyboard.addKeys(keys)
@@ -855,12 +854,15 @@ function takeWaterCoin(player, coin) {
 }
 
 // Restart function 
-function restart(player, deathBlock) {
+async function restart(player, deathBlock) {
     this.coins.getChildren().map(child => {this.coins.killAndHide(child)})
     leftV = -160
     rightV = 160
     player.x = levelInfo[insanity2Info.levelIndex].x
     player.y = levelInfo[insanity2Info.levelIndex].y
+    for (let i = 0; i<10; i++) {
+        player.alpha -= .1
+    }
     score = 0
     deathCount = insanity2Info.deaths
     inverse = -1
