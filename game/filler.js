@@ -181,7 +181,7 @@ const levels = [
         'xxxxx!    !!!!xx          xx    xxwwww!!www!wwx',
         'x o      !!!!xxx                 xwww!wwwwwwwsx',
         'x  xxxxxxxxxxxxx  x     xxxxxxxxxx!ww!wwwwwwwwx',
-        'x  xxxxxxxxxxxxx  x!    !xxxxxxxxx!wwwwwwww!wwx',
+        'x  xxxxxxxxxxxxx  x!    !xxxxxxxxx!wwwwwwwwwwwx',
         'x  xxxxxxxxxxxxx  x!   !!xxxxxxxxx!wwwwwwwww!wx',
         'x  xxxx   xxxxxx  x!    !xxxxxxxxx!!wwww!wwww!x',
         'x  xx      xxxx   x!!!  !xxxxxxxxx!!!ww!!wwww!x',
