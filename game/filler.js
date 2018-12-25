@@ -333,6 +333,25 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
     [
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxgggxxx',
+        'x                 !       !      !       !          x',
+        'x     ddddddxgg       o              o              x',
+        'xD             x                                    x',
+        'x D             x                                   x',
+        'x   p           x!!!     !!!    !!!     !!!         x',
+        'xx  xxxxxxxxxxxxx!!                      !          x',
+        'x     !  o        !                      !!        !x',
+        'x  S  !  x        !         x d          !!!      !!x',
+        'x     !           !!      !!x     S      !!!!    !!!x',
+        'xrrr  !       x   !!!    !!!x         d  !!!!!  !!!!x',
+        'x     !  x         !!   !!!!x d          !!!!!  !!!!x',
+        'x  lll!             !  !!!!!x    x                  x',
+        'x s   !                     xttttxxtttttxxxxxxxxxxxxx',
+        'x     !                   o xwwwwwwwwwww!wwwwwww!wwOx',
+        'x     xjj           llllxxxxxwwwwwwwwwwwwwwww!wwwwwwx',
+        'xxxxxxxxx!!!!!!!!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ],
+    [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x         JJ        ggggrrrrrr              lllllx',
         'x                                                x',
@@ -352,6 +371,7 @@ const levels = [
         'x        jj         g                            x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
+
 ]
 
 const levelInfo = [
@@ -406,9 +426,9 @@ const levelInfo = [
         c: 3,
     },
     {//Level 11
-        x: 64,
-        y: 128,
-        c: 3,
+        x: 128,
+        y: 112,
+        c: 5,
     },
     {//Level 12
         x: 112,
@@ -860,8 +880,12 @@ async function restart(player, deathBlock) {
     rightV = 160
     player.x = levelInfo[insanity2Info.levelIndex].x
     player.y = levelInfo[insanity2Info.levelIndex].y
-    for (let i = 0; i<10; i++) {
-        player.alpha -= .1
+    for (let i = 0; i<101; i++) {
+        if (i !== 100) {
+            player.alpha -= .01
+        } else {
+            player.alpha = 1
+        }
     }
     score = 0
     deathCount = insanity2Info.deaths
@@ -1140,7 +1164,6 @@ function pushOverlap(player, pushBlock) {
     }
 }
 function blockSwitchOff(player, switchBlock) {
-    upV = 100
     if (blockSwitched) {
         //switches appearance of switch
         switchBlock.destroy()
@@ -1159,7 +1182,6 @@ function blockSwitchOff(player, switchBlock) {
     }
 }
 function blockSwitchOn(player, switchBlock) {
-    upV = 100
     if (blockSwitched) {
         //switches appearance of switch
         switchBlock.destroy()
