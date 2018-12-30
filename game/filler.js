@@ -436,10 +436,10 @@ const levelInfo = [
         y: 112,
         c: 5,
     },
-    {//Level 12
+    {// tester level
         x: 112,
         y: 128,
-        c: 3,
+        c: 999,
     },
 ]
 
