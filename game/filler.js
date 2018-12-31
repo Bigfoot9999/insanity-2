@@ -221,20 +221,20 @@ const levels = [
         'x                x!!!!!!!!                      Jx',
         'x               xx!!!!!!!!                       x',
         'xxxxxxggg        x!!!!!!!!   !!!!x               x',
-        'x    !!!      x  x!!!!!!!    !!!!x               x',
-        'x     Jx         x!!!!!!     !!!!x              xx',
-        'x                x!!!!!      !!!!x        x      x',
-        'x                x!!!!       !!!!x               x',
+        'x!!!!!!!      x  x!!!!!!!    !!!!x!!!!!!         x',
+        'x!!!  Jx         x!!!!!!     !!!!x              xx',
+        'x!!              x!!!!!      !!!!x   xx   x      x',
+        'x!               x!!!!       !!!!x               x',
         'x! x            !x!!!        !!!!x  x            x',
-        'x                x!!         !!!!x      RR       x',
-        'xx               x!          !!!!x              xx',
-        'x    RR          x          !!!!!x          x    x',
+        'x                x!!         !!!!x      ll      !x',
+        'xx               x!          !!!!x!!             x',
+        'x    ll          x          !!!!!x!         x    x',
         'x  !             x         !!!!!!x      x        x',
-        'x  !         x!!!x        !!!!!!!x  J            x',
-        'x             xxxxx      !!!!!!!!x               x',
-        'x                o      !!!!!!!!!x               x',
-        'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x           o   x',
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'x            x!!!x        !!!!!!!x!!x          !!x',
+        'x             xxxxx      !!!!!!!!x!x             x',
+        'x                o      !!!!!!!!!xx              x',
+        'x!!!!!!!!!!!!xxx!!!!!!!!!!!!!!!!!x     !!    o   x',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxggxxxxxxxxxxxxxx',
     ],
     [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -678,7 +678,7 @@ function create() {
     this.physics.add.overlap(this.pushables, this.offSwitches, this.blockSwitchOn, null, this)
 
     //High scores
-    if (insanity2Info.levelIndex === 44) {
+    if (insanity2Info.levelIndex === 19) {
         insanity2Info.user = prompt('You Win! Enter your initials to be put on the high score leader board!')
         def(insanity2Info.user, insanity2Info.deaths)
         alert('Here is a special skin for you to use:\nzkfFpao1kiJRVAEn7pECkg==')
