@@ -76,8 +76,8 @@
     background-size: 100%;
 }
 
-#spikes {
-    background-image: url(./images/spike.png);
+#gravity {
+    background-image: url(./images/gravity.gif);
     transform: rotate(0deg);
     background-repeat: no-repeat; 
     background-size: 100%; 
