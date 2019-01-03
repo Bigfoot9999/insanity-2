@@ -95,7 +95,7 @@ const resetStorage = () => {
 */
 
 const levels = [
-    [
+    [//Level 1
         'xxxxxxxxxxxxxxxxxxxxxxx',
         'x!         !          x',
         'x!                 o  x',
@@ -105,7 +105,22 @@ const levels = [
         'xxxxxxxxxxxxxxxxx!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxx'
     ], 
-    [
+    [//Level 2
+        'xxxxxxxxxxxxxxxxxxxxxx!!xxxxxxxxxx',
+        'x                                x',
+        'x                            o   x',
+        'x                                x',
+        'xxxxxxxrrr       xxxxx!!xxxxx    x',
+        'x                                x',
+        'x                                x',
+        'x                                x',
+        'x                                x',
+        'x!  !xxx          j        xxxxxxx',
+        'x   !                            x',
+        'xo  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
+        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    ],
+    [//Level 3
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                x                x',
         'x                                x                x',
@@ -125,7 +140,7 @@ const levels = [
         'xxxxxxxxxxxx                o    x                x',
         'xxxxxxxxxxxx!!!!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
+    [//Level 4
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                             xo  x',
         'x                                             x   x',
@@ -145,7 +160,7 @@ const levels = [
         'x!wOw!wwwwwwwwwwwwwwwwwwwwwwwwww!wwwwwwwwwwwwwwwwwx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 
     ],
-    [
+    [//Level 5
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x     x     x                                     x',
         'x     x     x                                 x   x',
@@ -165,7 +180,7 @@ const levels = [
         'x!!!!x!!!!!!!!!!!jx!!!!!!!!!!!lll!!!!!!!!!!!!!llllx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
+    [//Level 6
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxggxxxxxxx',
         'x               !!!!!!!!!!!!!!!               x',
         'x               !!!!!!!!!!!!!!!  ddd          x',
@@ -189,7 +204,7 @@ const levels = [
         'xxxxxxx!!!xxxxxxggx!o  !!xxxxxxxxx!!!!!!!!wwwOx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ], 
-    [
+    [//Level 7
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                                 x',
         'x                                                ox',
@@ -216,7 +231,7 @@ const levels = [
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
+    [//Level 8
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                x!!!!!!!!                      Jx',
         'x               xx!!!!!!!!                       x',
@@ -236,7 +251,7 @@ const levels = [
         'x!!!!!!!!!!!!xxx!!!!!!!!!!!!!!!!!x     !!    o   x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxggxxxxxxxxxxxxxx',
     ],
-    [
+    [//Level 9
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                           x         !                  x',
         'x                           !                            x',
@@ -263,7 +278,7 @@ const levels = [
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
+    [//Level 10
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                  !!!!!                    !!!!!x',
         'x                   !!                       !!!!x',
@@ -294,7 +309,7 @@ const levels = [
         'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
+    [//Level 11
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x!                     !!x!!!               !!!!!!!!!!!!!!!x',
         'x                       !x!!                    !!!!!!!!!!!x',
@@ -318,8 +333,7 @@ const levels = [
         'xxxxxx!!xxxxx!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!j     !!!!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-
-    [
+    [//Level 12
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x!!!!!!x                                     x',
         'x!!!!!!x    llxxxxxxxxxxxxxxxx            x  x',
@@ -352,7 +366,7 @@ const levels = [
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx!!!!!!!xx',
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
-    [
+    [//Level 13
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxgggxxx',
         'x                 !       !      !       !          x',
         'x     ddddddxgg       o              o              x',
@@ -372,7 +386,6 @@ const levels = [
         'xxxxxxxxx!!!!!!!!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     ],
 
-
 ]
 
 const levelInfo = [
@@ -382,64 +395,64 @@ const levelInfo = [
         c: 3,
     },
     {//Level 2
+        x: 64,
+        y: 128,
+        c: 2,
+    },
+    {//Level 3
         x: 100,
         y: 128,
         c: 3,
     },
-    {//Level 3
-        x: 100,
-        y: 144,
-        c: 3,
-    },
     {//Level 4
-        x: 64,
+        x: 100,
         y: 144,
         c: 3,
     },
     {//Level 5
         x: 64,
-        y: 128,
+        y: 144,
         c: 3,
     },
     {//Level 6
         x: 64,
+        y: 128,
+        c: 3,
+    },
+    {//Level 7
+        x: 64,
         y: 160,
         c: 3,
     },
-    {
+    {//Level 8
         x: 64,
         y: 64,
         c: 2,
     },
-    {//Level 7
+    {//Level 9
         x: 64,
         y: 128,
         c: 3,
     },
-    {//Level 8
+    {//Level 10
         x: 80,
         y: 96,
         c: 3,
     },
-    {//Level 9
+    {//Level 11
         x: 96,
         y: 112,
         c: 3,
     },
-    {//Level 10
+    {//Level 12
         x: 96,
         y: 128,
         c: 3,
     },
-    {//Level 11
+    {//Level 13
         x: 128,
         y: 112,
         c: 5,
-    },
-    {// tester level
-        x: 112,
-        y: 128,
-        c: 999,
     },
 ]
 
