@@ -475,7 +475,7 @@ const levelInfo = [
     },
     {//Level 14
         x: 48,
-        y: 128,
+        y: 144,
         c: 5,
     },
 ]
@@ -753,7 +753,7 @@ function update() {
     if (!this.player.body.touching.right && !this.player.body.touching.left && !this.player.body.touching.down && !this.player.body.touching.up) {
         sped = true
     }
-    //load()
+    load()
     if (insanity2Info.deaths < deathCount) {
         insanity2Info.deaths = deathCount
         save()
