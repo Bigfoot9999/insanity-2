@@ -394,7 +394,7 @@ const levels = [
         'x      x  !!www!!wwx    !!!! x               !!!!!!!!!!ww!x',
         'xx  !!!!!!!!ww!!!ww!       !!   xx   !       !!!!!!!!!!ww!x',
         'x   !!!!!!!!ww!!!ww!      o !!      !        !!!!!!!!!!ww!x',
-        'xxxxxxxxxxx!ww!!!ww!!x    x!!!     !         !!!!!!!!!!ww!x',
+        'xxxxxxxxxxxxww!!!ww!!x    x!!!     !         !!!!!!!!!!ww!x',
         'xwwwwwwwwwwwww!!!ww!!        !!   !          !!!!!!!!!!ww!x',
         'xwwx!!!  !!!xxxxxww!!!        !!!!           !!!!!!!!!!ww!x',
         'xww!!!!  !!!wwwwwww!!!!        !!     o      !!!!!!!!!!ww!x',
@@ -474,8 +474,8 @@ const levelInfo = [
         c: 5,
     },
     {//Level 14
-        x: 64,
-        y: 256,
+        x: 48,
+        y: 128,
         c: 5,
     },
 ]
