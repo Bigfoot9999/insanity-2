@@ -105,21 +105,6 @@ const levels = [
         'xxxxxxxxxxxxxxxxx!!!!!x',
         'xxxxxxxxxxxxxxxxxxxxxxx'
     ], 
-    [//Level 2
-        'xxxxxxxxxxxxxxxxxxxxxx!!xxxxxxxxxx',
-        'x                                x',
-        'x                            o   x',
-        'x                                x',
-        'xxxxxxxrrr       xxxxx!!xxxxx    x',
-        'x        !!!!!!!!!               x',
-        'x                                x',
-        'x                                x',
-        'x                                x',
-        'x!  !xxx          j        xxxxxxx',
-        'x   !                            x',
-        'xo  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
-        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    ],
     [//Level 3
         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'x                                x                x',
