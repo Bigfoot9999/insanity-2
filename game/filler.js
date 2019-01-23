@@ -398,11 +398,6 @@ const levelInfo = [
         y: 112,
         c: 3,
     },
-    {//Level 2
-        x: 64,
-        y: 64,
-        c: 2,
-    },
     {//Level 3
         x: 100,
         y: 128,
