@@ -111,7 +111,7 @@ const levels = [
         'x                            o   x',
         'x                                x',
         'xxxxxxxrrr       xxxxx!!xxxxx    x',
-        'x                                x',
+        'x        !!!!!!!!!               x',
         'x                                x',
         'x                                x',
         'x                                x',
@@ -411,6 +411,11 @@ const levelInfo = [
     {//Level 1
         x: 100,
         y: 112,
+        c: 3,
+    },
+    {
+        x: 90,
+        y: 90,
         c: 3,
     },
     {//Level 2
